@@ -60,6 +60,11 @@ app.use('/delete', deleteRouter());
 app.use('/user', userApiRouter());
 app.use('/history', historyApiRouter());
 
+const redirectUnmatched = (req, res) => {
+  res.redirect('/homepage');
+};
+app.use(redirectUnmatched);
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));

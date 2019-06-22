@@ -7,10 +7,15 @@ export default () => {
   const routes = {
     '/home': homepageTemplate,
     '/homepage': homepageTemplate,
-    '/fooods-eaten-today': foodsEatenTodayTemplate,
+    '/foods-eaten-today': foodsEatenTodayTemplate,
   };
   if (window.location.pathname === '/home') {
     window.history.pushState(null, null, '/homepage');
   }
+  console.log(window.location.pathname);
   app.innerHTML = routes[window.location.pathname];
+  window.addEventListener('popstate', () => {
+    console.log(window.location.pathname);
+    app.innerHTML = routes[window.location.pathname];
+  });
 };
