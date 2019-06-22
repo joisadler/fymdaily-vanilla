@@ -20,6 +20,11 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
     "bcrypt-nodejs": "0.0.3",
     "bootstrap": "^4.3.1",
     "compression": "^1.7.3",
@@ -45,11 +50,6 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.4.5",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
     "concurrently": "^4.1.0",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^2.1.0",
