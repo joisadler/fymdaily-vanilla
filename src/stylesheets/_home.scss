@@ -1,0 +1,433 @@
+html, body {
+  width: 100vw;
+  min-width: 100vw;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
+  font-family: 'Montserrat', sans-serif;
+  background-color: white;
+  display: flex;
+  flex-direction: row;font-size: 5vmin;
+  justify-content: center;
+  align-items: center;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+.homepage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  // mobile device in landscape mode
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+    flex-direction: row;
+  }
+
+  // desktop
+  @media (min-width: $desktop) {
+    width: 33.333333%;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
+
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    flex-direction: row;
+    width: 100%;
+  }
+}
+
+section.calories-container {
+  position: relative;
+  width: 80%;
+  // mobile device in landscape mode
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+    height: 80%;
+  }
+  // desktop
+  @media (min-width: $desktop) {
+    width: 80%;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    height: 80%;
+  }
+}
+
+.calories-chart {
+  position:  absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+  right: 0;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  border: 1px solid black;
+  margin: 10%;
+  overflow: hidden;
+  background: lightgray;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.calories-chart-sector {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform-origin: left bottom;
+  transition: all 0.5s;
+}
+
+.calories-chart-content {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  border-radius: 50%;
+  border: 1px solid black;
+  background: white;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.alternative-calories-chart-content {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  border-radius: 50%;
+  background: white;
+  z-index: 2;
+  display: none;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.calories-headline {
+  margin: 0;
+  font-size: 2.3vmin;
+  @media (min-width: $desktop) {
+    font-size: 1.5vmin;
+  }
+}
+
+p.calories-number {
+  margin: 0;
+  font-size: 18vmin;
+  @media (min-width: $desktop) {
+    font-size: 12vmin;
+  }
+}
+
+.calories-subheadline {
+  margin: 0;
+  font-size: 2vmin;
+  @media (min-width: $desktop) {
+    font-size: 1.35vmin;
+  }
+}
+
+.alternative-calories-chart-content-headline {
+  margin: 2vmin;
+  font-size: 4vmin;
+  @media (min-width: $desktop) {
+    font-size: 2.5vmin;
+  }
+}
+
+.alternative-calories-chart-content-number {
+  margin: 2vmin;
+  font-size: 9vmin;
+  @media (min-width: $desktop) {
+    font-size: 5vmin;
+  }
+}
+
+.alternative-calories-chart-content-percent {
+  margin: 2vmin;
+  font-size: 4vmin;
+  @media (min-width: $desktop) {
+    font-size: 2.5vmin;
+  }
+}
+
+.macros-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  flex: 2;
+  width: 80%;
+  //border: 1px solid black;
+  // mobile device in landscape mode
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+    height: 80%;
+  }
+  // desktop
+  @media (min-width: $desktop) {
+    width: 80%;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    height: 80%;
+  }
+}
+
+.macros-line {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 15%;
+}
+
+.macros-image-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-right: 1vmin;
+  align-items: center;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.proteins-image-container {
+  background-image: url('../images/proteins.png');
+}
+
+.fats-image-container {
+  background-image: url('../images/fats.png');
+}
+
+.carbs-image-container {
+  background-image: url('../images/carbs.png');
+}
+
+.macros-progress-bar {
+  flex: 1;
+  height: 100%;
+  background-color: lightgray;
+  border: 1px solid black;
+}
+
+.macros-progress-bar-inner {
+  height: 100%;
+  width: 0;
+  overflow: hidden;
+  transition: all 1s;
+}
+
+.proteins-progress-bar-inner {
+  background-color: #109618;
+}
+
+.fats-progress-bar-inner {
+  background-color: #ff9900;
+}
+
+.carbs-progress-bar-inner {
+  background-color: #990099;
+}
+
+.percent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  float: right;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 2.5vmin;
+  margin-right: 1vmin;
+}
+
+.buttons-container {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  width: 80%;
+  //border: 1px solid black;
+
+  // mobile device in landscape mode
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+    height: 80%;
+    flex-direction: column-reverse;
+  }
+  // desktop
+  @media (min-width: $desktop) {
+    width: 80%;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    flex-direction: column-reverse;
+    height: 80%;
+  }
+}
+
+.homepage-button {
+  height: 80%;
+  background-color: white;
+  background-size: 30%;
+  background-repeat: no-repeat;
+  padding: 0;
+  border: 0;
+  transition: all 0.3s; 
+
+  &:hover {
+    transform: scale(1.1);
+    outline: none;
+  }
+  &:active {
+    transform: scale(0.9);
+    outline: none;
+  }
+  &:focus {
+    transform: scale(1.1);
+    outline: none;
+  }
+}
+
+.todays-food-button {
+  background-image: url('../images/table.png');
+  // background-position: -5% 50%;
+  // @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+  //   background-position: 50% 110%;
+  // }
+  background-position: 0% 50%;
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+    background-position: 50% 100%;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    background-position: 50% 100%;
+  }
+}
+
+.add-food-button {
+  background-image: url('../images/add.png');
+  background-position: center;
+}
+
+.settings-button {
+  background-image: url('../images/settings.png');
+  background-position: 100% 50%;
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+    background-position: 50% 0%;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    background-position: 50% 0%;
+  }
+}
+
+caption.foods-eaten-today-caption {
+  margin: 4vh 0 4vh 0;
+  font-size: 2.3vmin;
+  font-weight: 700;
+  text-transform: uppercase;
+  caption-side: top;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+thead {
+  border-bottom: 2px solid #4B3F7B;
+}
+
+tbody {
+  border-bottom: 2px solid #4B3F7B;
+}
+
+td {
+  height: 5vh;
+}
+
+footer {
+  width: 100%;
+  height: 5vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 2px solid #4B3F7B;
+  border-right: 2px solid #4B3F7B;
+}
+
+
+.login-title {
+  color: #555;
+  font-size: 1.5rem;
+  font-weight: normal;
+  display: block;
+}
+
+.sign-out {
+  display: block;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.delete-account {
+  display: block;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+}

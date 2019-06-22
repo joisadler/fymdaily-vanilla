@@ -1,0 +1,21 @@
+extends layout.pug
+
+block content
+  .vertical-center
+    .container
+      .row
+        .col-sm-6.col-md-4.mx-auto
+          h1.text-center.login-title Sign in to our Passport app
+          .account-wall
+            img.profile-img(src='https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120', alt='no user pic')
+            form.form-signin(action='/login', method='POST')
+              - const usernameOrEmail = locals.usernameOrEmail ? locals.usernameOrEmail : ''
+              input.form-control#username-or-email(type='text', name='usernameOrEmail', placeholder='Username or Email', aria-label='Username or Email', value=`${usernameOrEmail}`, onfocus='this.value = this.value;', required, autofocus)
+              - const password = locals.password ? locals.password : ''
+              input.form-control#login-password(type='password', name='password', placeholder='Password', aria-label='Password', value=`${password}`, onfocus='this.value = this.value;', required)
+              button.btn.btn-lg.btn-primary.btn-block(type='submit', aria-label='Sign in') Sign in
+          a.text-center.new-account.mb-2(href='/signup') Create an account
+          if (message.length > 0)
+            #message
+              .alert.alert-danger(role='alert') #{message}
+  script(src='index.bundle.js')

@@ -1,0 +1,24 @@
+extends layout.pug
+
+block content
+  .vertical-center
+    .container
+      .row
+        .col-sm-6.col-md-4.mx-auto
+          h1.text-center.registration-title Registration Details
+          .signup-wall.mb-2
+            img.profile-img(src='https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120', alt='no user pic')
+            form.form-signup#signup-form(action='/signup', method='POST')
+              - const username = locals.username ? locals.username : ''
+              input.form-control#username(type='text', name='username', placeholder='Username', aria-label='Username', value=`${username}`, onfocus='this.value = this.value;', required, autofocus)
+              - const email = locals.email ? locals.email : ''
+              input.form-control#email(type='email', name='email', placeholder='Email', aria-label='Email', value=`${email}`, onfocus='this.value = this.value;', required)
+              - const password = locals.password ? locals.password : ''
+              input.form-control#password(type='password', name='password', placeholder='Password', aria-label='Password', value=`${password}`, onfocus='this.value = this.value;', required)
+              - const confirmPassword = locals.confirmPassword ? locals.confirmPassword : ''
+              input.form-control#confirm-password(type='password', name='confirmPassword', placeholder='Confirm password', aria-label='Confirm password', value=`${confirmPassword}`, onfocus='this.value = this.value;', required)
+              button.btn.btn-lg.btn-primary.btn-block#submit-button(type='submit', aria-label='Register') Register
+          if (message.length > 0)
+            #message
+              .alert.alert-danger(role='alert') #{message}
+  script(src='signup.bundle.js')
