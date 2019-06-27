@@ -1,13 +1,13 @@
 @import "custom-variables";
 @import "forms";
-@import 'home';
+@import 'app';
 
-html, body {
-  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+// html, body {
+//   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+//   height: 100%;
+//   margin: 0;
+//   padding: 0;
+// }
 
 .noscript {
   position: fixed;
@@ -28,17 +28,17 @@ html, body {
   font-weight: bold;
 }
   
-.vertical-center {
-    min-height: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-}
+// .vertical-center {
+//     min-height: 100%;
+//     min-height: 100vh;
+//     display: flex;
+//     align-items: center;
+// }
 
-.alert {
-  font-size: 1.25rem;
-}
+// .alert {
+//   font-size: 1.25rem;
+// }
 
-ul.user-details {
-    list-style: none;
-}
+// ul.user-details {
+//     list-style: none;
+// }

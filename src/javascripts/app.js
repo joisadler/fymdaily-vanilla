@@ -1,34 +1,17 @@
-import renderHomePage from './render-home-page';
-import foodsEatenTodayTemplate from '../../views/foods-eaten-today.pug';
-import homepageTemplate from '../../views/homepage.pug';
-
-const app = document.getElementById('app');
+import renderHomePage from './render-homepage';
+import renderEatenFoodsPage from './render-eaten-foods-page';
+import renderAddFoodPage from './render-add-food-page';
 
 const routes = {
-  '/home': homepageTemplate,
-  '/homepage': homepageTemplate,
-  '/foods-eaten-today': foodsEatenTodayTemplate,
+  '/homepage': renderHomePage,
+  '/eaten-foods': renderEatenFoodsPage,
+  '/add-food': renderAddFoodPage,
 };
 
-if (window.location.pathname === '/home') {
-  window.history.pushState(null, null, '/homepage');
-}
-if (window.location.pathname === '/homepage') {
-  app.innerHTML = homepageTemplate;
-  setTimeout(() => {
-    renderHomePage();
-  }, 50);
-}
-app.innerHTML = routes[window.location.pathname];
+window.addEventListener('DOMContentLoaded', () => {
+  routes[window.location.pathname]();
+});
+
 window.addEventListener('popstate', () => {
-  if (window.location.pathname === '/home') {
-    window.history.pushState(null, null, '/homepage');
-  }
-  if (window.location.pathname === '/homepage') {
-    app.innerHTML = homepageTemplate;
-    setTimeout(() => {
-      renderHomePage();
-    }, 50);
-  }
-  app.innerHTML = routes[window.location.pathname];
+  routes[window.location.pathname]();
 });

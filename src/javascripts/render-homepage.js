@@ -1,6 +1,13 @@
 import calculateMacros from './calculations';
+import homepageTemplate from '../../views/homepage.pug';
+import renderEatenFoodsPage from './render-eaten-foods-page';
+import renderAddFoodPage from './render-add-food-page';
 
 export default () => {
+  const app = document.getElementById('app');
+  // window.history.pushState(null, null, '/homepage');
+  app.innerHTML = homepageTemplate;
+
   const caloriesContainer = document.querySelector('.calories-container');
   const caloriesChart = document.querySelector('.calories-chart');
   const caloriesChartContent = document
@@ -15,7 +22,8 @@ export default () => {
   const macrosLines = [...document.querySelectorAll('.macros-line')];
   const macrosImageContainers = [...document
     .querySelectorAll('.macros-image-container')];
-  const homepageButtons = [...document.querySelectorAll('.homepage-button')];
+  const navigationButtons = [...document
+    .querySelectorAll('.navigation-button')];
   const proteinsProgressBarInner = document
     .querySelector('.proteins-progress-bar-inner');
   const fatsProgressBarInner = document
@@ -67,7 +75,7 @@ export default () => {
     container.style.width = `${container.offsetHeight}px`;
   });
 
-  homepageButtons.forEach((button) => {
+  navigationButtons.forEach((button) => {
     button.style.width = `${button.offsetHeight}px`;
   });
 
@@ -223,5 +231,19 @@ export default () => {
       fatsPercentContainer.innerText = `${currentPercentOfDailyFatsNeed}%`;
       carbsPercentContainer.innerText = `${currentPercentOfDailyCarbsNeed}%`;
     });
+  });
+
+  const eatenFoodsButton = document.querySelector('.eaten-foods-button');
+  eatenFoodsButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.history.pushState(null, null, '/eaten-foods');
+    renderEatenFoodsPage();
+  });
+
+  const addFoodButton = document.querySelector('.add-food-button');
+  addFoodButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.history.pushState(null, null, '/add-food');
+    renderAddFoodPage();
   });
 };

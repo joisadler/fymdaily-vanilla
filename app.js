@@ -53,24 +53,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter());
 app.use('/login', loginRouter(passport));
 app.use('/signup', signupRouter(passport));
-app.use('/home', appRouter());
 app.use('/homepage', appRouter());
+app.use('/eaten-foods', appRouter());
+app.use('/add-food', appRouter());
 app.use('/signout', signoutRouter());
 app.use('/delete', deleteRouter());
 app.use('/user', userApiRouter());
 app.use('/history', historyApiRouter());
-
-const redirectUnmatched = (req, res) => {
+/* eslint-disable no-unused-vars */
+app.use('/home', (req, res, next) => {
   res.redirect('/homepage');
-};
-app.use(redirectUnmatched);
+});
+app.use('/*', (req, res, next) => {
+  res.redirect('/homepage');
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
 });
 
-/* eslint-disable no-unused-vars */
+
 // error handler
 app.use((err, req, res, next) => {
   // set locals, only providing error in development

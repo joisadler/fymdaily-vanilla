@@ -16,7 +16,7 @@ export default (passport) => {
       }
       req.logIn(user, (error) => {
         if (error) return next(error);
-        return res.redirect('/home');
+        return res.redirect('/homepage');
       });
     })(req, res, next);
   });

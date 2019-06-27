@@ -52,7 +52,7 @@ export default (passport) => {
             r.send(er);
           }
         });
-        return res.redirect('/home');
+        return res.redirect('/homepage');
       });
     })(req, res, next);
   });
