@@ -445,6 +445,10 @@ section.add-food-section {
   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
     margin-bottom: 0;
   }
+  // soft keyboard is opened in portrait mode
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape)  and (max-device-aspect-ratio: 1/1){
+    margin-bottom: 5%;
+  }
   // iPad Pro in landscape mode
   @media only screen 
   and (min-width: 1024px) 
