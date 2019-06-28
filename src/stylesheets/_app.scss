@@ -12,12 +12,16 @@ html, body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 #app {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
 }
@@ -30,19 +34,16 @@ html, body {
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
-
   // mobile device in landscape mode
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape) and (min-aspect-ratio: 13/9) {
     flex-direction: row;
   }
-
   // desktop
   @media (min-width: $desktop) {
     width: 33.333333%;
     border-left: 1px solid black;
     border-right: 1px solid black;
   }
-
   // iPad Pro in landscape mode
   @media only screen 
   and (min-width: 1024px) 
@@ -192,10 +193,12 @@ p.calories-number {
   align-content: center;
   flex: 2;
   width: 80%;
-  //border: 1px solid black;
   // mobile device in landscape mode
   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
     height: 80%;
+  }
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+    height: 100%;
   }
   // desktop
   @media (min-width: $desktop) {
@@ -283,40 +286,8 @@ p.calories-number {
   margin-right: 1vmin;
 }
 
-// .navigation-buttons-container {
-//   display: flex;
-//   flex: 1;
-//   flex-direction: row;
-//   flex-wrap: nowrap;
-//   justify-content: space-between;
-//   align-content: center;
-//   align-items: center;
-//   width: 80%;
-//   //border: 1px solid black;
-
-//   // mobile device in landscape mode
-//   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
-//     height: 80%;
-//     flex-direction: column-reverse;
-//   }
-//   // desktop
-//   @media (min-width: $desktop) {
-//     width: 80%;
-//   }
-//   // iPad Pro in landscape mode
-//   @media only screen 
-//   and (min-width: 1024px)
-//   and (max-height: 1366px)
-//   and (orientation: landscape) 
-//   and (-webkit-min-device-pixel-ratio: 1.5) {
-//     flex-direction: column-reverse;
-//     height: 80%;
-//   }
-// }
-
 .navigation-buttons-container {
   display: flex;
-  //flex: 1;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -324,13 +295,15 @@ p.calories-number {
   align-items: center;
   width: 80%;
   height: 20%;
-  //border: 1px solid black;
-
   // mobile device in landscape mode
   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
     height: 80%;
     width: 20%;
     flex-direction: column-reverse;
+  }
+  // soft keyboard is opened in portrait mode
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape)  and (max-device-aspect-ratio: 1/1){
+    display: none;
   }
   // desktop
   @media (min-width: $desktop) {
@@ -356,18 +329,17 @@ p.calories-number {
   background-repeat: no-repeat;
   padding: 0;
   border: 0;
-  transition: all 0.3s; 
-
+  //transition: all 0.3s; 
   &:hover {
-    transform: scale(1.1);
+    //transform: scale(1.1);
     outline: none;
   }
   &:active {
-    transform: scale(0.9);
+    //transform: scale(0.9);
     outline: none;
   }
   &:focus {
-    transform: scale(1.1);
+    //transform: scale(1.1);
     outline: none;
   }
 }
@@ -434,15 +406,20 @@ p.calories-number {
 section.add-food-section {
   width: 80%;
   height: 80%;
+  padding-top: 10%;
+  box-sizing: border-box;
+  margin-left: 0;
   //mobile device in landscape mode
   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+    width: 93%;
     height: 80%;
-    width: 100%;
+    padding-left: 7%;
+    padding-top: 0;
   }
   // desktop
   @media (min-width: $desktop) {
     width: 80%;
-    height: 100%;
+    height: 80%;
   }
   // iPad Pro in landscape mode
   @media only screen 
@@ -450,28 +427,187 @@ section.add-food-section {
   and (max-height: 1366px) 
   and (orientation: landscape) 
   and (-webkit-min-device-pixel-ratio: 1.5) {
+    width: 93%;
     height: 80%;
-    width: 100%;
+    padding-left: 7%;
+    padding-top: 0;
   }
 }
 
-.login-title {
-  color: #555;
-  font-size: 1.5rem;
+.add-food-options-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  width: 100%;
+  height: 5%;
+  margin-bottom: 5%;
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+    margin-bottom: 0;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    margin-bottom: 0;
+  }
+}
+
+h1.add-food-header {
+  height: 100%;
+  line-height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 7vmin;
+  // desktop
+  @media (min-width: $desktop) {
+    font-size: 5vmin;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    font-size: 7vmin;
+  }
+}
+
+input.add-food-search-bar {
+  height: 100%;
+  display: none;
+  flex: 1;
+  border: 1px solid black;
+  padding: 0;
+}
+
+.add-food-option-buttons {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.add-food-option-button {
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.add-food-search-button {
+  background-image: url('../images/search.png');
+  margin-right: 5vmin;
+  //desktop
+  @media (min-width: $desktop) {
+    margin-right: 3vmin;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    margin-right: 5vmin;
+  }
+}
+
+.add-food-create-button {
+  background-image: url('../images/create.png');
+}
+
+.add-food-cards {
+  width: 100%;
+  height: 90%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.add-food-card {
+  width: 100%;
+  height: 12.5%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  border-top: 1px solid black;
+  overflow: hidden;
+  white-space: nowrap;
+  &:first-child {
+    border-top: none;
+  }
+  //mobile device in landscape mode
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+    height: 20%;
+  }
+}
+
+h2.add-food-card-name {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 4vmin;
   font-weight: normal;
-  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  // desktop
+  @media (min-width: $desktop) {
+    font-size: 3vmin;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    font-size: 4vmin;
+  }
 }
 
-.sign-out {
-  display: block;
-  margin-top: 0.75rem;
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
+p.add-food-card-info {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 3vmin;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  // desktop
+  @media (min-width: $desktop) {
+    font-size: 2vmin;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    font-size: 3vmin;
+  }
 }
 
-.delete-account {
-  display: block;
-  margin-top: 0.75rem;
-  margin-bottom: 1rem;
-  font-size: 0.75rem;
-}
+// .login-title {
+//   color: #555;
+//   font-size: 1.5rem;
+//   font-weight: normal;
+//   display: block;
+// }
+
+// .sign-out {
+//   display: block;
+//   margin-top: 0.75rem;
+//   margin-bottom: 1rem;
+//   font-size: 1.25rem;
+// }
+
+// .delete-account {
+//   display: block;
+//   margin-top: 0.75rem;
+//   margin-bottom: 1rem;
+//   font-size: 0.75rem;
+// }
