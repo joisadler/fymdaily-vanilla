@@ -101,7 +101,56 @@ export default () => {
       addFoodCards.forEach((card) => {
         card.addEventListener('click', (e) => {
           e.stopImmediatePropagation();
-          console.log(card.firstElementChild.innerText);
+          // console.log(card.firstElementChild.innerText);
+          const createAddThisFoodCard = () => {
+            const addThisFoodCard = document.createElement('div');
+            addThisFoodCard.classList.add('add-this-food-card');
+            card.parentNode.insertBefore(addThisFoodCard, card.nextSibling);
+            /* eslint-disable max-len */
+            addThisFoodCard.innerHTML = `
+            <span class='add-this-food-card-text'>Weight:</span>
+            <input class='add-this-food-card-weight', type='number', step='50'>
+            <span class='add-this-food-card-text'>gr</span>
+            <button class='add-this-food-card-button add-this-food-card-add-button'></button>
+            <button class='add-this-food-card-button add-this-food-card-cancel-button'></button>
+            `;
+            /* eslint-enable max-len */
+            const foodOptionsContainer = document
+              .querySelector('.add-food-options-container');
+            const addThisFoodCardWeight = document
+              .querySelector('.add-this-food-card-weight');
+            addThisFoodCardWeight.style.height = foodOptionsContainer.offsetHeight;
+            const addThisFoodCardButtons = document
+              .querySelectorAll('.add-this-food-card-button');
+            addThisFoodCardButtons.forEach((button) => {
+              /* eslint-disable no-param-reassign */
+              button.style.height = `${foodOptionsContainer.offsetHeight}px`;
+              button.style.width = `${button.offsetHeight}px`;
+              /* eslint-enable no-param-reassign */
+            });
+            card.parentNode.insertBefore(addThisFoodCard, card.nextSibling);
+            addThisFoodCardWeight.focus();
+          };
+          const addThisFoodCards = document
+            .querySelectorAll('.add-this-food-card');
+          if (
+            card.nextSibling.classList.contains('add-this-food-card')
+          ) {
+            card.parentNode.removeChild(card.nextSibling);
+          } else if (
+            addThisFoodCards.length > 0
+            && !card.nextSibling.classList.contains('add-this-food-card')
+          ) {
+            addThisFoodCards[0].remove();
+            createAddThisFoodCard();
+          } else {
+            createAddThisFoodCard();
+          }
+          const cancelButton = document
+            .querySelector('.add-this-food-card-cancel-button');
+          cancelButton.addEventListener('click', () => {
+            card.parentNode.removeChild(card.nextSibling);
+          });
         });
       });
     });
