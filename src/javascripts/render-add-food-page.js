@@ -119,7 +119,8 @@ export default () => {
               .querySelector('.add-food-options-container');
             const addThisFoodCardWeight = document
               .querySelector('.add-this-food-card-weight');
-            addThisFoodCardWeight.style.height = foodOptionsContainer.offsetHeight;
+            addThisFoodCardWeight
+              .style.height = foodOptionsContainer.offsetHeight;
             const addThisFoodCardButtons = document
               .querySelectorAll('.add-this-food-card-button');
             addThisFoodCardButtons.forEach((button) => {
@@ -129,26 +130,26 @@ export default () => {
               /* eslint-enable no-param-reassign */
             });
             card.parentNode.insertBefore(addThisFoodCard, card.nextSibling);
-            addThisFoodCardWeight.focus();
+            // addThisFoodCardWeight.focus();
           };
           const addThisFoodCards = document
             .querySelectorAll('.add-this-food-card');
-          if (
-            card.nextSibling.classList.contains('add-this-food-card')
-          ) {
-            card.parentNode.removeChild(card.nextSibling);
-          } else if (
-            addThisFoodCards.length > 0
-            && !card.nextSibling.classList.contains('add-this-food-card')
-          ) {
-            addThisFoodCards[0].remove();
+          if (!card.classList.contains('checked')) {
+            card.classList.add('checked');
+            if (addThisFoodCards.length > 0) {
+              addThisFoodCards[0]
+                .previousElementSibling.classList.remove('checked');
+              addThisFoodCards[0].remove();
+            }
             createAddThisFoodCard();
           } else {
-            createAddThisFoodCard();
+            card.classList.remove('checked');
+            addThisFoodCards[0].remove();
           }
           const cancelButton = document
             .querySelector('.add-this-food-card-cancel-button');
           cancelButton.addEventListener('click', () => {
+            card.classList.remove('checked');
             card.parentNode.removeChild(card.nextSibling);
           });
         });
