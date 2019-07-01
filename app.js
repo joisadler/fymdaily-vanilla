@@ -55,11 +55,11 @@ app.use('/login', loginRouter(passport));
 app.use('/signup', signupRouter(passport));
 app.use('/homepage', appRouter());
 app.use('/eaten-foods', appRouter());
-app.use('/add-food', appRouter());
+//app.use('/add-food', appRouter());
 app.use('/signout', signoutRouter());
 app.use('/delete', deleteRouter());
 app.use('/user', userApiRouter());
-app.use('/history', historyApiRouter());
+app.use('/api/history', historyApiRouter());
 /* eslint-disable no-unused-vars */
 app.use('/home', (req, res, next) => {
   res.redirect('/homepage');

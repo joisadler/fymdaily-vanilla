@@ -39,21 +39,28 @@ export default () => {
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
     today = `${dd}.${mm}.${yyyy}`;
-    const newProduct = req.query;
+    const newProduct = req.body;
+    console.log(newProduct);
 
-    HistoryEntry.findOne({ userId: id, date: today }, (error, entry) => {
+    // HistoryEntry.findOne({ userId: id, date: today }, (error, entry) => {
+    //   if (error) throw error;
+    //   if (!entry) {
+    //     HistoryEntry.create({ userId: id, date: today }, (err) => {
+    //       if (err) throw err;
+    //     });
+    //   }
+    // })
+    HistoryEntry.findOrCreate({ userId: id, date: today }, (error, entry) => {
       if (error) throw error;
-      if (!entry) {
-        HistoryEntry.create({ userId: id, date: today }, (err) => {
-          if (err) throw err;
-        });
-      }
+      entry.products.push(newProduct);
+      entry.save();
+      res.end();
     })
-      .then((entry) => {
-        entry.products.push(newProduct);
-        entry.save();
-        res.end();
-      });
+      // .then((entry) => {
+      //   entry.products.push(newProduct);
+      //   entry.save();
+      //   res.end();
+      // });
   });
 
   return router;

@@ -103,16 +103,17 @@ export default () => {
           e.stopImmediatePropagation();
           // console.log(card.firstElementChild.innerText);
           const createAddThisFoodCard = () => {
-            const addThisFoodCard = document.createElement('div');
+            const addThisFoodCard = document.createElement('form');
             addThisFoodCard.classList.add('add-this-food-card');
+            addThisFoodCard.setAttribute('action', '#');
             card.parentNode.insertBefore(addThisFoodCard, card.nextSibling);
             /* eslint-disable max-len */
             addThisFoodCard.innerHTML = `
-            <span class='add-this-food-card-text'>Weight:</span>
-            <input class='add-this-food-card-weight', type='number', step='50'>
-            <span class='add-this-food-card-text'>gr</span>
-            <button class='add-this-food-card-button add-this-food-card-add-button'></button>
-            <button class='add-this-food-card-button add-this-food-card-cancel-button'></button>
+              <label for='weight', class='add-this-food-card-text'>Weight:</label>
+              <input id='weight', class='add-this-food-card-weight', type='number', step='1', required, autofocus>
+              <label for='weight', class='add-this-food-card-text'>gr</label>
+              <input type='submit' value='' class='add-this-food-card-button add-this-food-card-add-button'>
+              <button class='add-this-food-card-button add-this-food-card-cancel-button'></button>
             `;
             /* eslint-enable max-len */
             const foodOptionsContainer = document
@@ -151,6 +152,37 @@ export default () => {
           cancelButton.addEventListener('click', () => {
             card.classList.remove('checked');
             card.parentNode.removeChild(card.nextSibling);
+          });
+          const addThisFoodCard = document.querySelector('.add-this-food-card');
+          const weightField = document
+            .querySelector('.add-this-food-card-weight');
+          const addFoodToDatabase = () => {
+            const cardNutrimentsValues = card
+              .firstElementChild
+              .nextElementSibling
+              .textContent.match(/[+-]?\d+(?:\.\d+)?/g).map(Number);
+            const cardData = {
+              name: card.firstElementChild.textContent,
+              weight: weightField.value,
+              calories: cardNutrimentsValues[0],
+              proteins: cardNutrimentsValues[1],
+              fats: cardNutrimentsValues[2],
+              carbs: cardNutrimentsValues[3],
+            };
+            fetch('/api/history', {
+              credentials: 'include',
+              method: 'PUT',
+              body: JSON.stringify(cardData),
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              }
+            })
+              .then(() => console.log('updated!!!'))
+              .catch(error => console.error(error));
+          };
+          addThisFoodCard.addEventListener('submit', () => {
+            addFoodToDatabase();
           });
         });
       });
