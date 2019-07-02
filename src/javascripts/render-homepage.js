@@ -220,7 +220,7 @@ export default () => {
               sector.style.visibility = 'visible';
               i += 1;
               if (i < caloriesChartSectors.length) caloriesChartSectorsLoop();
-            }, 25);
+            }, currentCalories / 10);
           };
           caloriesChartSectorsLoop();
 
@@ -246,14 +246,26 @@ export default () => {
             sector.setAttribute('title', titleText);
           });
 
+          let j = 0;
+          const caloriesRemainderLoop = () => {
+            setTimeout(() => {
+              caloriesNumber.innerText = `${j}`;
+              j += 50;
+              if (j < currentCaloriesRemainder) caloriesRemainderLoop();
+              if (currentCaloriesRemainder - j <= currentCaloriesRemainder % 50) {
+                caloriesNumber.innerText = `${currentCaloriesRemainder}`;
+              }
+            }, 20);
+          };
           if (currentCaloriesRemainder >= 0) {
-            caloriesNumber.innerText = `${currentCaloriesRemainder}`;
+            caloriesRemainderLoop();
           } else {
             caloriesChartContent.style.backgroundColor = '#ff6666';
             alternativeCaloriesChartContent.style.backgroundColor = '#ff6666';
             caloriesHeadline.innerText = 'today you have consumed';
             currentCaloriesRemainder = Math.abs(currentCaloriesRemainder);
-            caloriesNumber.innerText = `${currentCaloriesRemainder}`;
+            // caloriesNumber.innerText = `${currentCaloriesRemainder}`;
+            caloriesRemainderLoop();
             caloriesSubheadline.innerText = 'calories more than your daily need';
           }
           alternativeCaloriesChartContentNumber.innerText = `${currentCalories}/${dailyCaloriesNeed}`;
