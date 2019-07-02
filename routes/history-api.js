@@ -20,15 +20,11 @@ export default () => {
     const yyyy = today.getFullYear();
     today = `${dd}.${mm}.${yyyy}`;
 
-    HistoryEntry.findOne({ userId: id, date: today }, (error, entry) => {
+    HistoryEntry.findOrCreate({ userId: id, date: today }, (error, entry) => {
       if (error) throw error;
-      if (!entry) {
-        HistoryEntry.create({ userId: id, date: today }, (err) => {
-          if (err) throw err;
-        });
-      }
+      res.send(entry);
+      res.end();
     });
-    // .then(entry => res.send(entry));
   });
 
   router.put('/', isAuthenticated, (req, res) => {
@@ -42,25 +38,12 @@ export default () => {
     const newProduct = req.body;
     console.log(newProduct);
 
-    // HistoryEntry.findOne({ userId: id, date: today }, (error, entry) => {
-    //   if (error) throw error;
-    //   if (!entry) {
-    //     HistoryEntry.create({ userId: id, date: today }, (err) => {
-    //       if (err) throw err;
-    //     });
-    //   }
-    // })
     HistoryEntry.findOrCreate({ userId: id, date: today }, (error, entry) => {
       if (error) throw error;
       entry.products.push(newProduct);
       entry.save();
       res.end();
-    })
-      // .then((entry) => {
-      //   entry.products.push(newProduct);
-      //   entry.save();
-      //   res.end();
-      // });
+    });
   });
 
   return router;

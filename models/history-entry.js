@@ -20,28 +20,3 @@ const HistoryEntrySchema = new mongoose.Schema({
 HistoryEntrySchema.plugin(findOrCreate);
 
 export default mongoose.model('HistoryEntry', HistoryEntrySchema);
-
-// module.exports = mongoose.model('HistoryEntry', {
-//   userId: String,
-//   date: String,
-//   products: [
-//     {
-//       _id: false,
-//       name: String,
-//       weight: Number
-//     },
-//   ]
-// });
-
-
-// module.exports = mongoose.model('HistoryEntry', {
-//   userId: String,
-//   date: String,
-//   products: [
-//     {
-//       _id: false,
-//       name: String,
-//       weight: Number
-//     },
-//   ]
-// });

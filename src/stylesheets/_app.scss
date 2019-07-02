@@ -88,7 +88,7 @@ section.calories-container {
   border: 1px solid black;
   margin: 10%;
   overflow: hidden;
-  background: lightgray;
+  background: #f2f2f2;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
@@ -135,6 +135,7 @@ section.calories-container {
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  border: 1px solid black;
 }
 
 .calories-headline {
@@ -155,7 +156,7 @@ p.calories-number {
 
 .calories-subheadline {
   margin: 0;
-  font-size: 2vmin;
+  font-size: 1.9vmin;
   @media (min-width: $desktop) {
     font-size: 1.35vmin;
   }
@@ -196,9 +197,6 @@ p.calories-number {
   // mobile device in landscape mode
   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
     height: 80%;
-  }
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
-    height: 100%;
   }
   // desktop
   @media (min-width: $desktop) {
@@ -251,8 +249,9 @@ p.calories-number {
 .macros-progress-bar {
   flex: 1;
   height: 100%;
-  background-color: lightgray;
+  background-color: #f2f2f2;
   border: 1px solid black;
+  position: relative;
 }
 
 .macros-progress-bar-inner {
@@ -260,6 +259,8 @@ p.calories-number {
   width: 0;
   overflow: hidden;
   transition: all 1s;
+  position: absolute;
+  left: 0;
 }
 
 .proteins-progress-bar-inner {
@@ -276,14 +277,16 @@ p.calories-number {
 
 .percent-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 100%;
-  float: right;
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  margin-left: 1vmin;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 2.5vmin;
-  margin-right: 1vmin;
 }
 
 .navigation-buttons-container {
