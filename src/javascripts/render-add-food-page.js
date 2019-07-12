@@ -73,7 +73,7 @@ export default () => {
     const customFoods = await customFoodsResponse.json();
     customFoods
       .filter(food => food
-        .name.substring(0, searchBar.value.length) === searchBar.value)
+        .name.substring(0, searchBar.value.length).toLowerCase() === searchBar.value.toLowerCase())
       .forEach((food) => {
         const {
           name,
