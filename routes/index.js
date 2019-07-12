@@ -6,7 +6,7 @@ export default () => {
   router.get('/', (req, res) => {
     res.render('index', {
       message: req.flash('message'),
-      //title: 'FYMdaily'
+      title: 'Fit Your Macros daily',
     });
   });
   return router;

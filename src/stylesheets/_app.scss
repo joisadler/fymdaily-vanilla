@@ -26,7 +26,7 @@ html, body {
   align-items: center;
 }
 
-.homepage, .add-food-page {
+.homepage, .add-food-page, .create-food-page {
   width: 100%;
   height: 100%;
   display: flex;
@@ -363,7 +363,7 @@ p.calories-number {
   }
 }
 
-.add-food-page-home-button {
+.add-food-page-home-button, .create-food-page-home-button {
   background-image: url('../images/home.png');
   background-position: center;
 }
@@ -406,7 +406,7 @@ p.calories-number {
   }
 }
 
-section.add-food-section {
+.add-food-section, .create-food-section {
   width: 80%;
   height: 80%;
   padding-top: 10%;
@@ -437,7 +437,7 @@ section.add-food-section {
   }
 }
 
-.add-food-options-container {
+.add-food-options-container, .create-food-options-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -462,7 +462,7 @@ section.add-food-section {
   }
 }
 
-h1.add-food-header {
+h1.add-food-header, h1.create-food-header {
   height: 100%;
   line-height: 100%;
   margin: 0;
@@ -490,18 +490,21 @@ input.add-food-search-bar {
   padding: 1vmin;
 }
 
-.add-food-option-buttons {
+.add-food-option-buttons, .create-food-option-buttons {
   height: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
 }
 
-.add-food-option-button {
+.add-food-option-button, .create-food-option-button {
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
+  padding: 0;
+  background-color: white;
+  border: none;
   &:hover {
     outline: none;
   }
@@ -532,6 +535,27 @@ input.add-food-search-bar {
 
 .add-food-create-button {
   background-image: url('../images/create.png');
+}
+
+.create-food-cancel-button {
+  background-image: url('../images/cancel.png');
+}
+
+.create-food-saved-button {
+  background-image: url('../images/saved.png');
+  margin-right: 5vmin;
+  //desktop
+  @media (min-width: $desktop) {
+    margin-right: 3vmin;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    margin-right: 5vmin;
+  }
 }
 
 .add-food-cards {
@@ -687,25 +711,128 @@ p.add-food-card-info {
   background-image: url('../images/cancel.png');
 }
 
+.create-food-form {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-food-inputs-row {
+  width: 100%;
+  height: 25%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.create-food-input-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.create-food-save-button-container {
+  width: 50%;
+  height: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media (orientation: landscape) {
+    justify-content: flex-end;
+  }
+  // border: 1px solid black;
+}
+
+.create-food-save-button {
+  background-image: url('../images/save.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 0;
+  background-color: white;
+  border: none;
+  margin-top: 40%;
+  &:hover {
+    outline: none;
+  }
+  &:active {
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+  }
+  @media (orientation: landscape) {
+    margin-top: 0%;
+  }
+  // desktop
+  @media (min-width: $desktop) {
+    margin-top: 40%;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    margin-top: 0;
+  }
+}
+
+.create-food-input-label {
+  margin-bottom: 1vmin;
+  padding: 0;
+  font-size: 4vmin;
+  font-weight: normal;
+  // desktop
+  @media (min-width: $desktop) {
+    font-size: 3vmin;
+  }
+  // iPad Pro in landscape mode
+  @media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    font-size: 4vmin;
+  }
+}
+
+.create-food-input {
+  width: 90%;
+  box-sizing: border-box;
+}
 
 
-// .login-title {
-//   color: #555;
-//   font-size: 1.5rem;
-//   font-weight: normal;
-//   display: block;
-// }
 
-// .sign-out {
-//   display: block;
-//   margin-top: 0.75rem;
-//   margin-bottom: 1rem;
-//   font-size: 1.25rem;
-// }
 
-// .delete-account {
-//   display: block;
-//   margin-top: 0.75rem;
-//   margin-bottom: 1rem;
-//   font-size: 0.75rem;
-// }
+
+
+.login-title {
+  color: #555;
+  font-size: 1.5rem;
+  font-weight: normal;
+  display: block;
+}
+
+.sign-out {
+  display: block;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.delete-account {
+  display: block;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+}

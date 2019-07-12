@@ -10,7 +10,11 @@ const isAuthenticated = (req, res, next) => {
 
 export default () => {
   router.get('/', isAuthenticated, (req, res) => {
-    res.render('app', { user: req.user });
+    res.render('app', {
+      user: req.user,
+      language: req.user.language,
+      region: req.user.region
+    });
   });
   return router;
 };

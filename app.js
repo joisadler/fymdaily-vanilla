@@ -17,8 +17,12 @@ import signupRouter from './routes/signup';
 import appRouter from './routes/app';
 import signoutRouter from './routes/signout';
 import deleteRouter from './routes/delete';
-import userApiRouter from './routes/user-api';
-import historyApiRouter from './routes/history-api';
+
+import userAPI from './routes/user-api';
+import historyAPI from './routes/history-api';
+import fatSecretAPI from './routes/fatsecret-api';
+import foodAPI from './routes/food-api';
+
 import dbConfig from './db';
 
 mongoose.connect(dbConfig.url, { useNewUrlParser: true });
@@ -37,7 +41,7 @@ app.use(cookieParser());
 app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2'],
-  maxAge: 24 * 60 * 60 * 1000
+  maxAge: 365 * 24 * 60 * 60 * 1000
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -55,11 +59,14 @@ app.use('/login', loginRouter(passport));
 app.use('/signup', signupRouter(passport));
 app.use('/homepage', appRouter());
 app.use('/eaten-foods', appRouter());
-//app.use('/add-food', appRouter());
+app.use('/add-food', appRouter());
+app.use('/create-food', appRouter());
 app.use('/signout', signoutRouter());
 app.use('/delete', deleteRouter());
-app.use('/user', userApiRouter());
-app.use('/api/history', historyApiRouter());
+app.use('/user', userAPI());
+app.use('/api/history', historyAPI());
+app.use('/api/fatsecret', fatSecretAPI());
+app.use('/api/food', foodAPI());
 /* eslint-disable no-unused-vars */
 app.use('/home', (req, res, next) => {
   res.redirect('/homepage');
