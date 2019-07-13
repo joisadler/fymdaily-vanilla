@@ -1,6 +1,7 @@
 import createFoodTemplate from '../../views/create-food.pug';
 import renderHomePage from './render-homepage';
 import renderAddFoodPage from './render-add-food-page';
+import renderCustomFoodsPage from './render-custom-foods-page';
 
 export default () => {
   const app = document.getElementById('app');
@@ -41,6 +42,15 @@ export default () => {
       renderAddFoodPage();
     });
 
+  const savedFoodButton = document.querySelector('.create-food-saved-button');
+  savedFoodButton.addEventListener('click',
+    (e) => {
+      e.preventDefault();
+      window.history.pushState(null, null, '/custom-foods');
+      renderCustomFoodsPage();
+    });
+
+
   const homeButton = document.querySelector('.create-food-page-home-button');
   homeButton.addEventListener('click',
     (e) => {
@@ -64,8 +74,8 @@ export default () => {
         method: 'POST',
         credentials: 'include',
       });
-      window.history.pushState(null, null, '/add-food');
-      renderAddFoodPage();
+      window.history.pushState(null, null, '/custom-foods');
+      renderCustomFoodsPage();
     } catch (err) {
       console.log(err);
     }

@@ -81,15 +81,15 @@ export default () => {
           calories,
           proteins,
           fats,
-          carbs
+          carbs,
         } = food;
         foodCardsContainer.appendChild(createAddFoodCard(
           name,
           brand,
-          Math.round(calories),
-          Math.round(proteins),
-          Math.round(fats),
-          Math.round(carbs)
+          calories,
+          proteins,
+          fats,
+          carbs,
         ));
       });
     await fetch(`/api/fatsecret?search_expression=${searchBar.value}&language=${language}&region=${region}`)

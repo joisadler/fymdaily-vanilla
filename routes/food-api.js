@@ -53,12 +53,23 @@ export default () => {
   //   }
   // });
 
-  // router.delete('/', async (req, res) => {
-  //   try {
-  //   //
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // });
+  router.delete('/', async (req, res) => {
+    try {
+      const createdBy = req.user._id;
+      const {
+        name,
+        brand,
+      } = req.query;
+      await Food.findOneAndDelete({
+        createdBy,
+        name,
+        brand,
+      });
+      res.status(204);
+      res.end();
+    } catch (err) {
+      console.error(err);
+    }
+  });
   return router;
 };
