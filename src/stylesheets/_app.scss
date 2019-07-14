@@ -605,7 +605,7 @@ input.add-food-search-bar {
   }
 }
 
-h2.add-food-card-name {
+.add-food-card-header, .custom-food-card-header {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -860,7 +860,7 @@ p.add-food-card-info {
   right: -100%;
 }
 
-.custom-foods-card {
+.custom-food-card {
   height: 100%;
   width: 100%;
   box-sizing: border-box;

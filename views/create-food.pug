@@ -16,17 +16,17 @@ main.create-food-page
       .create-food-inputs-row
         .create-food-input-container
           label.create-food-input-label(for='calories') Calories in 100g: *
-          input.create-food-input#calories(type='number', name='calories', required)
+          input.create-food-input#calories(type='number', name='calories', min='0', max='1000', step='.01', required)
         .create-food-input-container
           label.create-food-input-label(for='proteins') Proteins in 100g: *
-          input.create-food-input#proteins(type='number', name='proteins', required)
+          input.create-food-input#proteins(type='number', name='proteins', min='0', max='100', step='.01', required)
       .create-food-inputs-row
         .create-food-input-container
           label.create-food-input-label(for='fats') Fats in 100g: *
-          input.create-food-input#fats(type='number', name='fats', required)
+          input.create-food-input#fats(type='number', name='fats', min='0', max='100', step='.01', required)
         .create-food-input-container
           label.create-food-input-label(for='carbs') Carbs in 100g: *
-          input.create-food-input#carbs(type='number', name='carbs', required)
+          input.create-food-input#carbs(type='number', name='carbs', min='0', max='100', step='.01', required)
       .create-food-save-button-container
         input.create-food-save-button(type='submit', value='')
   section.navigation-buttons-container

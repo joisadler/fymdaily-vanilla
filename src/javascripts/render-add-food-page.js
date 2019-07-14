@@ -51,10 +51,16 @@ export default () => {
   ) => {
     const card = document.createElement('div');
     card.classList.add('add-food-card');
+    // card.innerHTML = `
+    //   <h2 class="add-food-card-name">${name}, ${brand}</h2>
+    //   <p class="add-food-card-info">Calories: ${calories} | Proteins: ${proteins} | Fats: ${fats} | Carbs: ${carbs}</p>`;
     /* eslint-disable max-len */
     card.innerHTML = `
-      <h2 class="add-food-card-name">${name}, ${brand}</h2>
+      <div class="add-food-card-header">
+        <span class="add-food-card-name">${name}</span>, <span class="add-food-card-brand">${brand}</span>
+      </div>
       <p class="add-food-card-info">Calories: ${calories} | Proteins: ${proteins} | Fats: ${fats} | Carbs: ${carbs}</p>`;
+
     return card;
     /* eslint-enable max-len */
   };
@@ -212,8 +218,26 @@ export default () => {
               .firstElementChild
               .nextElementSibling
               .textContent.match(/[+-]?\d+(?:\.\d+)?/g).map(Number);
+            const getName = () => {
+              // return card
+              //   .firstElementChild
+              //   .textContent.split(' ')[1];
+              return card.querySelector('.add-food-card-name').textContent;
+            }
+            const getBrand = () => {
+              // return card
+              // .firstElementChild
+              // .textContent.split(', ')
+              // .length > 1 ? card
+              //   .firstElementChild
+              //   .textContent.split(' ')[1] : '';
+              return card.querySelector('.add-food-card-brand').textContent;
+            }
+            console.log(`name: ${getName()}`)
+            console.log(`brand: ${getBrand()}`)
             const cardData = {
-              name: card.firstElementChild.textContent,
+              name: getName(),
+              brand: getBrand(),
               weight: weightField.value,
               calories: cardNutrimentsValues[0],
               proteins: cardNutrimentsValues[1],
@@ -222,7 +246,7 @@ export default () => {
             };
             fetch('/api/history', {
               credentials: 'include',
-              method: 'PUT',
+              method: 'POST',
               body: JSON.stringify(cardData),
               headers: {
                 Accept: 'application/json',
@@ -232,8 +256,11 @@ export default () => {
               .then(() => console.log('updated!!!'))
               .catch(error => console.error(error));
           };
-          addThisFoodCard.addEventListener('submit', () => {
+          addThisFoodCard.addEventListener('submit', (e) => {
+            e.preventDefault();
             addFoodToDatabase();
+            window.history.pushState(null, null, '/homepage');
+            renderHomePage();
           });
         });
       });

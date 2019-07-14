@@ -39,8 +39,10 @@ const renderCustomFoodsPage = async () => {
     card.classList.add('custom-food-card-wrapper');
     /* eslint-disable max-len */
     card.innerHTML = `
-      <div class="custom-foods-card">
-        <h2 class="add-food-card-name">${name}${brand ? ', ' : ''}${brand}</h2>
+      <div class="custom-food-card">
+        <div class="custom-food-card-header">
+          <span class="custom-food-card-name">${name}</span>${brand ? ', ' : ''}<span class="custom-food-card-brand">${brand}</span>
+        </div>
         <p class="add-food-card-info">Calories: ${calories} | Proteins: ${proteins} | Fats: ${fats} | Carbs: ${carbs}</p>
       </div>
       <div class="custom-food-card-buttons-container">
@@ -91,7 +93,7 @@ const renderCustomFoodsPage = async () => {
   const cancelButton = document.querySelector('.custom-foods-cancel-button');
 
   const foodCards = [...document
-    .querySelectorAll('.custom-foods-card')];
+    .querySelectorAll('.custom-food-card')];
   const cardButtonsContainers = [...document
     .querySelectorAll('.custom-food-card-buttons-container')];
 
@@ -130,22 +132,25 @@ const renderCustomFoodsPage = async () => {
   const deleteButtons = [...document
     .querySelectorAll('.custom-food-card-delete-button')];
   deleteButtons.forEach((button) => {
-    const name = button
-      .parentElement
-      .previousElementSibling
-      .firstElementChild
-      .textContent
-      .split(', ')[0];
-    const brand = button
-      .parentElement
-      .previousElementSibling
-      .firstElementChild
-      .textContent.split(', ')
-      .length > 1 ? button
-        .parentElement
-        .previousElementSibling
-        .firstElementChild
-        .textContent.split(', ')[1] : '';
+    const name = button.parentElement.previousElementSibling.querySelector('.custom-food-card-name').textContent;
+    // const name = button
+    //   .parentElement
+    //   .previousElementSibling
+    //   .firstElementChild
+    //   .textContent
+    //   .split(', ')[0];
+    // const brand = button
+    //   .parentElement
+    //   .previousElementSibling
+    //   .firstElementChild
+    //   .textContent.split(', ')
+    //   .length > 1 ? button
+    //     .parentElement
+    //     .previousElementSibling
+    //     .firstElementChild
+    //     .textContent.split(', ')[1] : '';
+    const brand = button.parentElement.previousElementSibling.querySelector('.custom-food-card-brand').textContent;
+
     button.addEventListener('click', async (event) => {
       try {
         event.preventDefault();

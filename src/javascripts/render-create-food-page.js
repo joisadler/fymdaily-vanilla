@@ -63,8 +63,8 @@ export default () => {
   createFoodForm.addEventListener('submit', async (event) => {
     try {
       event.preventDefault();
-      const name = document.getElementById('name').value;
-      const brand = document.getElementById('brand').value;
+      const name = encodeURIComponent(document.getElementById('name').value);
+      const brand = encodeURIComponent(document.getElementById('brand').value);
       const calories = document.getElementById('calories').value;
       const proteins = document.getElementById('proteins').value;
       const fats = document.getElementById('fats').value;

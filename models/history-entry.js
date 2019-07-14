@@ -9,6 +9,7 @@ const HistoryEntrySchema = new mongoose.Schema({
     {
       _id: false,
       name: String,
+      brand: String,
       weight: Number,
       calories: Number,
       proteins: Number,

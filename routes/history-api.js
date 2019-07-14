@@ -11,7 +11,8 @@ const isAuthenticated = (req, res, next) => {
 
 export default () => {
   // eslint-disable-next-line no-unused-vars
-  router.get('/', isAuthenticated, (req, res) => {
+  router.get('/', (req, res) => {
+  // router.get('/', isAuthenticated, (req, res) => {
     // eslint-disable-next-line no-underscore-dangle
     const id = req.user._id;
     let today = new Date();
@@ -27,7 +28,9 @@ export default () => {
     });
   });
 
-  router.put('/', isAuthenticated, (req, res) => {
+  // router.post('/', isAuthenticated, (req, res) => {
+  router.post('/', isAuthenticated, (req, res) => {
+
     // eslint-disable-next-line no-underscore-dangle
     const id = req.user._id;
     let today = new Date();

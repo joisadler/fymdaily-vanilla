@@ -21,9 +21,11 @@ export default () => {
   router.post('/', async (req, res) => {
     try {
       const createdBy = req.user._id;
+      const name = decodeURIComponent(req.query.name);
+      const brand = decodeURIComponent(req.query.brand);
       const {
-        name,
-        brand,
+        // name,
+        // brand,
         calories,
         proteins,
         fats,
