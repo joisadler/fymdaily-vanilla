@@ -28,8 +28,8 @@ html(lang=`${language}_${region}`, dir='auto')
         vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
       });
-    //-Preload Google fonts loader
-    //-link(rel='preload', href='fontloader.bundle.js', as='script', type='text/javascript')
+    // Preload Google fonts loader
+    link(rel='preload', href='fontloader.bundle.js', as='script', type='text/javascript')
     // Noscript styles
     style(type='text/css').
       .noscript{ position: fixed; top: 0; left: 0; z-index: 99999; height: 10%; width: 100%; background-color: #000000; display: flex; align-items: center; justify-content: center; }
@@ -40,7 +40,7 @@ html(lang=`${language}_${region}`, dir='auto')
       .noscript
         p JavaScript is not enabled. To continue please enable JavaScript in your browser settings!
     block content
-    script(src='app.bundle.js')
-    script(src='fontloader.bundle.js')
+    script(defer, src='app.bundle.js')
+    script(defer, src='fontloader.bundle.js')
     script(defer, src='analytics.bundle.js')
     script(defer, src='https://www.google-analytics.com/analytics.js')
