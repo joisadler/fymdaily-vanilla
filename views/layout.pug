@@ -41,6 +41,6 @@ html(lang=`${language}_${region}`, dir='auto')
         p JavaScript is not enabled. To continue please enable JavaScript in your browser settings!
     block content
     script(src='app.bundle.js')
-    script(src='fontloader.bundle.js')
+    //script(defer, src='fontloader.bundle.js')
     script(defer, src='analytics.bundle.js')
     script(defer, src='https://www.google-analytics.com/analytics.js')

@@ -16,3 +16,7 @@ const routes = {
 addListenerMulti(window, 'DOMContentLoaded popstate', () => {
   routes[window.location.pathname]();
 });
+
+const fontloader = document.createElement('script');
+fontloader.src = 'fontloader.bundle.js';
+document.body.appendChild(fontloader);
