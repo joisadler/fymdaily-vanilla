@@ -107,12 +107,12 @@ if (NODE_ENV === 'production') {
   config.plugins.push(
     new UglifyJsPlugin({
       uglifyOptions: {
+        warnings: false,
         compress: {
           sequences: true,
           booleans: true,
           loops: true,
           unused: true,
-          warnings: false,
           drop_console: true,
           unsafe: true,
           dead_code: true,
