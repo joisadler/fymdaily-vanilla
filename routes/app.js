@@ -12,8 +12,8 @@ export default () => {
   router.get('/', isAuthenticated, (req, res) => {
     res.render('app', {
       user: req.user,
-      language: req.user.language,
-      region: req.user.region
+      language: req.user.language || 'en',
+      region: req.user.region || 'US',
     });
   });
   return router;

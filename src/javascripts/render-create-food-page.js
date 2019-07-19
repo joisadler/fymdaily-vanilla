@@ -2,8 +2,10 @@ import createFoodTemplate from '../../views/create-food.pug';
 import renderHomePage from './render-homepage';
 import renderAddFoodPage from './render-add-food-page';
 import renderCustomFoodsPage from './render-custom-foods-page';
+import addCss from './add-css';
 
 export default () => {
+  addCss();
   const app = document.getElementById('app');
   app.innerHTML = createFoodTemplate;
 

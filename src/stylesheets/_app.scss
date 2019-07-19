@@ -1,417 +1,429 @@
-html, body {
-  width: 100vw;
-  min-width: 100vw;
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
-  min-height: 100vh;
-  min-height: calc(var(--vh, 1vh) * 100);
-  font-family: 'Montserrat', sans-serif;
-  background-color: white;
-  font-size: 5vmin;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
+// html,
+// body {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   align-items: center;
+//   width: 100vw;
+//   min-width: 100vw;
+//   height: 100vh;
+//   height: calc(var(--vh, 1vh) * 100);
+//   min-height: 100vh;
+//   min-height: calc(var(--vh, 1vh) * 100);
+//   margin: 0;
+//   padding: 0;
+//   font-family: "Montserrat", "Open Sans", "Helvetica", "Arial", sans-serif;
+//   font-size: 5vmin;
+//   background-color: white;
+// }
 
-#app {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-}
+// button {
+//   &:hover,
+//   &:active,
+//   &:focus {
+//     outline: none;
+//   }
+// }
 
-.homepage, .add-food-page, .create-food-page, .custom-foods-page {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  // mobile device in landscape mode
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape) and (min-aspect-ratio: 13/9) {
-    flex-direction: row;
-  }
-  // desktop
-  @media (min-width: $desktop) {
-    width: 33.333333%;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-  }
-  // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
-    flex-direction: row;
-    width: 100%;
-  }
-}
+// .app {
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   flex-wrap: nowrap;
+//   justify-content: center;
+//   align-items: center;
+// }
 
-section.calories-container {
-  position: relative;
-  width: 80%;
-  // mobile device in landscape mode
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
-    height: 80%;
-  }
-  // desktop
-  @media (min-width: $desktop) {
-    width: 80%;
-  }
-  // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
-    height: 80%;
-  }
-}
+// .homepage,
+// .add-food-page,
+// .create-food-page,
+// .custom-foods-page {
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   flex-wrap: nowrap;
+//   justify-content: flex-start;
+//   align-items: center;
+//   // mobile device in landscape mode
+//   @media (max-width: #{$desktop - 1}) and (orientation: landscape) and (min-aspect-ratio: 13/9) {
+//     flex-direction: row;
+//   }
+//   // desktop
+//   @media (min-width: $desktop) {
+//     width: 33.333333%;
+//     border-left: 1px solid black;
+//     border-right: 1px solid black;
+//   }
+//   // iPad Pro in landscape mode
+//   @media only screen
+//     and (min-width: 1024px)
+//     and (max-height: 1366px)
+//     and (orientation: landscape)
+//     and (min-resolution: 1.5dppx) {
+//     flex-direction: row;
+//     width: 100%;
+//   }
+// }
 
-.calories-chart {
-  position:  absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-  right: 0;
-  width: 80%;
-  height: 80%;
-  border-radius: 50%;
-  border: 1px solid black;
-  margin: 10%;
-  overflow: hidden;
-  background: #f2f2f2;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-}
+// section.calories-container {
+//   position: relative;
+//   width: 80%;
+//   // mobile device in landscape mode
+//   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+//     height: 80%;
+//   }
+//   // desktop
+//   @media (min-width: $desktop) {
+//     width: 80%;
+//   }
+//   // iPad Pro in landscape mode
+//   @media only screen
+//     and (min-width: 1024px)
+//     and (max-height: 1366px)
+//     and (orientation: landscape)
+//     and (min-resolution: 1.5dppx) {
+//     height: 80%;
+//   }
+// }
 
-.calories-chart-sector {
-  width: 50%;
-  height: 50%;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform-origin: left bottom;
-  transition: all 0.5s;
-}
+// .calories-chart {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   width: 80%;
+//   height: 80%;
+//   margin: 10%;
+//   font-family: "Montserrat", "Open Sans", "Helvetica", "Arial", sans-serif;
+//   font-weight: 700;
+//   text-transform: uppercase;
+//   overflow: hidden;
+//   background: #f2f2f2;
+//   border: 1px solid black;
+//   border-radius: 50%;
+// }
 
-.calories-chart-content {
-  width: 80%;
-  height: 80%;
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  border-radius: 50%;
-  border: 1px solid black;
-  background: white;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-}
+// .calories-chart-sector {
+//   position: absolute;
+//   left: 50%;
+//   top: 0;
+//   width: 50%;
+//   height: 50%;
+//   transform-origin: left bottom;
+//   transition: all 0.5s;
+// }
 
-.alternative-calories-chart-content {
-  width: 80%;
-  height: 80%;
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  border-radius: 50%;
-  background: white;
-  z-index: 2;
-  display: none;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
-}
+// .calories-chart-content {
+//   position: absolute;
+//   top: 10%;
+//   left: 10%;
+//   z-index: 2;
+//   display: flex;
+//   flex-direction: column;
+//   flex-wrap: nowrap;
+//   justify-content: center;
+//   align-items: center;
+//   width: 80%;
+//   height: 80%;
+//   background: white;
+//   border: 1px solid black;
+//   border-radius: 50%;
+// }
 
-.calories-headline {
-  margin: 0;
-  font-size: 2.3vmin;
-  @media (min-width: $desktop) {
-    font-size: 1.5vmin;
-  }
-}
+// .alternative-calories-chart-content {
+//   position: absolute;
+//   top: 10%;
+//   left: 10%;
+//   z-index: 2;
+//   display: none;
+//   flex-direction: column;
+//   flex-wrap: nowrap;
+//   justify-content: center;
+//   align-items: center;
+//   width: 80%;
+//   height: 80%;
+//   background: white;
+//   border: 1px solid black;
+//   border-radius: 50%;
+// }
 
-p.calories-number {
-  margin: 0;
-  font-size: 18vmin;
-  @media (min-width: $desktop) {
-    font-size: 12vmin;
-  }
-}
+// .calories-headline {
+//   margin: 0;
+//   font-size: 2.3vmin;
 
-.calories-subheadline {
-  margin: 0;
-  font-size: 1.9vmin;
-  @media (min-width: $desktop) {
-    font-size: 1.35vmin;
-  }
-}
+//   @media (min-width: $desktop) {
+//     font-size: 1.5vmin;
+//   }
+// }
 
-.alternative-calories-chart-content-headline {
-  margin: 2vmin;
-  font-size: 4vmin;
-  @media (min-width: $desktop) {
-    font-size: 2.5vmin;
-  }
-}
+// p.calories-number {
+//   margin: 0;
+//   font-size: 18vmin;
 
-.alternative-calories-chart-content-number {
-  margin: 2vmin;
-  font-size: 9vmin;
-  @media (min-width: $desktop) {
-    font-size: 5vmin;
-  }
-}
+//   @media (min-width: $desktop) {
+//     font-size: 12vmin;
+//   }
+// }
 
-.alternative-calories-chart-content-percent {
-  margin: 2vmin;
-  font-size: 4vmin;
-  @media (min-width: $desktop) {
-    font-size: 2.5vmin;
-  }
-}
+// .calories-subheadline {
+//   margin: 0;
+//   font-size: 1.9vmin;
 
-.macros-container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-content: center;
-  flex: 2;
-  width: 80%;
-  // mobile device in landscape mode
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
-    height: 80%;
-  }
-  // desktop
-  @media (min-width: $desktop) {
-    width: 80%;
-  }
-  // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
-    height: 80%;
-  }
-}
+//   @media (min-width: $desktop) {
+//     font-size: 1.35vmin;
+//   }
+// }
 
-.macros-line {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  height: 15%;
-}
+// .alternative-calories-chart-content-headline {
+//   margin: 2vmin;
+//   font-size: 4vmin;
 
-.macros-image-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  margin-right: 1vmin;
-  align-items: center;
-  height: 100%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
+//   @media (min-width: $desktop) {
+//     font-size: 2.5vmin;
+//   }
+// }
 
-.proteins-image-container {
-  background-image: url('../images/proteins.png');
-}
+// .alternative-calories-chart-content-number {
+//   margin: 2vmin;
+//   font-size: 9vmin;
 
-.fats-image-container {
-  background-image: url('../images/fats.png');
-}
+//   @media (min-width: $desktop) {
+//     font-size: 5vmin;
+//   }
+// }
 
-.carbs-image-container {
-  background-image: url('../images/carbs.png');
-}
+// .alternative-calories-chart-content-percent {
+//   margin: 2vmin;
+//   font-size: 4vmin;
 
-.macros-progress-bar {
-  flex: 1;
-  height: 100%;
-  background-color: #f2f2f2;
-  border: 1px solid black;
-  position: relative;
-}
+//   @media (min-width: $desktop) {
+//     font-size: 2.5vmin;
+//   }
+// }
 
-.macros-progress-bar-inner {
-  height: 100%;
-  width: 0;
-  overflow: hidden;
-  transition: all 1s;
-  position: absolute;
-  left: 0;
-}
+// .macros-container {
+//   display: flex;
+//   flex-direction: column;
+//   flex-wrap: nowrap;
+//   justify-content: space-between;
+//   align-content: center;
+//   flex: 2;
+//   width: 80%;
+//   // mobile device in landscape mode
+//   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+//     height: 80%;
+//   }
+//   // desktop
+//   @media (min-width: $desktop) {
+//     width: 80%;
+//   }
+//   // iPad Pro in landscape mode
+//   @media only screen
+//     and (min-width: 1024px)
+//     and (max-height: 1366px)
+//     and (orientation: landscape)
+//     and (min-resolution: 1.5dppx) {
+//     height: 80%;
+//   }
+// }
 
-.proteins-progress-bar-inner {
-  background-color: #109618;
-}
+// .macros-line {
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: nowrap;
+//   justify-content: flex-start;
+//   align-items: center;
+//   width: 100%;
+//   height: 15%;
+// }
 
-.fats-progress-bar-inner {
-  background-color: #ff9900;
-}
+// .macros-image-container {
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: nowrap;
+//   align-items: center;
+//   height: 100%;
+//   margin-right: 1vmin;
+//   background-size: contain;
+//   background-repeat: no-repeat;
+//   background-position: center;
+// }
 
-.carbs-progress-bar-inner {
-  background-color: #990099;
-}
+// .proteins-image-container {
+//   background-image: url("../images/proteins.png");
+// }
 
-.percent-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  z-index: 1;
-  margin-left: 1vmin;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 2.5vmin;
-}
+// .fats-image-container {
+//   background-image: url("../images/fats.png");
+// }
 
-.navigation-buttons-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
-  width: 80%;
-  height: 20%;
-  // mobile device in landscape mode
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
-    height: 80%;
-    width: 20%;
-    flex-direction: column-reverse;
-  }
-  // soft keyboard is opened in portrait mode
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape)  and (max-device-aspect-ratio: 1/1){
-    display: none;
-  }
-  // desktop
-  @media (min-width: $desktop) {
-    width: 80%;
-    height: 20%;
-  }
-  // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px)
-  and (max-height: 1366px)
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
-    flex-direction: column-reverse;
-    height: 80%;
-    width: 20%;
-  }
-}
+// .carbs-image-container {
+//   background-image: url("../images/carbs.png");
+// }
 
-.navigation-button {
-  height: 80%;
-  background-color: white;
-  background-size: 30%;
-  background-repeat: no-repeat;
-  padding: 0;
-  border: 0;
-  //transition: all 0.3s; 
-  &:hover {
-    //transform: scale(1.1);
-    outline: none;
-  }
-  &:active {
-    //transform: scale(0.9);
-    outline: none;
-  }
-  &:focus {
-    //transform: scale(1.1);
-    outline: none;
-  }
-}
+// .macros-progress-bar {
+//   position: relative;
+//   flex: 1;
+//   height: 100%;
+//   background-color: #f2f2f2;
+//   border: 1px solid black;
+// }
 
-.eaten-foods-button {
-  background-image: url('../images/table.png');
-  background-position: 0% 50%;
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
-    background-position: 50% 100%;
-  }
-  // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
-    background-position: 50% 100%;
-  }
-}
+// .macros-progress-bar-inner {
+//   position: absolute;
+//   left: 0;
+//   height: 100%;
+//   width: 0;
+//   overflow: hidden;
+//   transition: all 1s;
+// }
 
-.add-food-page-home-button, .create-food-page-home-button, .custom-foods-page-home-button {
-  background-image: url('../images/home.png');  
-  background-position: center;
-}
+// .proteins-progress-bar-inner {
+//   background-color: #109618;
+// }
 
-.home-button {
-  background-image: url('../images/home.png');
-  background-position: 0% 50%;
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
-    background-position: 50% 100%;
-  }
-  // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
-    background-position: 50% 100%;
-  }
-}
+// .fats-progress-bar-inner {
+//   background-color: #ff9900;
+// }
 
-.add-food-button {
-  background-image: url('../images/add.png');
-  background-position: center;
-  background-size: 30%;
-}
+// .carbs-progress-bar-inner {
+//   background-color: #990099;
+// }
 
-.settings-button {
-  background-image: url('../images/settings.png');
-  background-position: 100% 50%;
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
-    background-position: 50% 0%;
-  }
-  // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
-    background-position: 50% 0%;
-  }
-}
+// .percent-container {
+//   position: absolute;
+//   left: 0;
+//   z-index: 1;
+//   display: flex;
+//   justify-content: flex-start;
+//   align-items: center;
+//   height: 100%;
+//   margin-left: 1vmin;
+//   font-family: "Montserrat", sans-serif;
+//   font-weight: 700;
+//   font-size: 2.5vmin;
+// }
 
-.add-food-section, .create-food-section, .custom-foods-section {
-  width: 80%;
-  height: 80%;
-  padding-top: 10%;
+// .navigation-buttons-container {
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: nowrap;
+//   justify-content: space-between;
+//   align-content: center;
+//   align-items: center;
+//   width: 80%;
+//   height: 20%;
+//   // mobile device in landscape mode
+//   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+//     flex-direction: column-reverse;
+//     width: 20%;
+//     height: 80%;
+//   }
+//   // soft keyboard is opened in portrait mode
+//   @media (max-width: #{$desktop - 1}) and (orientation: landscape)  and (max-device-aspect-ratio: 1/1) {
+//     display: none;
+//   }
+//   // desktop
+//   @media (min-width: $desktop) {
+//     width: 80%;
+//     height: 20%;
+//   }
+//   // iPad Pro in landscape mode
+//   @media only screen
+//     and (min-width: 1024px)
+//     and (max-height: 1366px)
+//     and (orientation: landscape)
+//     and (min-resolution: 1.5dppx) {
+//     flex-direction: column-reverse;
+//     width: 20%;
+//     height: 80%;
+//   }
+// }
+
+// .navigation-button {
+//   height: 80%;
+//   padding: 0;
+//   background-color: white;
+//   background-size: 30%;
+//   background-repeat: no-repeat;
+//   border: 0;
+// }
+
+// .eaten-foods-button {
+//   background-image: url("../images/table.png");
+//   background-position: 0% 50%;
+
+//   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+//     background-position: 50% 100%;
+//   }
+//   // iPad Pro in landscape mode
+//   @media only screen
+//     and (min-width: 1024px)
+//     and (max-height: 1366px)
+//     and (orientation: landscape)
+//     and (min-resolution: 1.5dppx) {
+//     background-position: 50% 100%;
+//   }
+// }
+
+// .add-food-page-home-button,
+// .create-food-page-home-button,
+// .custom-foods-page-home-button {
+//   background-image: url("../images/home.png");
+//   background-position: center;
+// }
+
+// .home-button {
+//   background-image: url("../images/home.png");
+//   background-position: 0% 50%;
+
+//   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+//     background-position: 50% 100%;
+//   }
+//   // iPad Pro in landscape mode
+//   @media only screen
+//     and (min-width: 1024px)
+//     and (max-height: 1366px)
+//     and (orientation: landscape)
+//     and (min-resolution: 1.5dppx) {
+//     background-position: 50% 100%;
+//   }
+// }
+
+// .add-food-button {
+//   background-image: url("../images/add.png");
+//   background-position: center;
+//   background-size: 30%;
+// }
+
+// .settings-button {
+//   background-image: url("../images/settings.png");
+//   background-position: 100% 50%;
+
+//   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+//     background-position: 50% 0%;
+//   }
+//   // iPad Pro in landscape mode
+//   @media only screen
+//     and (min-width: 1024px)
+//     and (max-height: 1366px)
+//     and (orientation: landscape)
+//     and (min-resolution: 1.5dppx) {
+//     background-position: 50% 0%;
+//   }
+// }
+
+.add-food-section,
+.create-food-section,
+.custom-foods-section {
   box-sizing: border-box;
+  width: 80%;
+  height: 80%;
   margin-left: 0;
+  padding-top: 10%;
   //mobile device in landscape mode
   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
     width: 93%;
@@ -425,11 +437,11 @@ p.calories-number {
     height: 80%;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     width: 93%;
     height: 80%;
     padding-left: 7%;
@@ -437,7 +449,9 @@ p.calories-number {
   }
 }
 
-.add-food-options-container, .create-food-options-container, .custom-foods-options-container {
+.add-food-options-container,
+.create-food-options-container,
+.custom-foods-options-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -445,100 +459,99 @@ p.calories-number {
   width: 100%;
   height: 5%;
   margin-bottom: 5%;
+
   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
     margin-bottom: 0;
   }
   // soft keyboard is opened in portrait mode
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape)  and (max-device-aspect-ratio: 1/1){
+  @media (max-width: #{$desktop - 1}) and (orientation: landscape)  and (max-device-aspect-ratio: 1/1) {
     margin-bottom: 5%;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     margin-bottom: 0;
   }
 }
 
-.add-food-header, .create-food-header, .custom-foods-header {
+.add-food-header,
+.create-food-header,
+.custom-foods-header {
   height: 100%;
-  line-height: 100%;
   margin: 0;
   padding: 0;
   font-size: 7vmin;
+  line-height: 100%;
   // desktop
   @media (min-width: $desktop) {
     font-size: 5vmin;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     font-size: 7vmin;
   }
 }
 
 input.add-food-search-bar {
-  height: 100%;
   display: none;
   flex: 1;
-  border: 1px solid black;
+  height: 100%;
   padding: 1vmin;
+  border: 1px solid black;
 }
 
-.add-food-option-buttons, .create-food-option-buttons, .custom-foods-option-buttons {
-  height: 100%;
+.add-food-option-buttons,
+.create-food-option-buttons,
+.custom-foods-option-buttons {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  height: 100%;
 }
 
-.add-food-option-button, .create-food-option-button, .custom-foods-option-button {
+.add-food-option-button,
+.create-food-option-button,
+.custom-foods-option-button {
   height: 100%;
+  padding: 0;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
-  padding: 0;
   background-color: white;
   border: none;
-  &:hover {
-    outline: none;
-  }
-  &:active {
-    outline: none;
-  }
-  &:focus {
-    outline: none;
-  }
 }
 
 .add-food-search-button {
-  background-image: url('../images/search.png');
   margin-right: 5vmin;
+  background-image: url("../images/search.png");
   //desktop
   @media (min-width: $desktop) {
     margin-right: 3vmin;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     margin-right: 5vmin;
   }
 }
 
 .add-food-create-button {
-  background-image: url('../images/edit.png');
+  background-image: url("../images/edit.png");
 }
 
-.create-food-cancel-button, .custom-foods-cancel-button {
-  background-image: url('../images/cancel.png');
+.create-food-cancel-button,
+.custom-foods-cancel-button {
+  background-image: url("../images/cancel.png");
 }
 
 .create-food-saved-button,
@@ -550,52 +563,54 @@ input.add-food-search-bar {
     margin-right: 3vmin;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     margin-right: 5vmin;
   }
 }
 
 .create-food-saved-button {
-  background-image: url('../images/saved.png');
+  background-image: url("../images/saved.png");
 }
 
 .custom-foods-edit-button {
-  background-image: url('../images/edit.png');
+  background-image: url("../images/edit.png");
 }
 
 .custom-foods-save-button {
-  background-image: url('../images/save.png');
   display: none;
+  background-image: url("../images/save.png");
 }
 
 .custom-foods-add-button {
-  background-image: url('../images/add.png');
   display: none;
+  background-image: url("../images/add.png");
 }
 
-.add-food-cards, .custom-foods-cards {
+.add-food-cards,
+.custom-foods-cards {
   width: 100%;
   height: 90%;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-.add-food-card, {
-  width: 100%;
-  height: 12.5%;
-  box-sizing: border-box;
+.add-food-card {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-around;
   align-items: flex-start;
-  border-top: 1px solid black;
+  box-sizing: border-box;
+  width: 100%;
+  height: 12.5%;
   overflow: hidden;
   white-space: nowrap;
+  border-top: 1px solid black;
+
   &:first-child {
     border-top: none;
   }
@@ -605,7 +620,8 @@ input.add-food-search-bar {
   }
 }
 
-.add-food-card-header, .custom-food-card-header {
+.add-food-card-header,
+.custom-food-card-header {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -619,11 +635,11 @@ input.add-food-search-bar {
     font-size: 3vmin;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     font-size: 4vmin;
   }
 }
@@ -641,24 +657,24 @@ p.add-food-card-info {
     font-size: 2vmin;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     font-size: 3vmin;
   }
 }
 
 .add-this-food-card {
-  width: 100%;
-  height: 12.5%;
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 12.5%;
   //mobile device in landscape mode
   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
     height: 20%;
@@ -675,119 +691,103 @@ p.add-food-card-info {
     font-size: 3vmin;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     font-size: 4vmin;
   }
 }
 
 .add-this-food-card-weight {
   width: 10vmin;
-  border: 1px solid black;
-  padding: 1vmin;
   margin: 0 1vmin 0 1vmin;
+  padding: 1vmin;
+  border: 1px solid black;
 }
 
 .add-this-food-card-button {
+  padding: 0;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
-  padding: 0;
   background-color: white;
   border: none;
-  &:hover {
-    outline: none;
-  }
-  &:active {
-    outline: none;
-  }
-  &:focus {
-    outline: none;
-  }
 }
 
 .add-this-food-card-add-button {
   margin: 0 5vmin 0 5vmin;
-  background-image: url('../images/add.png');
+  background-image: url("../images/add.png");
   // desktop
   @media (min-width: $desktop) {
     margin: 0 3vmin 0 3vmin;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     margin: 0 5vmin 0 5vmin;
   }
 }
 
 .add-this-food-card-cancel-button {
-  background-image: url('../images/cancel.png');
+  background-image: url("../images/cancel.png");
 }
 
 .create-food-form {
-  width: 100%;
-  height: 90%;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 90%;
 }
 
 .create-food-inputs-row {
-  width: 100%;
-  height: 25%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  width: 100%;
+  height: 25%;
 }
 
 .create-food-input-container {
-  width: 50%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-end;
   align-items: center;
+  width: 50%;
+  height: 100%;
 }
 
 .create-food-save-button-container {
-  width: 50%;
-  height: 25%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 50%;
+  height: 25%;
+
   @media (orientation: landscape) {
     justify-content: flex-end;
   }
 }
 
 .create-food-save-button {
-  background-image: url('../images/save.png');
+  margin-top: 40%;
+  padding: 0;
+  background-image: url("../images/save.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
-  padding: 0;
   background-color: white;
   border: none;
-  margin-top: 40%;
-  &:hover {
-    outline: none;
-  }
-  &:active {
-    outline: none;
-  }
-  &:focus {
-    outline: none;
-  }
+
   @media (orientation: landscape) {
     margin-top: 0%;
   }
@@ -796,11 +796,11 @@ p.add-food-card-info {
     margin-top: 40%;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     margin-top: 0;
   }
 }
@@ -815,31 +815,32 @@ p.add-food-card-info {
     font-size: 3vmin;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     font-size: 4vmin;
   }
 }
 
 .create-food-input {
-  width: 90%;
   box-sizing: border-box;
+  width: 90%;
 }
 
 .custom-food-card-wrapper {
-  width: 100%;
-  height: 12.5%;
-  box-sizing: border-box;
+  position: relative;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 12.5%;
   border-top: 1px solid black;
-  position: relative;
+
   &:first-child {
     border-top: none;
   }
@@ -850,79 +851,64 @@ p.add-food-card-info {
 }
 
 .custom-food-card-buttons-container {
-  height: 100%;
+  position: absolute;
   display: flex;
   visibility: hidden;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
-  position: absolute;
   right: -100%;
+  height: 100%;
 }
 
 .custom-food-card {
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  //flex-grow: 1;
   justify-content: space-around;
   align-items: flex-start;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   white-space: nowrap;
 }
 
 .custom-food-card-button {
+  padding: 0;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
-  padding: 0;
   background-color: white;
   border: none;
-  &:hover {
-    outline: none;
-  }
-  &:active {
-    outline: none;
-  }
-  &:focus {
-    outline: none;
-  }
 }
 
 .custom-food-card-edit-button {
-  background-image: url('../images/edit-pencil.png');
   margin-right: 5vmin;
+  background-image: url("../images/edit-pencil.png");
   //desktop
   @media (min-width: $desktop) {
     margin-right: 3vmin;
   }
   // iPad Pro in landscape mode
-  @media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
     margin-right: 5vmin;
   }
 }
 
 .custom-food-card-delete-button {
-  background-image: url('../images/delete.png');
+  background-image: url("../images/delete.png");
 }
 
-
-
-
-
-
 .login-title {
-  color: #555;
+  display: block;
   font-size: 1.5rem;
   font-weight: normal;
-  display: block;
+  color: #555555;
 }
 
 .sign-out {

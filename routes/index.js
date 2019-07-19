@@ -7,6 +7,8 @@ export default () => {
     res.render('index', {
       message: req.flash('message'),
       title: 'Fit Your Macros daily',
+      language: 'en',
+      region: 'US',
     });
   });
   return router;

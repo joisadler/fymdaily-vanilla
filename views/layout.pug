@@ -1,38 +1,42 @@
 doctype html
 html(lang=`${language}_${region}`, dir='auto')
   head
-    //- SEO
+    // SEO
     title Fit Your Macros daily
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1.0, shrink-to-fit=no')
     meta(name='description', content='Fit Your Macros daily')
     meta(name='robots', content='index, follow')
-    //- Web App Manifest
+    // Web App Manifest
     link(rel='manifest', href='manifest.json')
-    //- Apple Web App Meta
+    // Apple Web App Meta
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='apple-mobile-web-app-status-bar-style', content='black')
     meta(name='format-detection', content='telephone=no')
-    //- Facebook Open Graph
+    // Facebook Open Graph
     meta(property='og:image', content='images/facebook/og-image.jpg')
     meta(property='og:site_name', content=`${title}`)
     meta(property='og:type', content='website')
-    //- Sets dinamic --vh custom property
-    script(src='vhfix.bundle.js')
-    //- Web Fonts Loader
-    link(rel='preload', href='fontloader.bundle.js', as='script')
-    script(src='fontloader.bundle.js')
-    //- Main site stylesheet
-    link(rel='stylesheet', href='/main.css')
-    //- Favicon
+    // Favicon
     link(rel='shortcut icon', href='images/favicons/favicon.ico', type='image/x-icon')
+    // Sets dinamic --vh custom property
+    script.
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+      window.addEventListener('resize', () => {
+        vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      });
+    style(type='text/css').
+      .noscript{ position: fixed; top: 0; left: 0; z-index: 99999; height: 10%; width: 100%; background-color: #000000; display: flex; align-items: center; justify-content: center; }
+      .noscript p { margin:0; color: #ffffff; font-weight: bold; }
   body
     noscript
       .noscript
         p JavaScript is not enabled. To continue please enable JavaScript in your browser settings!
     block content
+    script(src='fontloader.bundle.js')
     script(src='app.bundle.js')
-    script(src='main.bundle.js')
-    script(src='analytics.bundle.js')
+    script(async, src='analytics.bundle.js')
     script(async, src='https://www.google-analytics.com/analytics.js')

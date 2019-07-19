@@ -3,85 +3,35 @@ import calculateMacros from './calculations';
 import homepageTemplate from '../../views/homepage.pug';
 import renderEatenFoodsPage from './render-eaten-foods-page';
 import renderAddFoodPage from './render-add-food-page';
+import addCss from './add-css';
 
-export default () => {
+const render = () => {
   const app = document.getElementById('app');
   app.innerHTML = homepageTemplate;
 
-  const caloriesContainer = document.querySelector('.calories-container');
   const caloriesChart = document.querySelector('.calories-chart');
   const caloriesChartContent = document
     .querySelector('.calories-chart-content');
   const caloriesHeadline = document.querySelector('.calories-headline');
   const caloriesNumber = document.querySelector('.calories-number');
-  const caloriesSubheadline = document.querySelector('.calories-subheadline');
   const alternativeCaloriesChartContent = document
     .querySelector('.alternative-calories-chart-content');
   const alternativeCaloriesChartContentNumber = document
     .querySelector('.alternative-calories-chart-content-number');
   const alternativeCaloriesChartContentPercent = document
     .querySelector('.alternative-calories-chart-content-percent');
-  const macrosLines = [...document.querySelectorAll('.macros-line')];
-  const macrosImageContainers = [...document
-    .querySelectorAll('.macros-image-container')];
-  const navigationButtons = [...document
-    .querySelectorAll('.navigation-button')];
   const proteinsProgressBarInner = document
     .querySelector('.proteins-progress-bar-inner');
   const fatsProgressBarInner = document
     .querySelector('.fats-progress-bar-inner');
   const carbsProgressBarInner = document
     .querySelector('.carbs-progress-bar-inner');
-  const percentContainers = [...document
-    .querySelectorAll('.percent-container')];
   const proteinsPercentContainer = document
     .querySelector('.proteins-percent-container');
   const fatsPercentContainer = document
     .querySelector('.fats-percent-container');
   const carbsPercentContainer = document
     .querySelector('.carbs-percent-container');
-
-  if (window.innerHeight > window.innerWidth
-    || !(/Android|webOS|iPhone|iPad|BlackBerry|IEMobile|Opera Mini/i
-      .test(navigator.userAgent))) {
-    caloriesContainer.style.height = `${caloriesContainer.offsetWidth}px`;
-  } else {
-    caloriesContainer.style.width = `${caloriesContainer.offsetHeight}px`;
-  }
-  window.addEventListener('resize', () => {
-    if (window.innerHeight > window.innerWidth
-      || !(/Android|webOS|iPhone|iPad|BlackBerry|IEMobile|Opera Mini/i
-        .test(navigator.userAgent))) {
-      caloriesContainer.style.height = `${caloriesContainer.offsetWidth}px`;
-    } else {
-      caloriesContainer.style.width = `${caloriesContainer.offsetHeight}px`;
-    }
-  });
-
-  macrosLines.forEach((line) => {
-    const lineHeight = ((caloriesChart.offsetWidth
-       - caloriesChartContent.offsetWidth) / 2) + 2;
-    line.style.height = `${lineHeight}px`;
-  });
-  window.addEventListener('resize', () => {
-    macrosLines.forEach((line) => {
-      const lineHeight = ((caloriesChart.offsetWidth
-         - caloriesChartContent.offsetWidth) / 2) + 2;
-      line.style.height = `${lineHeight}px`;
-    });
-  });
-
-  macrosImageContainers.forEach((container) => {
-    container.style.width = `${container.offsetHeight}px`;
-  });
-
-  navigationButtons.forEach((button) => {
-    button.style.width = `${button.offsetHeight}px`;
-  });
-
-  percentContainers.forEach((container) => {
-    container.style.width = `${container.offsetHeight}px`;
-  });
 
   fetch('/user', {
     method: 'GET',
@@ -191,7 +141,7 @@ export default () => {
             sector.classList.add('calories-chart-sector');
             sector.style.background = Data.color;
             sector.style.transform = `rotate(${rotateDeg}deg) skewY(${skewDeg}deg)`;
-            sector.style.visibility = 'hidden';
+            // sector.style.visibility = 'hidden';
             caloriesChart.append(sector);
             return startAngle + sectorDeg;
           };
@@ -258,15 +208,16 @@ export default () => {
             }, 20);
           };
           if (currentCaloriesRemainder >= 0) {
+            //caloriesNumber.innerText = `${currentCaloriesRemainder}`;
             caloriesRemainderLoop();
           } else {
             caloriesChartContent.style.backgroundColor = '#ff6666';
             alternativeCaloriesChartContent.style.backgroundColor = '#ff6666';
             caloriesHeadline.innerText = 'today you have consumed';
             currentCaloriesRemainder = Math.abs(currentCaloriesRemainder);
-            // caloriesNumber.innerText = `${currentCaloriesRemainder}`;
+            caloriesNumber.innerText = `${currentCaloriesRemainder}`;
             caloriesRemainderLoop();
-            caloriesSubheadline.innerText = 'calories more than your daily need';
+            //caloriesSubheadline.innerText = 'calories more than your daily need';
           }
           alternativeCaloriesChartContentNumber.innerText = `${currentCalories}/${dailyCaloriesNeed}`;
           alternativeCaloriesChartContentPercent.innerText = `${currentPercentOfDailyCaloriesNeed}%`;
@@ -310,4 +261,9 @@ export default () => {
     window.history.pushState(null, null, '/add-food');
     renderAddFoodPage();
   });
+};
+
+export default () => {
+  addCss();
+  render();
 };

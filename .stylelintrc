@@ -1,3 +1,9 @@
 {
-  "extends": "stylelint-config-recommended-scss"
+  "extends": "stylelint-config-htmlacademy",
+  "rules": {
+    "declaration-block-no-duplicate-properties": [ true, {
+      ignore: ["consecutive-duplicates"]
+    }
+    ]
+  }
 }

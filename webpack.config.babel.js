@@ -9,12 +9,11 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const config = {
   entry: {
-    main: './src/javascripts/main.js',
+    homepage: './src/javascripts/styles/homepage.js',
     index: './src/javascripts/index.js',
     signup: './src/javascripts/signup.js',
     analytics: './src/javascripts/analytics.js',
     fontloader: './src/javascripts/fontloader.js',
-    vhfix: './src/javascripts/vh-fix.js',
     app: './src/javascripts/app.js',
   },
   output: {
@@ -59,7 +58,7 @@ const config = {
               sourceMap: true,
               ident: 'postcss',
               plugins: () => [
-                autoprefixer('cover 99.5%'),
+                autoprefixer(),
                 cssnano({
                   preset: 'default',
                 }),
@@ -76,7 +75,8 @@ const config = {
           {
             loader: 'url-loader',
             options: {
-              limit: 100000,
+              //  limit: 100000,
+              limit: 0,
             },
           },
         ],
@@ -88,12 +88,12 @@ const config = {
       filename: '[name].css',
       chunkFilename: '[id].css'
     }),
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: './src/images',
-    //     to: './images'
-    //   }
-    // ]),
+    new CopyWebpackPlugin([
+      {
+        from: './src/images',
+        to: './images'
+      }
+    ]),
     new CopyWebpackPlugin([
       {
         from: './src/manifest.json',
