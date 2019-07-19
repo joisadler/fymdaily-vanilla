@@ -5,7 +5,14 @@ export default () => {
   link.href = `${filename}.css`;
   link.type = 'text/css';
   link.rel = 'stylesheet';
-  head.appendChild(link);
+  const links = [...document.querySelectorAll('link')];
+  const isCurrenLinkAlreadyExists = links
+    .map((lnk => lnk.href.split('/')[lnk.href.split('/').length - 1]))
+    .filter(url => url === `${filename}.css`)
+    .length > 0;
+  if (!isCurrenLinkAlreadyExists) {
+    head.appendChild(link);
+  }
 
   // const style = document.createElement('style');
   // const head = document.getElementsByTagName('head')[0];
