@@ -20,7 +20,7 @@ html(lang=`${language}_${region}`, dir='auto')
     meta(property='og:type', content='website')
     // Favicon
     link(rel='shortcut icon', href='images/favicons/favicon.ico', type='image/x-icon')
-    // Sets dinamic --vh custom property
+    // Set dinamic --vh custom property
     script.
       let vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -28,8 +28,6 @@ html(lang=`${language}_${region}`, dir='auto')
         vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
       });
-    //-Google-fonts
-    //-link(href='https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap&subset=cyrillic', rel='stylesheet')
     // Noscript styles
     style(type='text/css').
       .noscript{ position: fixed; top: 0; left: 0; z-index: 99999; height: 10%; width: 100%; background-color: #000000; display: flex; align-items: center; justify-content: center; }
@@ -40,7 +38,6 @@ html(lang=`${language}_${region}`, dir='auto')
       .noscript
         p JavaScript is not enabled. To continue please enable JavaScript in your browser settings!
     block content
-    //script(src='fontloader.bundle.js')
     script(src='app.bundle.js')
     script(src='fontloader.bundle.js')
     script(defer, src='analytics.bundle.js')

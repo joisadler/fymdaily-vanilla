@@ -1,3 +1,5 @@
+import * as h from '../stylesheets/homepage.scss';
+
 export default () => {
   const filename = window.location.pathname.split('/').pop();
   const link = document.createElement('link');
@@ -14,9 +16,17 @@ export default () => {
     head.appendChild(link);
   }
 
+  // const filename = window.location.pathname.split('/').pop();
   // const style = document.createElement('style');
   // const head = document.getElementsByTagName('head')[0];
   // const url = `${filename}.css`;
   // style.textContent = `@import "${url}"`;
-  // head.appendChild(style);
+  // const styles = [...document.querySelectorAll('style')];
+  // const isCurrenLinkAlreadyExists = styles
+  //   .map(s => s.textContent)
+  //   .filter(u => u === `@import "${url}"`)
+  //   .length > 0;
+  // if (!isCurrenLinkAlreadyExists) {
+  //   head.appendChild(style);
+  // }
 };
