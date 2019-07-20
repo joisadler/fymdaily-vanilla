@@ -503,8 +503,6 @@ const render = async () => {
   const app = document.getElementById('app');
   app.innerHTML = homepageTemplate;
 
-
-
   // const caloriesChart = document.querySelector('.calories-chart');
   // const caloriesChartContent = document
   //   .querySelector('.calories-chart-content');

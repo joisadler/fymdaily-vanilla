@@ -1,17 +1,19 @@
+/* eslint-disable no-param-reassign */
+import { loadCSS } from 'fg-loadcss';
 import debounce from 'lodash/debounce';
 import addFoodTemplate from '../../views/add-food.pug';
 import renderHomePage from './render-homepage';
 import renderCreateFoodPage from './render-create-food-page';
 import addListenerMulti from './add-listener-multi';
 
+const cssUrl = `${window.location.pathname}.css`;
 const language = document.documentElement.lang.split('_')[0];
 const region = document.documentElement.lang.split('_')[1];
 
-export default () => {
+const render = () => {
   const app = document.getElementById('app');
   app.innerHTML = addFoodTemplate;
 
-  /* eslint-disable no-param-reassign */
   const navigationButtons = [...document
     .querySelectorAll('.navigation-button')];
   navigationButtons.forEach((button, i, buttons) => {
@@ -79,7 +81,9 @@ export default () => {
     const customFoods = await customFoodsResponse.json();
     customFoods
       .filter(food => food
-        .name.substring(0, searchBar.value.length).toLowerCase() === searchBar.value.toLowerCase())
+        .name
+        .substring(0, searchBar.value.length)
+        .toLowerCase() === searchBar.value.toLowerCase())
       .forEach((food) => {
         const {
           name,
@@ -98,10 +102,10 @@ export default () => {
           carbs,
         ));
       });
+    // eslint-disable-next-line max-len
     await fetch(`/api/fatsecret?search_expression=${searchBar.value}&language=${language}&region=${region}`)
       .then((response) => {
         response.json().then((data) => {
-          // console.log(data)
           const products = Object.entries(data);
           products.forEach((product) => {
             const {
@@ -218,23 +222,10 @@ export default () => {
               .firstElementChild
               .nextElementSibling
               .textContent.match(/[+-]?\d+(?:\.\d+)?/g).map(Number);
-            const getName = () => {
-              // return card
-              //   .firstElementChild
-              //   .textContent.split(' ')[1];
-              return card.querySelector('.add-food-card-name').textContent;
-            }
-            const getBrand = () => {
-              // return card
-              // .firstElementChild
-              // .textContent.split(', ')
-              // .length > 1 ? card
-              //   .firstElementChild
-              //   .textContent.split(' ')[1] : '';
-              return card.querySelector('.add-food-card-brand').textContent;
-            }
-            console.log(`name: ${getName()}`)
-            console.log(`brand: ${getBrand()}`)
+            const getName = () => card
+              .querySelector('.add-food-card-name').textContent;
+            const getBrand = () => card
+              .querySelector('.add-food-card-brand').textContent;
             const cardData = {
               name: getName(),
               brand: getBrand(),
@@ -256,8 +247,8 @@ export default () => {
               .then(() => console.log('updated!!!'))
               .catch(error => console.error(error));
           };
-          addThisFoodCard.addEventListener('submit', (e) => {
-            e.preventDefault();
+          addThisFoodCard.addEventListener('submit', (event) => {
+            event.preventDefault();
             addFoodToDatabase();
             window.history.pushState(null, null, '/homepage');
             renderHomePage();
@@ -283,4 +274,9 @@ export default () => {
       window.history.pushState(null, null, '/create-food');
       renderCreateFoodPage();
     });
+};
+
+export default () => {
+  loadCSS(cssUrl);
+  render();
 };

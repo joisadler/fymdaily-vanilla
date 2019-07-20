@@ -416,138 +416,130 @@
 //   }
 // }
 
-.add-food-section,
-.create-food-section,
-.custom-foods-section {
-  box-sizing: border-box;
-  width: 80%;
-  height: 80%;
-  margin-left: 0;
-  padding-top: 10%;
-  //mobile device in landscape mode
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
-    width: 93%;
-    height: 80%;
-    padding-left: 7%;
-    padding-top: 0;
-  }
-  // desktop
-  @media (min-width: $desktop) {
-    width: 80%;
-    height: 80%;
-  }
-  // iPad Pro in landscape mode
-  @media only screen
-    and (min-width: 1024px)
-    and (max-height: 1366px)
-    and (orientation: landscape)
-    and (min-resolution: 1.5dppx) {
-    width: 93%;
-    height: 80%;
-    padding-left: 7%;
-    padding-top: 0;
-  }
-}
+// .add-food-section,
+// .create-food-section,
+// .custom-foods-section {
+//   box-sizing: border-box;
+//   width: 80%;
+//   height: 80%;
+//   margin-left: 0;
+//   padding-top: 10%;
+//   //mobile device in landscape mode
+//   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+//     width: 93%;
+//     height: 80%;
+//     padding-left: 7%;
+//     padding-top: 0;
+//   }
+//   // desktop
+//   @media (min-width: $desktop) {
+//     width: 80%;
+//     height: 80%;
+//   }
+//   // iPad Pro in landscape mode
+//   @media only screen
+//     and (min-width: 1024px)
+//     and (max-height: 1366px)
+//     and (orientation: landscape)
+//     and (min-resolution: 1.5dppx) {
+//     width: 93%;
+//     height: 80%;
+//     padding-left: 7%;
+//     padding-top: 0;
+//   }
+// }
 
-.add-food-options-container,
-.create-food-options-container,
-.custom-foods-options-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  width: 100%;
-  height: 5%;
-  margin-bottom: 5%;
+// .add-food-options-container,
+// .create-food-options-container,
+// .custom-foods-options-container {
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: nowrap;
+//   justify-content: space-between;
+//   width: 100%;
+//   height: 5%;
+//   margin-bottom: 5%;
 
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
-    margin-bottom: 0;
-  }
-  // soft keyboard is opened in portrait mode
-  @media (max-width: #{$desktop - 1}) and (orientation: landscape)  and (max-device-aspect-ratio: 1/1) {
-    margin-bottom: 5%;
-  }
-  // iPad Pro in landscape mode
-  @media only screen
-    and (min-width: 1024px)
-    and (max-height: 1366px)
-    and (orientation: landscape)
-    and (min-resolution: 1.5dppx) {
-    margin-bottom: 0;
-  }
-}
+//   @media (max-width: #{$desktop - 1}) and (orientation: landscape) {
+//     margin-bottom: 0;
+//   }
+//   // soft keyboard is opened in portrait mode
+//   @media (max-width: #{$desktop - 1}) and (orientation: landscape)  and (max-device-aspect-ratio: 1/1) {
+//     margin-bottom: 5%;
+//   }
+//   // iPad Pro in landscape mode
+//   @media only screen
+//     and (min-width: 1024px)
+//     and (max-height: 1366px)
+//     and (orientation: landscape)
+//     and (min-resolution: 1.5dppx) {
+//     margin-bottom: 0;
+//   }
+// }
 
-.add-food-header,
-.create-food-header,
-.custom-foods-header {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-size: 7vmin;
-  line-height: 100%;
-  // desktop
-  @media (min-width: $desktop) {
-    font-size: 5vmin;
-  }
-  // iPad Pro in landscape mode
-  @media only screen
-    and (min-width: 1024px)
-    and (max-height: 1366px)
-    and (orientation: landscape)
-    and (min-resolution: 1.5dppx) {
-    font-size: 7vmin;
-  }
-}
+// .add-food-header,
+// .create-food-header,
+// .custom-foods-header {
+//   height: 100%;
+//   margin: 0;
+//   padding: 0;
+//   font-size: 7vmin;
+//   line-height: 100%;
+//   // desktop
+//   @media (min-width: $desktop) {
+//     font-size: 5vmin;
+//   }
+//   // iPad Pro in landscape mode
+//   @media only screen
+//     and (min-width: 1024px)
+//     and (max-height: 1366px)
+//     and (orientation: landscape)
+//     and (min-resolution: 1.5dppx) {
+//     font-size: 7vmin;
+//   }
+// }
 
-input.add-food-search-bar {
-  display: none;
-  flex: 1;
-  height: 100%;
-  padding: 1vmin;
-  border: 1px solid black;
-}
+// .add-food-option-buttons,
+// .create-food-option-buttons,
+// .custom-foods-option-buttons {
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: nowrap;
+//   height: 100%;
+// }
 
-.add-food-option-buttons,
-.create-food-option-buttons,
-.custom-foods-option-buttons {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  height: 100%;
-}
+// .add-food-option-button,
+// .create-food-option-button,
+// .custom-foods-option-button {
+//   height: 100%;
+//   padding: 0;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-size: 100%;
+//   background-color: white;
+//   border: none;
+// }
 
-.add-food-option-button,
-.create-food-option-button,
-.custom-foods-option-button {
-  height: 100%;
-  padding: 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-color: white;
-  border: none;
-}
+// .add-food-search-button {
+//   margin-right: 5vmin;
+//   background-image: url("../images/search.png");
+//   //desktop
+//   @media (min-width: $desktop) {
+//     margin-right: 3vmin;
+//   }
+//   // iPad Pro in landscape mode
+//   @media only screen
+//     and (min-width: 1024px)
+//     and (max-height: 1366px)
+//     and (orientation: landscape)
+//     and (min-resolution: 1.5dppx) {
+//     margin-right: 5vmin;
+//   }
+// }
 
-.add-food-search-button {
-  margin-right: 5vmin;
-  background-image: url("../images/search.png");
-  //desktop
-  @media (min-width: $desktop) {
-    margin-right: 3vmin;
-  }
-  // iPad Pro in landscape mode
-  @media only screen
-    and (min-width: 1024px)
-    and (max-height: 1366px)
-    and (orientation: landscape)
-    and (min-resolution: 1.5dppx) {
-    margin-right: 5vmin;
-  }
-}
-
-.add-food-create-button {
-  background-image: url("../images/edit.png");
-}
+// .add-food-create-button {
+//   background-image: url("../images/edit.png");
+// }
 
 .create-food-cancel-button,
 .custom-foods-cancel-button {
@@ -590,13 +582,13 @@ input.add-food-search-bar {
   background-image: url("../images/add.png");
 }
 
-.add-food-cards,
-.custom-foods-cards {
-  width: 100%;
-  height: 90%;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
+// .add-food-cards,
+// .custom-foods-cards {
+//   width: 100%;
+//   height: 90%;
+//   overflow-x: hidden;
+//   overflow-y: auto;
+// }
 
 .add-food-card {
   display: flex;

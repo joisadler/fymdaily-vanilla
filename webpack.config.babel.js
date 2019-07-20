@@ -10,6 +10,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const config = {
   entry: {
     homepage: './src/javascripts/styles/homepage.js',
+    'add-food': './src/javascripts/styles/add-food.js',
     index: './src/javascripts/index.js',
     signup: './src/javascripts/signup.js',
     analytics: './src/javascripts/analytics.js',
@@ -17,7 +18,7 @@ const config = {
   },
   output: {
     path: path.join(__dirname, 'public'),
-    filename: '[name].bundle.js',
+    filename: '[name].js',
   },
   watch: NODE_ENV === 'development',
   watchOptions: {
