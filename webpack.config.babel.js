@@ -9,11 +9,12 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const config = {
   entry: {
+    // main: './src/javascripts/styles/main.js',
     homepage: './src/javascripts/styles/homepage.js',
     'add-food': './src/javascripts/styles/add-food.js',
     index: './src/javascripts/index.js',
     signup: './src/javascripts/signup.js',
-    analytics: './src/javascripts/analytics.js',
+    // analytics: './src/javascripts/analytics.js',
     app: './src/javascripts/app.js',
   },
   output: {
