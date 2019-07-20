@@ -1,9 +1,11 @@
 /* eslint-disable no-param-reassign */
+import { loadCSS } from 'fg-loadcss';
 import calculateMacros from './calculations';
 import homepageTemplate from '../../views/homepage.pug';
 import renderEatenFoodsPage from './render-eaten-foods-page';
 import renderAddFoodPage from './render-add-food-page';
-import addCss from './add-css';
+//import addCss from './add-css';
+
 
 const render = () => {
   const app = document.getElementById('app');
@@ -264,6 +266,8 @@ const render = () => {
 };
 
 export default () => {
-  addCss();
+  //addCss();
+  const cssUrl = `${window.location.pathname}.css`;
+  loadCSS(cssUrl)
   render();
 };
