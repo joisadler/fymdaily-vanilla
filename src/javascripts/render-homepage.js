@@ -7,6 +7,165 @@ import renderAddFoodPage from './render-add-food-page';
 
 const cssUrl = `${window.location.pathname}.css`;
 
+const getUsersData = async () => {
+  const data = await fetch('/user', {
+    method: 'GET',
+    credentials: 'include',
+  });
+  const json = await data.json();
+  return json;
+};
+
+const getUsersHistory = async () => {
+  const data = await fetch('/api/history', {
+    method: 'GET',
+    credentials: 'include',
+  });
+  const json = await data.json();
+  return json;
+};
+
+const getParams = (data, history) => {
+  const {
+    bodyWeight,
+    height,
+    gender,
+    waistCircumference,
+    neckCircumference,
+    hipCircumference,
+    physicalActivityLevel,
+    goal
+  } = data;
+  const macros = calculateMacros(
+    bodyWeight,
+    height,
+    gender,
+    waistCircumference,
+    neckCircumference,
+    hipCircumference,
+    physicalActivityLevel,
+    goal
+  );
+  const dailyCaloriesNeed = Math.round(macros.dailyCaloriesNeed);
+  const dailyProteinsNeed = Math.round(macros.dailyProteinsNeed);
+  const dailyFatsNeed = Math.round(macros.dailyFatsNeed);
+  const dailyCarbsNeed = Math.round(macros.dailyCarbsNeed);
+  let currentCalories = 0;
+  let currentProteins = 0;
+  let currentFats = 0;
+  let currentCarbs = 0;
+
+  history.products.forEach((product) => {
+    currentCalories
+      += Math.round(product.calories * product.weight * 0.01);
+    currentProteins
+      += Math.round(product.proteins * product.weight * 0.01);
+    currentFats
+      += Math.round(product.fats * product.weight * 0.01);
+    currentCarbs
+      += Math.round(product.carbs * product.weight * 0.01);
+  });
+
+  const currentCaloriesRemainder = dailyCaloriesNeed - currentCalories;
+  const currentPercentOfDailyCaloriesNeed = Math.round(currentCalories
+    / dailyCaloriesNeed * 100);
+  const currentPercentOfDailyProteinsNeed = Math.round(currentProteins
+    / dailyProteinsNeed * 100);
+  const currentPercentOfDailyFatsNeed = Math.round(currentFats
+    / dailyFatsNeed * 100);
+  const currentPercentOfDailyCarbsNeed = Math.round(currentCarbs
+    / dailyCarbsNeed * 100);
+  const caloriesPerGramOfProtein = 4.1;
+  const caloriesPerGramOfFat = 9.3;
+  const caloriesPerGramOfCarb = 4.1;
+  const currentProteinsToCalories = currentProteins * caloriesPerGramOfProtein;
+  const currentFatsToCalories = currentFats * caloriesPerGramOfFat;
+  const currentCarbsToCalories = currentCarbs * caloriesPerGramOfCarb;
+  const percentageOfProteinsInDailyCaloriesNeed = (currentProteinsToCalories
+    / dailyCaloriesNeed) * 100;
+  const percentageOfFatsInDailyCaloriesNeed = (currentFatsToCalories
+    / dailyCaloriesNeed) * 100;
+  const percentageOfCarbsInDailyCaloriesNeed = (currentCarbsToCalories
+    / dailyCaloriesNeed) * 100;
+  const percentageOfEmptyCaloriesInDailyCaloriesNeed = (((currentCalories
+    - (currentProteinsToCalories
+      + currentFatsToCalories
+      + currentCarbsToCalories))
+      / dailyCaloriesNeed) * 100) > 0
+    ? (((currentCalories
+      - (currentProteinsToCalories
+        + currentFatsToCalories
+        + currentCarbsToCalories))
+        / dailyCaloriesNeed) * 100)
+    : 0;
+  return {
+    dailyCaloriesNeed,
+    dailyProteinsNeed,
+    dailyFatsNeed,
+    dailyCarbsNeed,
+    currentCalories,
+    currentProteins,
+    currentFats,
+    currentCarbs,
+    currentCaloriesRemainder,
+    currentPercentOfDailyCaloriesNeed,
+    currentPercentOfDailyProteinsNeed,
+    currentPercentOfDailyFatsNeed,
+    currentPercentOfDailyCarbsNeed,
+    percentageOfProteinsInDailyCaloriesNeed,
+    percentageOfFatsInDailyCaloriesNeed,
+    percentageOfCarbsInDailyCaloriesNeed,
+    percentageOfEmptyCaloriesInDailyCaloriesNeed,
+  };
+};
+
+const getElements = () => {
+  const caloriesChart = document.querySelector('.calories-chart');
+  const caloriesChartContent = document
+    .querySelector('.calories-chart-content');
+  const caloriesHeadline = document.querySelector('.calories-headline');
+  const caloriesSubheadline = document.querySelector('.calories-subheadline');
+  const caloriesNumber = document.querySelector('.calories-number');
+  const alternativeCaloriesChartContent = document
+    .querySelector('.alternative-calories-chart-content');
+  const alternativeCaloriesChartContentNumber = document
+    .querySelector('.alternative-calories-chart-content-number');
+  const alternativeCaloriesChartContentPercent = document
+    .querySelector('.alternative-calories-chart-content-percent');
+  const proteinsProgressBarInner = document
+    .querySelector('.proteins-progress-bar-inner');
+  const fatsProgressBarInner = document
+    .querySelector('.fats-progress-bar-inner');
+  const carbsProgressBarInner = document
+    .querySelector('.carbs-progress-bar-inner');
+  const proteinsPercentContainer = document
+    .querySelector('.proteins-percent-container');
+  const fatsPercentContainer = document
+    .querySelector('.fats-percent-container');
+  const carbsPercentContainer = document
+    .querySelector('.carbs-percent-container');
+  const eatenFoodsButton = document.querySelector('.eaten-foods-button');
+  const addFoodButton = document.querySelector('.add-food-button');
+  return {
+    caloriesChart,
+    caloriesChartContent,
+    caloriesHeadline,
+    caloriesSubheadline,
+    caloriesNumber,
+    alternativeCaloriesChartContent,
+    alternativeCaloriesChartContentNumber,
+    alternativeCaloriesChartContentPercent,
+    proteinsProgressBarInner,
+    fatsProgressBarInner,
+    carbsProgressBarInner,
+    proteinsPercentContainer,
+    fatsPercentContainer,
+    carbsPercentContainer,
+    eatenFoodsButton,
+    addFoodButton
+  };
+};
+
 const rgb2hex = (rgb) => {
   rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
   function hex(x) {
@@ -186,157 +345,234 @@ const listenToButtons = (
   });
 };
 
-const render = () => {
+// const render = () => {
+//   const app = document.getElementById('app');
+//   app.innerHTML = homepageTemplate;
+//   const caloriesChart = document.querySelector('.calories-chart');
+//   const caloriesChartContent = document
+//     .querySelector('.calories-chart-content');
+//   const caloriesHeadline = document.querySelector('.calories-headline');
+//   const caloriesSubheadline = document.querySelector('.calories-subheadline');
+//   const caloriesNumber = document.querySelector('.calories-number');
+//   const alternativeCaloriesChartContent = document
+//     .querySelector('.alternative-calories-chart-content');
+//   const alternativeCaloriesChartContentNumber = document
+//     .querySelector('.alternative-calories-chart-content-number');
+//   const alternativeCaloriesChartContentPercent = document
+//     .querySelector('.alternative-calories-chart-content-percent');
+//   const proteinsProgressBarInner = document
+//     .querySelector('.proteins-progress-bar-inner');
+//   const fatsProgressBarInner = document
+//     .querySelector('.fats-progress-bar-inner');
+//   const carbsProgressBarInner = document
+//     .querySelector('.carbs-progress-bar-inner');
+//   const proteinsPercentContainer = document
+//     .querySelector('.proteins-percent-container');
+//   const fatsPercentContainer = document
+//     .querySelector('.fats-percent-container');
+//   const carbsPercentContainer = document
+//     .querySelector('.carbs-percent-container');
+//   const eatenFoodsButton = document.querySelector('.eaten-foods-button');
+//   const addFoodButton = document.querySelector('.add-food-button');
+
+//   fetch('/user', {
+//     method: 'GET',
+//     credentials: 'include',
+//   }).then((response) => {
+//     response.json().then((data) => {
+//       const user = data;
+//       const {
+//         bodyWeight,
+//         height,
+//         gender,
+//         waistCircumference,
+//         neckCircumference,
+//         hipCircumference,
+//         physicalActivityLevel,
+//         goal
+//       } = user;
+
+//       // const bodyWeight = 122;
+//       // const height = 180;
+//       // const gender = 'male';
+//       // const waistCircumference = 125;
+//       // const neckCircumference = 45;
+//       // const hipCircumference = 0;
+//       // const physicalActivityLevel = 'moderate';
+//       // const goal = 'normalWeightLoss';
+
+//       const macros = calculateMacros(
+//         bodyWeight,
+//         height,
+//         gender,
+//         waistCircumference,
+//         neckCircumference,
+//         hipCircumference,
+//         physicalActivityLevel,
+//         goal
+//       );
+//       const dailyCaloriesNeed = Math.round(macros.dailyCaloriesNeed);
+//       const dailyProteinsNeed = Math.round(macros.dailyProteinsNeed);
+//       const dailyFatsNeed = Math.round(macros.dailyFatsNeed);
+//       const dailyCarbsNeed = Math.round(macros.dailyCarbsNeed);
+//       let currentCalories = 0;
+//       let currentProteins = 0;
+//       let currentFats = 0;
+//       let currentCarbs = 0;
+
+//       fetch('/api/history', {
+//         method: 'GET',
+//         credentials: 'include',
+//       }).then((res) => {
+//         res.json().then((history) => {
+//           history.products.forEach((product) => {
+//             currentCalories
+//               += Math.round(product.calories * product.weight * 0.01);
+//             currentProteins
+//               += Math.round(product.proteins * product.weight * 0.01);
+//             currentFats
+//               += Math.round(product.fats * product.weight * 0.01);
+//             currentCarbs
+//               += Math.round(product.carbs * product.weight * 0.01);
+//           });
+
+//           /* eslint-disable max-len */
+//           const currentCaloriesRemainder = dailyCaloriesNeed - currentCalories;
+//           const currentPercentOfDailyCaloriesNeed = Math.round(currentCalories / dailyCaloriesNeed * 100);
+//           const currentPercentOfDailyProteinsNeed = Math.round(currentProteins / dailyProteinsNeed * 100);
+//           const currentPercentOfDailyFatsNeed = Math.round(currentFats / dailyFatsNeed * 100);
+//           const currentPercentOfDailyCarbsNeed = Math.round(currentCarbs / dailyCarbsNeed * 100);
+//           /* eslint-disable max-len */
+//           const caloriesPerGramOfProtein = 4.1;
+//           const caloriesPerGramOfFat = 9.3;
+//           const caloriesPerGramOfCarb = 4.1;
+//           const currentProteinsToCalories = currentProteins * caloriesPerGramOfProtein;
+//           const currentFatsToCalories = currentFats * caloriesPerGramOfFat;
+//           const currentCarbsToCalories = currentCarbs * caloriesPerGramOfCarb;
+//           const percentageOfProteinsInDailyCaloriesNeed = (currentProteinsToCalories / dailyCaloriesNeed) * 100;
+//           const percentageOfFatsInDailyCaloriesNeed = (currentFatsToCalories / dailyCaloriesNeed) * 100;
+//           const percentageOfCarbsInDailyCaloriesNeed = (currentCarbsToCalories / dailyCaloriesNeed) * 100;
+//           const percentageOfEmptyCaloriesInDailyCaloriesNeed = (((currentCalories - (currentProteinsToCalories + currentFatsToCalories + currentCarbsToCalories)) / dailyCaloriesNeed) * 100) > 0
+//             ? (((currentCalories - (currentProteinsToCalories + currentFatsToCalories + currentCarbsToCalories)) / dailyCaloriesNeed) * 100)
+//             : 0;
+
+//           renderCaloriesChartSectors(
+//             percentageOfProteinsInDailyCaloriesNeed,
+//             percentageOfFatsInDailyCaloriesNeed,
+//             percentageOfCarbsInDailyCaloriesNeed,
+//             percentageOfEmptyCaloriesInDailyCaloriesNeed,
+//             caloriesChart
+//           );
+//           renderCaloriesChartContent(
+//             caloriesChart,
+//             currentCaloriesRemainder,
+//             caloriesNumber,
+//             caloriesChartContent,
+//             alternativeCaloriesChartContent,
+//             caloriesHeadline,
+//             caloriesSubheadline,
+//             alternativeCaloriesChartContentNumber,
+//             alternativeCaloriesChartContentPercent,
+//             currentCalories,
+//             dailyCaloriesNeed,
+//             currentPercentOfDailyCaloriesNeed
+//           );
+//           renderMacrosProgressBars(
+//             proteinsProgressBarInner,
+//             fatsProgressBarInner,
+//             carbsProgressBarInner,
+//             proteinsPercentContainer,
+//             fatsPercentContainer,
+//             carbsPercentContainer,
+//             currentPercentOfDailyProteinsNeed,
+//             currentPercentOfDailyFatsNeed,
+//             currentPercentOfDailyCarbsNeed,
+//           );
+//         })
+//           .catch(error => console.error(error));
+//       });
+//     });
+//   });
+//   listenToButtons(
+//     eatenFoodsButton,
+//     addFoodButton
+//   );
+// };
+
+const render = async () => {
   const app = document.getElementById('app');
   app.innerHTML = homepageTemplate;
-  const caloriesChart = document.querySelector('.calories-chart');
-  const caloriesChartContent = document
-    .querySelector('.calories-chart-content');
-  const caloriesHeadline = document.querySelector('.calories-headline');
-  const caloriesSubheadline = document.querySelector('.calories-subheadline');
-  const caloriesNumber = document.querySelector('.calories-number');
-  const alternativeCaloriesChartContent = document
-    .querySelector('.alternative-calories-chart-content');
-  const alternativeCaloriesChartContentNumber = document
-    .querySelector('.alternative-calories-chart-content-number');
-  const alternativeCaloriesChartContentPercent = document
-    .querySelector('.alternative-calories-chart-content-percent');
-  const proteinsProgressBarInner = document
-    .querySelector('.proteins-progress-bar-inner');
-  const fatsProgressBarInner = document
-    .querySelector('.fats-progress-bar-inner');
-  const carbsProgressBarInner = document
-    .querySelector('.carbs-progress-bar-inner');
-  const proteinsPercentContainer = document
-    .querySelector('.proteins-percent-container');
-  const fatsPercentContainer = document
-    .querySelector('.fats-percent-container');
-  const carbsPercentContainer = document
-    .querySelector('.carbs-percent-container');
-  const eatenFoodsButton = document.querySelector('.eaten-foods-button');
-  const addFoodButton = document.querySelector('.add-food-button');
 
-  fetch('/user', {
-    method: 'GET',
-    credentials: 'include',
-  }).then((response) => {
-    response.json().then((data) => {
-      const user = data;
-      const {
-        bodyWeight,
-        height,
-        gender,
-        waistCircumference,
-        neckCircumference,
-        hipCircumference,
-        physicalActivityLevel,
-        goal
-      } = user;
 
-      // const bodyWeight = 122;
-      // const height = 180;
-      // const gender = 'male';
-      // const waistCircumference = 125;
-      // const neckCircumference = 45;
-      // const hipCircumference = 0;
-      // const physicalActivityLevel = 'moderate';
-      // const goal = 'normalWeightLoss';
 
-      const macros = calculateMacros(
-        bodyWeight,
-        height,
-        gender,
-        waistCircumference,
-        neckCircumference,
-        hipCircumference,
-        physicalActivityLevel,
-        goal
-      );
-      const dailyCaloriesNeed = Math.round(macros.dailyCaloriesNeed);
-      const dailyProteinsNeed = Math.round(macros.dailyProteinsNeed);
-      const dailyFatsNeed = Math.round(macros.dailyFatsNeed);
-      const dailyCarbsNeed = Math.round(macros.dailyCarbsNeed);
-      let currentCalories = 0;
-      let currentProteins = 0;
-      let currentFats = 0;
-      let currentCarbs = 0;
+  // const caloriesChart = document.querySelector('.calories-chart');
+  // const caloriesChartContent = document
+  //   .querySelector('.calories-chart-content');
+  // const caloriesHeadline = document.querySelector('.calories-headline');
+  // const caloriesSubheadline = document.querySelector('.calories-subheadline');
+  // const caloriesNumber = document.querySelector('.calories-number');
+  // const alternativeCaloriesChartContent = document
+  //   .querySelector('.alternative-calories-chart-content');
+  // const alternativeCaloriesChartContentNumber = document
+  //   .querySelector('.alternative-calories-chart-content-number');
+  // const alternativeCaloriesChartContentPercent = document
+  //   .querySelector('.alternative-calories-chart-content-percent');
+  // const proteinsProgressBarInner = document
+  //   .querySelector('.proteins-progress-bar-inner');
+  // const fatsProgressBarInner = document
+  //   .querySelector('.fats-progress-bar-inner');
+  // const carbsProgressBarInner = document
+  //   .querySelector('.carbs-progress-bar-inner');
+  // const proteinsPercentContainer = document
+  //   .querySelector('.proteins-percent-container');
+  // const fatsPercentContainer = document
+  //   .querySelector('.fats-percent-container');
+  // const carbsPercentContainer = document
+  //   .querySelector('.carbs-percent-container');
+  // const eatenFoodsButton = document.querySelector('.eaten-foods-button');
+  // const addFoodButton = document.querySelector('.add-food-button');
 
-      fetch('/api/history', {
-        method: 'GET',
-        credentials: 'include',
-      }).then((res) => {
-        res.json().then((history) => {
-          history.products.forEach((product) => {
-            currentCalories
-              += Math.round(product.calories * product.weight * 0.01);
-            currentProteins
-              += Math.round(product.proteins * product.weight * 0.01);
-            currentFats
-              += Math.round(product.fats * product.weight * 0.01);
-            currentCarbs
-              += Math.round(product.carbs * product.weight * 0.01);
-          });
+  const data = await getUsersData();
+  const history = await getUsersHistory();
 
-          /* eslint-disable max-len */
-          const currentCaloriesRemainder = dailyCaloriesNeed - currentCalories;
-          const currentPercentOfDailyCaloriesNeed = Math.round(currentCalories / dailyCaloriesNeed * 100);
-          const currentPercentOfDailyProteinsNeed = Math.round(currentProteins / dailyProteinsNeed * 100);
-          const currentPercentOfDailyFatsNeed = Math.round(currentFats / dailyFatsNeed * 100);
-          const currentPercentOfDailyCarbsNeed = Math.round(currentCarbs / dailyCarbsNeed * 100);
-          /* eslint-disable max-len */
-          const caloriesPerGramOfProtein = 4.1;
-          const caloriesPerGramOfFat = 9.3;
-          const caloriesPerGramOfCarb = 4.1;
-          const currentProteinsToCalories = currentProteins * caloriesPerGramOfProtein;
-          const currentFatsToCalories = currentFats * caloriesPerGramOfFat;
-          const currentCarbsToCalories = currentCarbs * caloriesPerGramOfCarb;
-          const percentageOfProteinsInDailyCaloriesNeed = (currentProteinsToCalories / dailyCaloriesNeed) * 100;
-          const percentageOfFatsInDailyCaloriesNeed = (currentFatsToCalories / dailyCaloriesNeed) * 100;
-          const percentageOfCarbsInDailyCaloriesNeed = (currentCarbsToCalories / dailyCaloriesNeed) * 100;
-          const percentageOfEmptyCaloriesInDailyCaloriesNeed = (((currentCalories - (currentProteinsToCalories + currentFatsToCalories + currentCarbsToCalories)) / dailyCaloriesNeed) * 100) > 0
-            ? (((currentCalories - (currentProteinsToCalories + currentFatsToCalories + currentCarbsToCalories)) / dailyCaloriesNeed) * 100)
-            : 0;
+  renderCaloriesChartSectors(
+    getParams(data, history).percentageOfProteinsInDailyCaloriesNeed,
+    getParams(data, history).percentageOfFatsInDailyCaloriesNeed,
+    getParams(data, history).percentageOfCarbsInDailyCaloriesNeed,
+    getParams(data, history).percentageOfEmptyCaloriesInDailyCaloriesNeed,
+    getElements().caloriesChart,
+  );
 
-          renderCaloriesChartSectors(
-            percentageOfProteinsInDailyCaloriesNeed,
-            percentageOfFatsInDailyCaloriesNeed,
-            percentageOfCarbsInDailyCaloriesNeed,
-            percentageOfEmptyCaloriesInDailyCaloriesNeed,
-            caloriesChart
-          );
-          renderCaloriesChartContent(
-            caloriesChart,
-            currentCaloriesRemainder,
-            caloriesNumber,
-            caloriesChartContent,
-            alternativeCaloriesChartContent,
-            caloriesHeadline,
-            caloriesSubheadline,
-            alternativeCaloriesChartContentNumber,
-            alternativeCaloriesChartContentPercent,
-            currentCalories,
-            dailyCaloriesNeed,
-            currentPercentOfDailyCaloriesNeed
-          );
-          renderMacrosProgressBars(
-            proteinsProgressBarInner,
-            fatsProgressBarInner,
-            carbsProgressBarInner,
-            proteinsPercentContainer,
-            fatsPercentContainer,
-            carbsPercentContainer,
-            currentPercentOfDailyProteinsNeed,
-            currentPercentOfDailyFatsNeed,
-            currentPercentOfDailyCarbsNeed,
-          );
-        })
-          .catch(error => console.error(error));
-      });
-    });
-  });
+  renderCaloriesChartContent(
+    getElements().caloriesChart,
+    getParams(data, history).currentCaloriesRemainder,
+    getElements().caloriesNumber,
+    getElements().caloriesChartContent,
+    getElements().alternativeCaloriesChartContent,
+    getElements().caloriesHeadline,
+    getElements().caloriesSubheadline,
+    getElements().alternativeCaloriesChartContentNumber,
+    getElements().alternativeCaloriesChartContentPercent,
+    getParams(data, history).currentCalories,
+    getParams(data, history).dailyCaloriesNeed,
+    getParams(data, history).currentPercentOfDailyCaloriesNeed,
+  );
+
+  renderMacrosProgressBars(
+    getElements().proteinsProgressBarInner,
+    getElements().fatsProgressBarInner,
+    getElements().carbsProgressBarInner,
+    getElements().proteinsPercentContainer,
+    getElements().fatsPercentContainer,
+    getElements().carbsPercentContainer,
+    getParams(data, history).currentPercentOfDailyProteinsNeed,
+    getParams(data, history).currentPercentOfDailyFatsNeed,
+    getParams(data, history).currentPercentOfDailyCarbsNeed,
+  );
+
   listenToButtons(
-    eatenFoodsButton,
-    addFoodButton
+    getElements().eatenFoodsButton,
+    getElements().addFoodButton,
   );
 };
 
