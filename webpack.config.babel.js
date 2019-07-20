@@ -13,7 +13,6 @@ const config = {
     index: './src/javascripts/index.js',
     signup: './src/javascripts/signup.js',
     analytics: './src/javascripts/analytics.js',
-    fontloader: './src/javascripts/fontloader.js',
     app: './src/javascripts/app.js',
   },
   output: {

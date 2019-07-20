@@ -3,13 +3,11 @@ import addFoodTemplate from '../../views/add-food.pug';
 import renderHomePage from './render-homepage';
 import renderCreateFoodPage from './render-create-food-page';
 import addListenerMulti from './add-listener-multi';
-import addCss from './add-css';
 
 const language = document.documentElement.lang.split('_')[0];
 const region = document.documentElement.lang.split('_')[1];
 
 export default () => {
-  //addCss();
   const app = document.getElementById('app');
   app.innerHTML = addFoodTemplate;
 

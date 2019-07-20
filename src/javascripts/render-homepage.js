@@ -4,7 +4,6 @@ import calculateMacros from './calculations';
 import homepageTemplate from '../../views/homepage.pug';
 import renderEatenFoodsPage from './render-eaten-foods-page';
 import renderAddFoodPage from './render-add-food-page';
-//import addCss from './add-css';
 
 
 const render = () => {
