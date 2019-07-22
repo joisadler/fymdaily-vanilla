@@ -1,22 +1,10 @@
 /* eslint-disable no-param-reassign */
-// import { loadCSS } from 'fg-loadcss';
 import debounce from 'lodash/debounce';
 import addFoodTemplate from '../../views/add-food.pug';
 import renderHomePage from './render-homepage';
 import renderCreateFoodPage from './render-create-food-page';
 import addListenerMulti from './add-listener-multi';
 import addCSS from './load-css';
-
-// const addCSS = () => {
-//   const cssUrl = `${window.location.pathname.split('/')[1]}.css`;
-//   const isLinkAlreadyExists = [...document.querySelectorAll('link')]
-//     .filter(link => link.rel === 'stylesheet')
-//     .map(link => link.href.split('/')[link.href.split('/').length - 1])
-//     .includes(cssUrl);
-//   if (!isLinkAlreadyExists) {
-//     loadCSS(cssUrl);
-//   }
-// };
 
 const language = document.documentElement.lang.split('_')[0];
 const region = document.documentElement.lang.split('_')[1];

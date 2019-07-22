@@ -1,21 +1,9 @@
 /* eslint-disable no-param-reassign */
-// import { loadCSS } from 'fg-loadcss';
 import calculateMacros from './calculations';
 import homepageTemplate from '../../views/homepage.pug';
 import renderEatenFoodsPage from './render-eaten-foods-page';
 import renderAddFoodPage from './render-add-food-page';
 import addCSS from './load-css';
-
-// const addCSS = () => {
-//   const cssUrl = `${window.location.pathname.split('/')[1]}.css`;
-//   const isLinkAlreadyExists = [...document.querySelectorAll('link')]
-//     .filter(link => link.rel === 'stylesheet')
-//     .map(link => link.href.split('/')[link.href.split('/').length - 1])
-//     .includes(cssUrl);
-//   if (!isLinkAlreadyExists) {
-//     loadCSS(cssUrl);
-//   }
-// };
 
 const getUsersData = async () => {
   const data = await fetch('/user', {

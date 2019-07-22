@@ -14,6 +14,7 @@ export default () => {
       user: req.user,
       language: req.user.language || 'en',
       region: req.user.region || 'US',
+      path: req.originalUrl.split('/').pop(),
     });
   });
   return router;

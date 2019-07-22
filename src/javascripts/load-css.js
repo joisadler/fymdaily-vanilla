@@ -20,11 +20,16 @@ export default () => {
   const url = `${filename}.css`;
   style.textContent = `@import "${url}"`;
   const styles = [...document.querySelectorAll('style')];
-  const isCurrenLinkAlreadyExists = styles
+  const isCurrentStyleAlreadyExists = styles
     .map(s => s.textContent)
     .filter(u => u === `@import "${url}"`)
     .length > 0;
-  if (!isCurrenLinkAlreadyExists) {
+  const links = [...document.querySelectorAll('link')];
+  const isCurrenLinkAlreadyExists = links
+    .map((lnk => lnk.href.split('/')[lnk.href.split('/').length - 1]))
+    .filter(url => url === `${filename}.css`)
+    .length > 0;
+  if (!isCurrentStyleAlreadyExists && !isCurrenLinkAlreadyExists) {
     head.appendChild(style);
   }
 };
