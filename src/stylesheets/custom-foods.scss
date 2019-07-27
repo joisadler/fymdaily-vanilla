@@ -20,7 +20,7 @@
     height: 20%;
   }
 
-  @media (max-width: $desktop) {
+  @media (min-width: $desktop) {
     height: 12.5%;
   }
 
