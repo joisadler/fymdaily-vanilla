@@ -23,6 +23,7 @@ const getUsersHistory = async () => {
 };
 
 const getParams = (data, history) => {
+  const { products } = history;
   const {
     bodyWeight,
     height,
@@ -47,21 +48,29 @@ const getParams = (data, history) => {
   const dailyProteinsNeed = Math.round(macros.dailyProteinsNeed);
   const dailyFatsNeed = Math.round(macros.dailyFatsNeed);
   const dailyCarbsNeed = Math.round(macros.dailyCarbsNeed);
-  let currentCalories = 0;
-  let currentProteins = 0;
-  let currentFats = 0;
-  let currentCarbs = 0;
+  // let currentCalories = 0;
+  // let currentProteins = 0;
+  // let currentFats = 0;
+  // let currentCarbs = 0;
 
-  history.products.forEach((product) => {
-    currentCalories
-      += Math.round(product.calories * product.weight * 0.01);
-    currentProteins
-      += Math.round(product.proteins * product.weight * 0.01);
-    currentFats
-      += Math.round(product.fats * product.weight * 0.01);
-    currentCarbs
-      += Math.round(product.carbs * product.weight * 0.01);
-  });
+  // history.products.forEach((product) => {
+  //   currentCalories
+  //     += Math.round(product.calories * product.weight * 0.01);
+  //   currentProteins
+  //     += Math.round(product.proteins * product.weight * 0.01);
+  //   currentFats
+  //     += Math.round(product.fats * product.weight * 0.01);
+  //   currentCarbs
+  //     += Math.round(product.carbs * product.weight * 0.01);
+  // });
+  const currentCalories = products
+    .reduce((acc, current) => acc + current.calories, 0);
+  const currentProteins = products
+    .reduce((acc, current) => acc + current.proteins, 0);
+  const currentFats = products
+    .reduce((acc, current) => acc + current.fats, 0);
+  const currentCarbs = products
+    .reduce((acc, current) => acc + current.carbs, 0);
 
   const currentCaloriesRemainder = dailyCaloriesNeed - currentCalories;
   const currentPercentOfDailyCaloriesNeed = Math.round(currentCalories

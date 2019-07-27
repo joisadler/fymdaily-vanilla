@@ -21,11 +21,9 @@ export default () => {
   router.post('/', async (req, res) => {
     try {
       const createdBy = req.user._id;
-      const name = decodeURIComponent(req.query.name);
-      const brand = decodeURIComponent(req.query.brand);
+      const name = decodeURIComponent(req.query.name).trim();
+      const brand = decodeURIComponent(req.query.brand).trim();
       const {
-        // name,
-        // brand,
         calories,
         proteins,
         fats,
@@ -56,12 +54,10 @@ export default () => {
   // });
 
   router.delete('/', async (req, res) => {
+    const createdBy = req.user._id;
+    const name = decodeURIComponent(req.query.name);
+    const brand = decodeURIComponent(req.query.brand);
     try {
-      const createdBy = req.user._id;
-      const {
-        name,
-        brand,
-      } = req.query;
       await Food.findOneAndDelete({
         createdBy,
         name,

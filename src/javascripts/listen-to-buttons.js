@@ -48,12 +48,24 @@ export default () => {
   }
 
   if (cancelButton) {
-    cancelButton.addEventListener('click',
-      (e) => {
-        e.preventDefault();
-        window.history.pushState(null, null, '/add-food');
-        renderAddFoodPage();
-      });
+    switch (window.location.pathname) {
+      case '/create-food':
+      case '/custom-foods':
+        cancelButton.addEventListener('click',
+          (e) => {
+            e.preventDefault();
+            window.history.pushState(null, null, '/add-food');
+            renderAddFoodPage();
+          });
+        break;
+      default:
+        cancelButton.addEventListener('click',
+          (e) => {
+            e.preventDefault();
+            window.history.pushState(null, null, '/homepage');
+            renderHomePage();
+          });
+    }
   }
 
   if (createFoodButton) {

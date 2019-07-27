@@ -1,0 +1,11 @@
+.eaten-food-card
+  .eaten-food-card-header
+    span.eaten-food-card-name #{name}
+    if brand
+      span ,&nbsp;
+    span.eaten-food-card-brand #{brand}
+    span(dir='auto') &nbsp;| #{weight}gr
+  p.add-food-card-info Calories: #{calories} | Proteins: #{proteins} | Fats: #{fats} | Carbs: #{carbs}
+  .eaten-food-card-buttons-container
+    button.eaten-food-card-button.eaten-food-card-edit-button
+    button.eaten-food-card-button.eaten-food-card-delete-button

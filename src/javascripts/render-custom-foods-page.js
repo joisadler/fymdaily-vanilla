@@ -120,10 +120,10 @@ const render = async () => {
       }
     });
   });
+  listenToButtons();
 };
 
 export default () => {
   addCSS();
   render();
-  listenToButtons();
 };

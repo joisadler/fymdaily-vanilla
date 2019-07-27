@@ -10,14 +10,16 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const config = {
   entry: {
-    homepage: './src/javascripts/styles/homepage.js',
-    'add-food': './src/javascripts/styles/add-food.js',
-    'create-food': './src/javascripts/styles/create-food.js',
-    'custom-foods': './src/javascripts/styles/custom-foods.js',
     index: './src/javascripts/index.js',
     signup: './src/javascripts/signup.js',
     // analytics: './src/javascripts/analytics.js',
     app: './src/javascripts/app.js',
+    // load styles
+    homepage: './src/javascripts/styles/homepage.js',
+    'add-food': './src/javascripts/styles/add-food.js',
+    'create-food': './src/javascripts/styles/create-food.js',
+    'custom-foods': './src/javascripts/styles/custom-foods.js',
+    'eaten-foods': './src/javascripts/styles/eaten-foods.js',
   },
   output: {
     path: path.join(__dirname, 'public'),
@@ -43,8 +45,6 @@ const config = {
       },
       {
         test: /\.pug$/,
-        // use: ['html-loader', 'pug-html-loader']
-        // use: ['pug-loader']
         loader: 'pug-loader'
       },
       {
@@ -80,8 +80,8 @@ const config = {
           {
             loader: 'url-loader',
             options: {
-              //  limit: 100000,
-              limit: 0,
+              limit: 8000, // Convert images < 8kb to base64 strings
+              name: 'images/[hash]-[name].[ext]',
             },
           },
         ],
@@ -95,24 +95,26 @@ const config = {
     }),
     new CopyWebpackPlugin([
       {
-        from: './src/images',
-        to: './images'
+        from: './src/images/favicons',
+        to: './images/favicons'
+      },
+      {
+        from: './src/images/facebook',
+        to: './images/facebook'
       }
     ]),
     new ImageminPlugin({
       bail: false, // Ignore errors on corrupted images
       cache: true,
       imageminOptions: {
-        // Before using imagemin plugins make sure you have added them in `package.json` (`devDependencies`) and installed them
- 
         // Lossless optimization with custom option
         // Feel free to experiment with options for better result for you
         plugins: [
-          ["gifsicle", { interlaced: true }],
-          ["jpegtran", { progressive: true }],
-          ["optipng", { optimizationLevel: 5 }],
+          ['gifsicle', { interlaced: true }],
+          ['jpegtran', { progressive: true }],
+          ['optipng', { optimizationLevel: 5 }],
           [
-            "svgo",
+            'svgo',
             {
               plugins: [
                 {
