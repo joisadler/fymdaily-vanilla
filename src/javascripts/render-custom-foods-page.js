@@ -1,60 +1,36 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
 import customFoodsTemplate from '../../views/custom-foods.pug';
-import renderHomePage from './render-homepage';
-import renderAddFoodPage from './render-add-food-page';
-import renderCreateFoodPage from './render-create-food-page';
+import customFoodCardTemplate from '../../views/custom-food-card.pug';
+import addCSS from './load-css';
+import listenToButtons from './listen-to-buttons';
 
-const renderCustomFoodsPage = async () => {
-  const app = document.getElementById('app');
-  app.innerHTML = customFoodsTemplate;
-
-  /* eslint-disable no-param-reassign */
-  const navigationButtons = [...document
-    .querySelectorAll('.navigation-button')];
-  navigationButtons.forEach((button, i, buttons) => {
-    button.style.width = `${button.offsetHeight}px`;
-    if (i === buttons.length - 1) {
-      const foodOptionsContainer = document
-        .querySelector('.custom-foods-options-container');
-      foodOptionsContainer.style.height = `${button.offsetHeight * 0.3}px`;
-    }
-  });
-
-  const optionButtons = [...document
-    .querySelectorAll('.custom-foods-option-button')];
-  optionButtons.forEach((button) => {
-    button.style.width = `${button.offsetHeight}px`;
-  });
-
-  const createCustomFoodCard = (
+const createCustomFoodCard = (
+  name,
+  brand,
+  calories,
+  proteins,
+  fats,
+  carbs
+) => {
+  const card = document.createElement('div');
+  card.classList.add('custom-food-card-wrapper');
+  card.innerHTML = customFoodCardTemplate({
     name,
     brand,
     calories,
     proteins,
     fats,
-    carbs
-  ) => {
-    const card = document.createElement('div');
-    card.classList.add('custom-food-card-wrapper');
-    /* eslint-disable max-len */
-    card.innerHTML = `
-      <div class="custom-food-card">
-        <div class="custom-food-card-header">
-          <span class="custom-food-card-name">${name}</span>${brand ? ', ' : ''}<span class="custom-food-card-brand">${brand}</span>
-        </div>
-        <p class="add-food-card-info">Calories: ${calories} | Proteins: ${proteins} | Fats: ${fats} | Carbs: ${carbs}</p>
-      </div>
-      <div class="custom-food-card-buttons-container">
-        <button class="custom-food-card-button custom-food-card-edit-button">
-        <button class="custom-food-card-button custom-food-card-delete-button">
-      </div>
-      `;
-    return card;
-    /* eslint-enable max-len */
-  };
+    carbs,
+  });
+  return card;
+};
 
-  const foodCardsContainer = document.querySelector('.custom-foods-cards');
+const render = async () => {
+  const app = document.getElementById('app');
+  app.innerHTML = customFoodsTemplate({ path: 'custom-foods' });
+
+  const foodCardsContainer = document.querySelector('.food-cards');
   const customFoodsResponse = await fetch(
     '/api/food',
     {
@@ -79,18 +55,18 @@ const renderCustomFoodsPage = async () => {
       fats,
       carbs,
     ));
-    const foodCardsButtons = [...document
-      .querySelectorAll('.custom-food-card-button')];
-    foodCardsButtons.forEach((button) => {
-      button.style.height = '35%';
-      button.style.width = `${button.offsetHeight}px`;
-    });
+    // const foodCardsButtons = [...document
+    //   .querySelectorAll('.custom-food-card-button')];
+    // foodCardsButtons.forEach((button) => {
+    //   button.style.height = '35%';
+    //   button.style.width = `${button.offsetHeight}px`;
+    // });
   });
 
-  const editButton = document.querySelector('.custom-foods-edit-button');
-  const saveButton = document.querySelector('.custom-foods-save-button');
-  const addButton = document.querySelector('.custom-foods-add-button');
-  const cancelButton = document.querySelector('.custom-foods-cancel-button');
+  const editButton = document.querySelector('.option-edit-button');
+  const saveButton = document.querySelector('.option-save-button');
+  const createButton = document.querySelector('.option-create-button');
+  const cancelButton = document.querySelector('.option-cancel-button');
 
   const foodCards = [...document
     .querySelectorAll('.custom-food-card')];
@@ -110,8 +86,8 @@ const renderCustomFoodsPage = async () => {
     cancelButton.style.display = 'none';
     saveButton.style.display = 'inline-block';
     saveButton.style.width = `${saveButton.offsetHeight}px`;
-    addButton.style.display = 'inline-block';
-    addButton.style.width = `${addButton.offsetHeight}px`;
+    createButton.style.display = 'inline-block';
+    createButton.style.width = `${createButton.offsetHeight}px`;
   });
   saveButton.addEventListener('click', () => {
     foodCards.forEach((card) => {
@@ -122,7 +98,7 @@ const renderCustomFoodsPage = async () => {
       container.style.right = '-100%';
     });
     saveButton.style.display = 'none';
-    addButton.style.display = 'none';
+    createButton.style.display = 'none';
     cancelButton.style.display = 'inline-block';
     cancelButton.style.width = `${cancelButton.offsetHeight}px`;
     editButton.style.display = 'inline-block';
@@ -132,7 +108,8 @@ const renderCustomFoodsPage = async () => {
   const deleteButtons = [...document
     .querySelectorAll('.custom-food-card-delete-button')];
   deleteButtons.forEach((button) => {
-    const name = button.parentElement.previousElementSibling.querySelector('.custom-food-card-name').textContent;
+    const name = button.parentElement.parentElement
+      .querySelector('.custom-food-card-name').textContent;
     // const name = button
     //   .parentElement
     //   .previousElementSibling
@@ -149,7 +126,8 @@ const renderCustomFoodsPage = async () => {
     //     .previousElementSibling
     //     .firstElementChild
     //     .textContent.split(', ')[1] : '';
-    const brand = button.parentElement.previousElementSibling.querySelector('.custom-food-card-brand').textContent;
+    const brand = button.parentElement.parentElement
+      .querySelector('.custom-food-card-brand').textContent;
 
     button.addEventListener('click', async (event) => {
       try {
@@ -159,7 +137,7 @@ const renderCustomFoodsPage = async () => {
             method: 'DELETE',
             credentials: 'include',
           });
-          renderCustomFoodsPage();
+          render();
         }
       } catch (err) {
         alert('Something went wrong. Please, try again later');
@@ -167,27 +145,31 @@ const renderCustomFoodsPage = async () => {
     });
   });
 
-  cancelButton.addEventListener('click',
-    (e) => {
-      e.preventDefault();
-      window.history.pushState(null, null, '/add-food');
-      renderAddFoodPage();
-    });
+  // cancelButton.addEventListener('click',
+  //   (e) => {
+  //     e.preventDefault();
+  //     window.history.pushState(null, null, '/add-food');
+  //     renderAddFoodPage();
+  //   });
 
-  addButton.addEventListener('click',
-    (e) => {
-      e.preventDefault();
-      window.history.pushState(null, null, '/create-food');
-      renderCreateFoodPage();
-    });
+  // createButton.addEventListener('click',
+  //   (e) => {
+  //     e.preventDefault();
+  //     window.history.pushState(null, null, '/create-food');
+  //     renderCreateFoodPage();
+  //   });
 
-  const homeButton = document.querySelector('.custom-foods-page-home-button');
-  homeButton.addEventListener('click',
-    (e) => {
-      e.preventDefault();
-      window.history.pushState(null, null, '/homepage');
-      renderHomePage();
-    });
+  // const homeButton = document.querySelector('.home-button');
+  // homeButton.addEventListener('click',
+  //   (e) => {
+  //     e.preventDefault();
+  //     window.history.pushState(null, null, '/homepage');
+  //     renderHomePage();
+  //   });
 };
 
-export default renderCustomFoodsPage;
+export default () => {
+  addCSS();
+  render();
+  listenToButtons();
+};

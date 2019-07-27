@@ -1,8 +1,7 @@
 /* eslint-disable no-param-reassign */
 import calculateMacros from './calculations';
 import homepageTemplate from '../../views/homepage.pug';
-import renderEatenFoodsPage from './render-eaten-foods-page';
-import renderAddFoodPage from './render-add-food-page';
+import listenToButtons from './listen-to-buttons';
 import addCSS from './load-css';
 
 const getUsersData = async () => {
@@ -327,25 +326,9 @@ const renderMacrosProgressBars = (
   carbsPercentContainer.innerText = `${currentPercentOfDailyCarbsNeed}%`;
 };
 
-const listenToButtons = (
-  eatenFoodsButton,
-  addFoodButton
-) => {
-  eatenFoodsButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.history.pushState(null, null, '/eaten-foods');
-    renderEatenFoodsPage();
-  });
-  addFoodButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.history.pushState(null, null, '/add-food');
-    renderAddFoodPage();
-  });
-};
-
 const render = async () => {
   const app = document.getElementById('app');
-  app.innerHTML = homepageTemplate;
+  app.innerHTML = homepageTemplate({ path: 'homepage' });
   const data = await getUsersData();
   const history = await getUsersHistory();
 
@@ -383,14 +366,10 @@ const render = async () => {
     getParams(data, history).currentPercentOfDailyFatsNeed,
     getParams(data, history).currentPercentOfDailyCarbsNeed,
   );
-
-  listenToButtons(
-    getElements().eatenFoodsButton,
-    getElements().addFoodButton,
-  );
 };
 
 export default () => {
   addCSS();
   render();
+  listenToButtons();
 };

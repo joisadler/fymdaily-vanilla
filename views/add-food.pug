@@ -1,13 +1,10 @@
-main.add-food-page
+main
   section.add-food-section
-    .add-food-options-container
-      h1.add-food-header Add food
+    .options-container
+      h1.page-header Add food
       input.add-food-search-bar(type='search')
-      .add-food-option-buttons
-        button.add-food-option-button.add-food-search-button
-        button.add-food-option-button.add-food-create-button
-    .add-food-cards
-  section.navigation-buttons-container
-    button.navigation-button.eaten-foods-button
-    button.navigation-button.add-food-page-home-button
-    button.navigation-button.settings-button
+      .option-buttons
+        button.option-button.option-search-button
+        button.option-button.option-create-button
+    .food-cards
+  include navigation-buttons.pug

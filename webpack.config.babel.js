@@ -11,6 +11,8 @@ const config = {
   entry: {
     homepage: './src/javascripts/styles/homepage.js',
     'add-food': './src/javascripts/styles/add-food.js',
+    'create-food': './src/javascripts/styles/create-food.js',
+    'custom-foods': './src/javascripts/styles/custom-foods.js',
     index: './src/javascripts/index.js',
     signup: './src/javascripts/signup.js',
     // analytics: './src/javascripts/analytics.js',
@@ -40,7 +42,9 @@ const config = {
       },
       {
         test: /\.pug$/,
-        use: ['html-loader', 'pug-html-loader']
+        // use: ['html-loader', 'pug-html-loader']
+        // use: ['pug-loader']
+        loader: 'pug-loader'
       },
       {
         test: /\.(sass|scss)$/,

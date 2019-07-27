@@ -3,9 +3,9 @@ $tablet: 768px;
 $desktop: 1280px;
 
 /* sizes */
-$caloriesContainer: 80vmin;
-$caloriesContainerDesktop: 100vmax / 3 * 0.8;
-$smallButton: 0;
-$smallButtonDesktop: 0;
-$mediumButton: $caloriesContainer * 0.8 * 0.1;
-$mediumButtonDesktop: $caloriesContainerDesktop * 0.8 * 0.1;
+$section: 80vmin;
+$sectionDesktop: 100vmax / 3 * 0.8;
+$smallButton: 3.15vh;
+$smallButtonLandscape: 5.04vh;
+$mediumButton: $section * 0.8 * 0.1;
+$mediumButtonDesktop: $sectionDesktop * 0.8 * 0.1;

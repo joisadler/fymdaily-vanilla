@@ -1,0 +1,10 @@
+.custom-food-card
+  .custom-food-card-header
+    span.custom-food-card-name #{name}
+    if brand
+      span ,&nbsp;
+    span.custom-food-card-brand #{brand}
+  p.add-food-card-info Calories: #{calories} | Proteins: #{proteins} | Fats: #{fats} | Carbs: #{carbs}
+  .custom-food-card-buttons-container
+    button.custom-food-card-button.custom-food-card-edit-button
+    button.custom-food-card-button.custom-food-card-delete-button

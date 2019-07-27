@@ -1,8 +1,10 @@
 /* eslint-disable no-param-reassign */
 import debounce from 'lodash/debounce';
 import addFoodTemplate from '../../views/add-food.pug';
+import addFoodCardTemplate from '../../views/add-food-card.pug';
+import addThisFoodCardTemplate from '../../views/add-this-food-card.pug';
+import listenToButtons from './listen-to-buttons';
 import renderHomePage from './render-homepage';
-import renderCreateFoodPage from './render-create-food-page';
 import addListenerMulti from './add-listener-multi';
 import addCSS from './load-css';
 
@@ -11,36 +13,18 @@ const region = document.documentElement.lang.split('_')[1];
 
 const render = () => {
   const app = document.getElementById('app');
-  app.innerHTML = addFoodTemplate;
+  app.innerHTML = addFoodTemplate({ path: 'add-food' });
 
-  const navigationButtons = [...document
-    .querySelectorAll('.navigation-button')];
-  navigationButtons.forEach((button, i, buttons) => {
-    button.style.width = `${button.offsetHeight}px`;
-    if (i === buttons.length - 1) {
-      const foodOptionsContainer = document
-        .querySelector('.add-food-options-container');
-      foodOptionsContainer.style.height = `${button.offsetHeight * 0.3}px`;
-    }
-  });
-
-  const optionButtons = [...document
-    .querySelectorAll('.add-food-option-button')];
-  optionButtons.forEach((button) => {
-    button.style.width = `${button.offsetHeight}px`;
-  });
-
-  const searchButton = document.querySelector('.add-food-search-button');
+  const searchButton = document.querySelector('.option-search-button');
   const searchBar = document.querySelector('.add-food-search-bar');
-  const addFoodHeader = document.querySelector('.add-food-header');
+  const pageHeader = document.querySelector('.page-header');
   searchButton.addEventListener('click', () => {
     searchButton.style.width = '0';
-    addFoodHeader.style.display = 'none';
+    pageHeader.style.display = 'none';
     searchBar.style.display = 'block';
     searchBar.style.flex = '1';
     searchBar.focus();
   });
-  /* eslint-enable no-param-reassign */
 
   const createAddFoodCard = (
     name,
@@ -52,31 +36,25 @@ const render = () => {
   ) => {
     const card = document.createElement('div');
     card.classList.add('add-food-card');
-    // card.innerHTML = `
-    //   <h2 class="add-food-card-name">${name}, ${brand}</h2>
-    //   <p class="add-food-card-info">Calories: ${calories} | Proteins: ${proteins} | Fats: ${fats} | Carbs: ${carbs}</p>`;
-    /* eslint-disable max-len */
-    card.innerHTML = `
-      <div class="add-food-card-header">
-        <span class="add-food-card-name">${name}</span>, <span class="add-food-card-brand">${brand}</span>
-      </div>
-      <p class="add-food-card-info">Calories: ${calories} | Proteins: ${proteins} | Fats: ${fats} | Carbs: ${carbs}</p>`;
-
+    card.innerHTML = addFoodCardTemplate({
+      name,
+      brand,
+      calories,
+      proteins,
+      fats,
+      carbs
+    });
     return card;
-    /* eslint-enable max-len */
   };
 
-  const foodCardsContainer = document.querySelector('.add-food-cards');
+  const foodCardsContainer = document.querySelector('.food-cards');
 
   addListenerMulti(searchBar, 'focus input search', debounce(async () => {
     foodCardsContainer.innerHTML = '';
-    // eslint-disable-next-line max-len
-    // fetch(`https://world.openfoodfacts.org/cgi/search.pl?search_terms=${searchBar.value}&search_simple=1&action=process&json=1`, {
-    //   method: 'GET',
-    // }).then((response) => {
-
-    // eslint-disable-next-line max-len
-    const customFoodsResponse = await fetch('/api/food', { credentials: 'include' });
+    const customFoodsResponse = await fetch(
+      '/api/food',
+      { credentials: 'include' },
+    );
     const customFoods = await customFoodsResponse.json();
     customFoods
       .filter(food => food
@@ -123,35 +101,6 @@ const render = () => {
               Math.round(fats),
               Math.round(carbs)
             ));
-
-
-          // const products = [...data.products];
-          // //console.log(products[7].nutriments)
-          // products.forEach((product) => {
-          //   const name = product.product_name;
-          //   const calories = product.nutriments.energy_unit === 'kJ'
-          //     ? Math.round(product.nutriments.energy_value / 4.178)
-          //     : product.nutriments.energy_value;
-          //   const proteins = product.nutriments.proteins_100g;
-          //   const fats = product.nutriments.fat_100g;
-          //   const carbs = product.nutriments.carbohydrates_100g;
-          //   if (
-          //     name !== ' '
-          //     && name !== ''
-          //     && name !== undefined
-          //     && calories !== undefined
-          //     && proteins !== undefined
-          //     && fats !== undefined
-          //     && carbs !== undefined
-          //   ) {
-          //     foodCardsContainer.appendChild(createAddFoodCard(
-          //       name,
-          //       calories,
-          //       proteins,
-          //       fats,
-          //       carbs
-          //     ));
-          //   }
           });
         });
       });
@@ -168,29 +117,7 @@ const render = () => {
             addThisFoodCard.classList.add('add-this-food-card');
             addThisFoodCard.setAttribute('action', '#');
             card.parentNode.insertBefore(addThisFoodCard, card.nextSibling);
-            /* eslint-disable max-len */
-            addThisFoodCard.innerHTML = `
-              <label for='weight', class='add-this-food-card-text'>Weight:</label>
-              <input id='weight', class='add-this-food-card-weight', type='number', step='1', required, autofocus>
-              <label for='weight', class='add-this-food-card-text'>gr</label>
-              <input type='submit' value='' class='add-this-food-card-button add-this-food-card-add-button'>
-              <button class='add-this-food-card-button add-this-food-card-cancel-button'></button>
-            `;
-            /* eslint-enable max-len */
-            const foodOptionsContainer = document
-              .querySelector('.add-food-options-container');
-            const addThisFoodCardWeight = document
-              .querySelector('.add-this-food-card-weight');
-            addThisFoodCardWeight
-              .style.height = foodOptionsContainer.offsetHeight;
-            const addThisFoodCardButtons = document
-              .querySelectorAll('.add-this-food-card-button');
-            addThisFoodCardButtons.forEach((button) => {
-              /* eslint-disable no-param-reassign */
-              button.style.height = `${foodOptionsContainer.offsetHeight}px`;
-              button.style.width = `${button.offsetHeight}px`;
-              /* eslint-enable no-param-reassign */
-            });
+            addThisFoodCard.innerHTML = addThisFoodCardTemplate();
             card.parentNode.insertBefore(addThisFoodCard, card.nextSibling);
           };
           const addThisFoodCards = document
@@ -257,25 +184,10 @@ const render = () => {
     });
   });
   observer.observe(foodCardsContainer, { childList: true });
-
-  const homeButton = document.querySelector('.add-food-page-home-button');
-  homeButton.addEventListener('click',
-    (e) => {
-      e.preventDefault();
-      window.history.pushState(null, null, '/homepage');
-      renderHomePage();
-    });
-
-  const createFoodButton = document.querySelector('.add-food-create-button');
-  createFoodButton.addEventListener('click',
-    (e) => {
-      e.preventDefault();
-      window.history.pushState(null, null, '/create-food');
-      renderCreateFoodPage();
-    });
 };
 
 export default () => {
   addCSS();
   render();
+  listenToButtons();
 };

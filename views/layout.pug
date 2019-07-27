@@ -29,7 +29,7 @@ html(lang=`${language}_${region}`, dir='auto')
         document.documentElement.style.setProperty('--vh', `${vh}px`);
       });
     // Preload Google fonts
-    link(rel='preload', href='https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap&subset=cyrillic', as='style')
+    link(rel='preload', href='https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap&subset=cyrillic', as='style', onload='this.onload=null;this.rel="stylesheet"')
     // Preload homepage styles
     link(rel='preload', href=`${path}.css`, as='style', onload='this.onload=null;this.rel="stylesheet"')
   body

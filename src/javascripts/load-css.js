@@ -27,7 +27,7 @@ export default () => {
   const links = [...document.querySelectorAll('link')];
   const isCurrenLinkAlreadyExists = links
     .map((lnk => lnk.href.split('/')[lnk.href.split('/').length - 1]))
-    .filter(url => url === `${filename}.css`)
+    .filter(u => u === `${filename}.css`)
     .length > 0;
   if (!isCurrentStyleAlreadyExists && !isCurrenLinkAlreadyExists) {
     head.appendChild(style);

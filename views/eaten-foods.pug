@@ -1,7 +1,11 @@
-extends layout.pug
-
-block content
-  aside
-    table
-      h1 Eaten foods:
-      button.home-button Home
+main
+  section.eaten-foods-section
+    .options-container
+      h1.page-header Eaten foods
+      .eaten-foods-option-buttons
+        button.eaten-foods-option-button.custom-foods-save-button
+        button.eaten-foods-option-button.custom-foods-add-button
+        button.eaten-foods-option-button.custom-foods-edit-button
+        button.eaten-foods-option-button.custom-foods-cancel-button
+    .food-cards
+  include navigation-buttons.pug

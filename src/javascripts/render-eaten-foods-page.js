@@ -3,7 +3,7 @@ import renderHomePage from './render-homepage';
 
 export default () => {
   const app = document.getElementById('app');
-  app.innerHTML = eatenFoodsTemplate;
+  app.innerHTML = eatenFoodsTemplate({ path: 'eaten-foods' });
 
   const homeButton = document.querySelector('.home-button');
   homeButton.addEventListener('click',

@@ -1,26 +1,26 @@
-main.create-food-page
+main
   section.create-food-section
-    .create-food-options-container
-      h1.create-food-header Create food
-      .create-food-option-buttons
-        button.create-food-option-button.create-food-saved-button
-        button.create-food-option-button.create-food-cancel-button
+    .options-container
+      h1.page-header Create food
+      .option-buttons
+        button.option-button.option-saved-button
+        button.option-button.option-cancel-button
     form.create-food-form(action='#')
-      .create-food-inputs-row
+      .create-food-row
         .create-food-input-container
           label.create-food-input-label(for='name') Food name: *
           input.create-food-input#name(type='text', name='name', required)
         .create-food-input-container
           label.create-food-input-label(for='brand') Brand name:
           input.create-food-input#brand(type='text', name='brand')
-      .create-food-inputs-row
+      .create-food-row
         .create-food-input-container
           label.create-food-input-label(for='calories') Calories in 100g: *
           input.create-food-input#calories(type='number', name='calories', min='0', max='1000', step='.01', required)
         .create-food-input-container
           label.create-food-input-label(for='proteins') Proteins in 100g: *
           input.create-food-input#proteins(type='number', name='proteins', min='0', max='100', step='.01', required)
-      .create-food-inputs-row
+      .create-food-row
         .create-food-input-container
           label.create-food-input-label(for='fats') Fats in 100g: *
           input.create-food-input#fats(type='number', name='fats', min='0', max='100', step='.01', required)
@@ -29,7 +29,4 @@ main.create-food-page
           input.create-food-input#carbs(type='number', name='carbs', min='0', max='100', step='.01', required)
       .create-food-save-button-container
         input.create-food-save-button(type='submit', value='')
-  section.navigation-buttons-container
-    button.navigation-button.eaten-foods-button
-    button.navigation-button.create-food-page-home-button
-    button.navigation-button.settings-button
+  include navigation-buttons.pug
