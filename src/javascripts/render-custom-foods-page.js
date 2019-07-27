@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
 import customFoodsTemplate from '../../views/custom-foods.pug';
@@ -55,12 +56,6 @@ const render = async () => {
       fats,
       carbs,
     ));
-    // const foodCardsButtons = [...document
-    //   .querySelectorAll('.custom-food-card-button')];
-    // foodCardsButtons.forEach((button) => {
-    //   button.style.height = '35%';
-    //   button.style.width = `${button.offsetHeight}px`;
-    // });
   });
 
   const editButton = document.querySelector('.option-edit-button');
@@ -85,9 +80,8 @@ const render = async () => {
     editButton.style.display = 'none';
     cancelButton.style.display = 'none';
     saveButton.style.display = 'inline-block';
-    saveButton.style.width = `${saveButton.offsetHeight}px`;
     createButton.style.display = 'inline-block';
-    createButton.style.width = `${createButton.offsetHeight}px`;
+    createButton.style.marginRight = '0';
   });
   saveButton.addEventListener('click', () => {
     foodCards.forEach((card) => {
@@ -100,9 +94,7 @@ const render = async () => {
     saveButton.style.display = 'none';
     createButton.style.display = 'none';
     cancelButton.style.display = 'inline-block';
-    cancelButton.style.width = `${cancelButton.offsetHeight}px`;
     editButton.style.display = 'inline-block';
-    editButton.style.width = `${editButton.offsetHeight}px`;
   });
 
   const deleteButtons = [...document
@@ -110,22 +102,6 @@ const render = async () => {
   deleteButtons.forEach((button) => {
     const name = button.parentElement.parentElement
       .querySelector('.custom-food-card-name').textContent;
-    // const name = button
-    //   .parentElement
-    //   .previousElementSibling
-    //   .firstElementChild
-    //   .textContent
-    //   .split(', ')[0];
-    // const brand = button
-    //   .parentElement
-    //   .previousElementSibling
-    //   .firstElementChild
-    //   .textContent.split(', ')
-    //   .length > 1 ? button
-    //     .parentElement
-    //     .previousElementSibling
-    //     .firstElementChild
-    //     .textContent.split(', ')[1] : '';
     const brand = button.parentElement.parentElement
       .querySelector('.custom-food-card-brand').textContent;
 
@@ -144,28 +120,6 @@ const render = async () => {
       }
     });
   });
-
-  // cancelButton.addEventListener('click',
-  //   (e) => {
-  //     e.preventDefault();
-  //     window.history.pushState(null, null, '/add-food');
-  //     renderAddFoodPage();
-  //   });
-
-  // createButton.addEventListener('click',
-  //   (e) => {
-  //     e.preventDefault();
-  //     window.history.pushState(null, null, '/create-food');
-  //     renderCreateFoodPage();
-  //   });
-
-  // const homeButton = document.querySelector('.home-button');
-  // homeButton.addEventListener('click',
-  //   (e) => {
-  //     e.preventDefault();
-  //     window.history.pushState(null, null, '/homepage');
-  //     renderHomePage();
-  //   });
 };
 
 export default () => {
