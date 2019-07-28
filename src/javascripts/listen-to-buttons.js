@@ -9,6 +9,7 @@ export default () => {
   const eatenFoodsButton = document.querySelector('.eaten-foods-button');
   const addFoodButton = document.querySelector('.add-food-button');
   const createButton = document.querySelector('.option-create-button');
+  const addButton = document.querySelector('.option-add-button');
   const cancelButton = document.querySelector('.option-cancel-button');
   const savedFoodButton = document.querySelector('.option-saved-button');
   const createFoodButton = document.querySelector('.option-create-button');
@@ -32,6 +33,14 @@ export default () => {
 
   if (addFoodButton) {
     addFoodButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.history.pushState(null, null, '/add-food');
+      renderAddFoodPage();
+    });
+  }
+
+  if (addButton) {
+    addButton.addEventListener('click', (e) => {
       e.preventDefault();
       window.history.pushState(null, null, '/add-food');
       renderAddFoodPage();

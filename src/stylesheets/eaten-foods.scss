@@ -1,6 +1,7 @@
 @import "common";
 
-.eaten-food-card-wrapper {
+.eaten-food-card-wrapper,
+.total-eaten-food-card-wrapper {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -33,7 +34,8 @@
   }
 }
 
-.eaten-food-card {
+.eaten-food-card,
+.total-eaten-food-card {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -46,7 +48,8 @@
   white-space: nowrap;
 }
 
-.eaten-food-card-header {
+.eaten-food-card-header,
+.total-eaten-food-card-header {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -85,7 +88,8 @@
   }
 }
 
-.eaten-food-card-info {
+.eaten-food-card-info,
+.total-eaten-food-card-info {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -168,3 +172,4 @@
 .eaten-food-card-delete-button {
   background-image: url("../images/delete.png");
 }
+

@@ -225,7 +225,8 @@ main {
   background-image: url("../images/cancel.png");
 }
 
-.custom-foods-option-create-button {
+.custom-foods-option-create-button,
+.eaten-foods-option-create-button {
   display: none;
   background-image: url("../images/add.png");
 }
