@@ -1,7 +1,7 @@
 {
   "name": "fymdaily",
   "version": "1.0.0",
-  "description": "Fit Your Macros daily",
+  "description": "Fit Your Macros daily - simple and minimalistic calorie/macronutrient tracker for IIFYM dieters",
   "private": true,
   "repository": {
     "type": "git",
