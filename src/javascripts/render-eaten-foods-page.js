@@ -77,20 +77,20 @@ const render = async () => {
       name,
       brand,
       weight,
-      calories,
-      proteins,
-      fats,
-      carbs,
+      calories * weight / 100,
+      proteins * weight / 100,
+      fats * weight / 100,
+      carbs * weight / 100,
     ));
   });
   const totalCalories = products
-    .reduce((acc, current) => acc + current.calories, 0);
+    .reduce((acc, current) => acc + current.calories * current.weight / 100, 0);
   const totalProteins = products
-    .reduce((acc, current) => acc + current.proteins, 0);
+    .reduce((acc, current) => acc + current.proteins * current.weight / 100, 0);
   const totalFats = products
-    .reduce((acc, current) => acc + current.fats, 0);
+    .reduce((acc, current) => acc + current.fats * current.weight / 100, 0);
   const totalCarbs = products
-    .reduce((acc, current) => acc + current.carbs, 0);
+    .reduce((acc, current) => acc + current.carbs * current.weight / 100, 0);
   foodCardsContainer.appendChild(createTotalEatenFoodCard(
     totalCalories,
     totalProteins,
