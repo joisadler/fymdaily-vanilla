@@ -67,9 +67,6 @@ const getParams = (data, history) => {
     / dailyFatsNeed * 100);
   const currentPercentOfDailyCarbsNeed = Math.round(currentCarbs
     / dailyCarbsNeed * 100);
-  // const caloriesPerGramOfProtein = 4.1;
-  // const caloriesPerGramOfFat = 9.3;
-  // const caloriesPerGramOfCarb = 4.1;
   const caloriesPerGramOfProtein = 4;
   const caloriesPerGramOfFat = 9;
   const caloriesPerGramOfCarb = 4;
@@ -103,17 +100,7 @@ const getParams = (data, history) => {
   const percentOfEmptyCaloriesInCurrentAmountOfCalories = 100
   - percentOfProteinsInCurrentAmountOfCalories
   - percentOfFatsInCurrentAmountOfCalories
-  - percentOfCarbsInCurrentAmountOfCalories;// (((currentCalories
-  //   - (currentProteinsToCalories
-  //     + currentFatsToCalories
-  //     + currentCarbsToCalories))
-  //     / dailyCaloriesNeed) * 100) > 0
-  //   ? (((currentCalories
-  //     - (currentProteinsToCalories
-  //       + currentFatsToCalories
-  //       + currentCarbsToCalories))
-  //       / dailyCaloriesNeed) * 100)
-  //   : 0;
+  - percentOfCarbsInCurrentAmountOfCalories;
 
   return {
     dailyCaloriesNeed,
@@ -196,20 +183,20 @@ const rgb2hex = (rgb) => {
   return `#${hex(rgb[1])}${hex(rgb[2])}${hex(rgb[3])}`;
 };
 
-const caloriesRemainderLoop = (caloriesNumber, currentCaloriesRemainder) => {
-  let j = 0;
-  const loop = () => {
-    setTimeout(() => {
-      caloriesNumber.innerText = `${j}`;
-      j += 100;
-      if (j < currentCaloriesRemainder) loop();
-      if (currentCaloriesRemainder - j <= currentCaloriesRemainder % 100) {
-        caloriesNumber.innerText = `${currentCaloriesRemainder}`;
-      }
-    }, currentCaloriesRemainder / 100);
-  };
-  loop();
-};
+// const caloriesRemainderLoop = (caloriesNumber, currentCaloriesRemainder) => {
+//   let j = 0;
+//   const loop = () => {
+//     setTimeout(() => {
+//       caloriesNumber.innerText = `${j}`;
+//       j += 100;
+//       if (j < currentCaloriesRemainder) loop();
+//       if (currentCaloriesRemainder - j <= currentCaloriesRemainder % 100) {
+//         caloriesNumber.innerText = `${currentCaloriesRemainder}`;
+//       }
+//     }, currentCaloriesRemainder / 100);
+//   };
+//   loop();
+// };
 
 const renderCaloriesChartSectors = (
   currentCaloriesRemainder,
@@ -253,10 +240,11 @@ const renderCaloriesChartSectors = (
     const sector = document.createElement('div');
     sector.classList.add('calories-chart-sector');
     sector.style.background = Data.color;
-    sector.style.transform = `rotate(0deg) skewY(${skewDeg}deg)`;
-    setTimeout(() => {
-      sector.style.transform = `rotate(${rotateDeg}deg) skewY(${skewDeg}deg)`;
-    }, 1000 / (360 / rotateDeg));
+    // sector.style.transform = `rotate(0deg) skewY(${skewDeg}deg)`;
+    // setTimeout(() => {
+    //   sector.style.transform = `rotate(${rotateDeg}deg) skewY(${skewDeg}deg)`;
+    // }, 1000 / (360 / rotateDeg));
+    sector.style.transform = `rotate(${rotateDeg}deg) skewY(${skewDeg}deg)`;
     caloriesChart.append(sector);
     return startAngle + sectorDeg;
   };
