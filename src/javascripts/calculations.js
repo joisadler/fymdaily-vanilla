@@ -19,9 +19,12 @@ const proteinNeedPerKg = {
   massGain: 2.5
 };
 const fatNeedPerKg = 1.5;
-const caloriesPerGramOfProtein = 4.1;
-const caloriesPerGramOfFat = 9.3;
-const caloriesPerGramOfCarb = 4.1;
+// const caloriesPerGramOfProtein = 4.1;
+// const caloriesPerGramOfFat = 9.3;
+// const caloriesPerGramOfCarb = 4.1;
+const caloriesPerGramOfProtein = 4;
+const caloriesPerGramOfFat = 9;
+const caloriesPerGramOfCarb = 4;
 
 const calculateMacros = (bodyWeight,
   height,

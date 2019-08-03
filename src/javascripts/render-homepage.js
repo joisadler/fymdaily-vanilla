@@ -67,9 +67,12 @@ const getParams = (data, history) => {
     / dailyFatsNeed * 100);
   const currentPercentOfDailyCarbsNeed = Math.round(currentCarbs
     / dailyCarbsNeed * 100);
-  const caloriesPerGramOfProtein = 4.1;
-  const caloriesPerGramOfFat = 9.3;
-  const caloriesPerGramOfCarb = 4.1;
+  // const caloriesPerGramOfProtein = 4.1;
+  // const caloriesPerGramOfFat = 9.3;
+  // const caloriesPerGramOfCarb = 4.1;
+  const caloriesPerGramOfProtein = 4;
+  const caloriesPerGramOfFat = 9;
+  const caloriesPerGramOfCarb = 4;
   const currentProteinsToCalories = currentProteins * caloriesPerGramOfProtein;
   const currentFatsToCalories = currentFats * caloriesPerGramOfFat;
   const currentCarbsToCalories = currentCarbs * caloriesPerGramOfCarb;
@@ -90,6 +93,28 @@ const getParams = (data, history) => {
         + currentCarbsToCalories))
         / dailyCaloriesNeed) * 100)
     : 0;
+
+  const percentOfProteinsInCurrentAmountOfCalories = currentProteinsToCalories
+    / currentCalories * 100;
+  const percentOfFatsInCurrentAmountOfCalories = currentFatsToCalories
+    / currentCalories * 100;
+  const percentOfCarbsInCurrentAmountOfCalories = currentCarbsToCalories
+    / currentCalories * 100;
+  const percentOfEmptyCaloriesInCurrentAmountOfCalories = 100
+  - percentOfProteinsInCurrentAmountOfCalories
+  - percentOfFatsInCurrentAmountOfCalories
+  - percentOfCarbsInCurrentAmountOfCalories;// (((currentCalories
+  //   - (currentProteinsToCalories
+  //     + currentFatsToCalories
+  //     + currentCarbsToCalories))
+  //     / dailyCaloriesNeed) * 100) > 0
+  //   ? (((currentCalories
+  //     - (currentProteinsToCalories
+  //       + currentFatsToCalories
+  //       + currentCarbsToCalories))
+  //       / dailyCaloriesNeed) * 100)
+  //   : 0;
+
   return {
     dailyCaloriesNeed,
     dailyProteinsNeed,
@@ -108,6 +133,11 @@ const getParams = (data, history) => {
     percentageOfFatsInDailyCaloriesNeed,
     percentageOfCarbsInDailyCaloriesNeed,
     percentageOfEmptyCaloriesInDailyCaloriesNeed,
+
+    percentOfProteinsInCurrentAmountOfCalories,
+    percentOfFatsInCurrentAmountOfCalories,
+    percentOfCarbsInCurrentAmountOfCalories,
+    percentOfEmptyCaloriesInCurrentAmountOfCalories,
   };
 };
 
@@ -186,6 +216,12 @@ const renderCaloriesChartSectors = (
   percentageOfFatsInDailyCaloriesNeed,
   percentageOfCarbsInDailyCaloriesNeed,
   percentageOfEmptyCaloriesInDailyCaloriesNeed,
+
+  percentOfProteinsInCurrentAmountOfCalories,
+  percentOfFatsInCurrentAmountOfCalories,
+  percentOfCarbsInCurrentAmountOfCalories,
+  percentOfEmptyCaloriesInCurrentAmountOfCalories,
+
   caloriesChart
 ) => {
   const caloriesChartDataset = [
@@ -245,13 +281,13 @@ const renderCaloriesChartSectors = (
     let titleText = '';
     if (rgb2hex(sector.style.backgroundColor) === '#109618') {
     /* eslint-disable max-len */
-      titleText = `Proportion of calories derived from proteins in a total amount of calories (${Math.round(percentageOfProteinsInDailyCaloriesNeed)}%)`;
+      titleText = `Proportion of calories derived from proteins in a total amount of calories (${Math.round(percentOfProteinsInCurrentAmountOfCalories)}%)`;
     } else if (rgb2hex(sector.style.backgroundColor) === '#ff9900') {
-      titleText = `Proportion of calories derived from fats in a total amount of calories (${Math.round(percentageOfFatsInDailyCaloriesNeed)}%)`;
+      titleText = `Proportion of calories derived from fats in a total amount of calories (${Math.round(percentOfFatsInCurrentAmountOfCalories)}%)`;
     } else if (rgb2hex(sector.style.backgroundColor) === '#990099') {
-      titleText = `Proportion of calories derived from carbs in a total amount of calories (${Math.round(percentageOfCarbsInDailyCaloriesNeed)}%)`;
+      titleText = `Proportion of calories derived from carbs in a total amount of calories (${Math.round(percentOfCarbsInCurrentAmountOfCalories)}%)`;
     } else {
-      titleText = `Empty calories (${Math.round(percentageOfEmptyCaloriesInDailyCaloriesNeed)}%)`;
+      titleText = `Empty calories (${Math.round(percentOfEmptyCaloriesInCurrentAmountOfCalories)}%)`;
     /* eslint-enable max-len */
     }
     sector.setAttribute('title', titleText);
@@ -332,6 +368,12 @@ const render = async () => {
     getParams(data, history).percentageOfFatsInDailyCaloriesNeed,
     getParams(data, history).percentageOfCarbsInDailyCaloriesNeed,
     getParams(data, history).percentageOfEmptyCaloriesInDailyCaloriesNeed,
+
+    getParams(data, history).percentOfProteinsInCurrentAmountOfCalories,
+    getParams(data, history).percentOfFatsInCurrentAmountOfCalories,
+    getParams(data, history).percentOfCarbsInCurrentAmountOfCalories,
+    getParams(data, history).percentOfEmptyCaloriesInCurrentAmountOfCalories,
+
     getElements().caloriesChart,
   );
 
