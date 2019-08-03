@@ -212,6 +212,8 @@ const caloriesRemainderLoop = (caloriesNumber, currentCaloriesRemainder) => {
 };
 
 const renderCaloriesChartSectors = (
+  currentCaloriesRemainder,
+  currentPercentOfDailyCaloriesNeed,
   percentageOfProteinsInDailyCaloriesNeed,
   percentageOfFatsInDailyCaloriesNeed,
   percentageOfCarbsInDailyCaloriesNeed,
@@ -224,7 +226,7 @@ const renderCaloriesChartSectors = (
 
   caloriesChart
 ) => {
-  const caloriesChartDataset = [
+  const caloriesChartDataset = currentCaloriesRemainder >= 0 ? [
     {
       value: percentageOfProteinsInDailyCaloriesNeed,
       color: '#109618'
@@ -238,7 +240,7 @@ const renderCaloriesChartSectors = (
       value: percentageOfEmptyCaloriesInDailyCaloriesNeed,
       color: '#fff'
     }
-  ];
+  ] : [{ value: 100, color: '#ff6666' }];
 
   const maxValue = 25;
   const addSector = (Data, startAngle, collapse) => {
@@ -279,8 +281,10 @@ const renderCaloriesChartSectors = (
     .querySelectorAll('.calories-chart-sector')];
   caloriesChartSectors.forEach((sector) => {
     let titleText = '';
-    if (rgb2hex(sector.style.backgroundColor) === '#109618') {
     /* eslint-disable max-len */
+    if (rgb2hex(sector.style.backgroundColor) === '#ff6666') {
+      titleText = `Calories (${Math.round(currentPercentOfDailyCaloriesNeed)}%)`;
+    } else if (rgb2hex(sector.style.backgroundColor) === '#109618') {
       titleText = `Proportion of calories derived from proteins in a total amount of calories (${Math.round(percentOfProteinsInCurrentAmountOfCalories)}%)`;
     } else if (rgb2hex(sector.style.backgroundColor) === '#ff9900') {
       titleText = `Proportion of calories derived from fats in a total amount of calories (${Math.round(percentOfFatsInCurrentAmountOfCalories)}%)`;
@@ -309,13 +313,15 @@ const renderCaloriesChartContent = (
   currentPercentOfDailyCaloriesNeed
 ) => {
   if (currentCaloriesRemainder >= 0) {
-    caloriesRemainderLoop(caloriesNumber, currentCaloriesRemainder);
+    // caloriesRemainderLoop(caloriesNumber, currentCaloriesRemainder);
+    caloriesNumber.innerText = currentCaloriesRemainder;
   } else {
-    caloriesChartContent.style.backgroundColor = '#ff6666';
-    alternativeCaloriesChartContent.style.backgroundColor = '#ff6666';
+    // caloriesChartContent.style.backgroundColor = '#ff6666';
+    // alternativeCaloriesChartContent.style.backgroundColor = '#ff6666';
     caloriesHeadline.innerText = 'today you have consumed';
     currentCaloriesRemainder = Math.abs(currentCaloriesRemainder);
-    caloriesRemainderLoop(caloriesNumber, currentCaloriesRemainder);
+    // caloriesRemainderLoop(caloriesNumber, currentCaloriesRemainder);
+    caloriesNumber.innerText = currentCaloriesRemainder;
     caloriesSubheadline.innerText = 'calories more than your daily need';
   }
   alternativeCaloriesChartContentNumber
@@ -364,6 +370,8 @@ const render = async () => {
   const history = await getUsersHistory();
 
   renderCaloriesChartSectors(
+    getParams(data, history).currentCaloriesRemainder,
+    getParams(data, history).currentPercentOfDailyCaloriesNeed,
     getParams(data, history).percentageOfProteinsInDailyCaloriesNeed,
     getParams(data, history).percentageOfFatsInDailyCaloriesNeed,
     getParams(data, history).percentageOfCarbsInDailyCaloriesNeed,

@@ -90,6 +90,14 @@
   @media (min-width: $desktop) {
     font-size: 1.5vmin;
   }
+
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
+    font-size: 2.3vmin;
+  }
 }
 
 p.calories-number {
@@ -99,6 +107,14 @@ p.calories-number {
   @media (min-width: $desktop) {
     font-size: 12vmin;
   }
+
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
+    font-size: 18vmin;
+  }
 }
 
 .calories-subheadline {
@@ -106,7 +122,15 @@ p.calories-number {
   font-size: 1.9vmin;
 
   @media (min-width: $desktop) {
-    font-size: 1.35vmin;
+    font-size: 1.1vmin;
+  }
+
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
+    font-size: 1.9vmin;
   }
 }
 
@@ -117,6 +141,14 @@ p.calories-number {
   @media (min-width: $desktop) {
     font-size: 2.5vmin;
   }
+
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
+    font-size: 4vmin;
+  }
 }
 
 .alternative-calories-chart-content-number {
@@ -126,6 +158,14 @@ p.calories-number {
   @media (min-width: $desktop) {
     font-size: 5vmin;
   }
+
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
+    font-size: 9vmin;
+  }
 }
 
 .alternative-calories-chart-content-percent {
@@ -134,6 +174,14 @@ p.calories-number {
 
   @media (min-width: $desktop) {
     font-size: 2.5vmin;
+  }
+
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
+    font-size: 4vmin;
   }
 }
 
