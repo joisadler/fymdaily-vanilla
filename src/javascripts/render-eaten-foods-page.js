@@ -1,6 +1,7 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-alert */
 /* eslint-disable no-param-reassign */
+import round from 'lodash/round';
 import eatenFoodsTemplate from '../../views/eaten-foods.pug';
 import eatenFoodCardTemplate from '../../views/eaten-food-card.pug';
 import totalEatenFoodCardTemplate from '../../views/total-eaten-food-card.pug';
@@ -23,7 +24,8 @@ const createEatenFoodCard = (
   calories,
   proteins,
   fats,
-  carbs
+  carbs,
+  index,
 ) => {
   const card = document.createElement('div');
   card.classList.add('eaten-food-card-wrapper');
@@ -35,6 +37,7 @@ const createEatenFoodCard = (
     proteins,
     fats,
     carbs,
+    index,
   });
   return card;
 };
@@ -63,7 +66,7 @@ const render = async () => {
   const foodCardsContainer = document.querySelector('.food-cards');
   const history = await getUsersHistory();
   const { products } = history;
-  products.forEach((product) => {
+  products.forEach((product, index) => {
     const {
       name,
       brand,
@@ -77,10 +80,11 @@ const render = async () => {
       name,
       brand,
       weight,
-      calories * weight / 100,
-      proteins * weight / 100,
-      fats * weight / 100,
-      carbs * weight / 100,
+      round(calories * weight / 100, 1),
+      round(proteins * weight / 100, 1),
+      round(fats * weight / 100, 1),
+      round(carbs * weight / 100, 1),
+      index,
     ));
   });
   const totalCalories = products
@@ -92,10 +96,10 @@ const render = async () => {
   const totalCarbs = products
     .reduce((acc, current) => acc + current.carbs * current.weight / 100, 0);
   foodCardsContainer.appendChild(createTotalEatenFoodCard(
-    totalCalories,
-    totalProteins,
-    totalFats,
-    totalCarbs,
+    round(totalCalories, 1),
+    round(totalProteins, 1),
+    round(totalFats, 1),
+    round(totalCarbs, 1),
   ));
 
   const editButton = document.querySelector('.option-edit-button');
@@ -140,20 +144,13 @@ const render = async () => {
     .querySelectorAll('.eaten-food-card-delete-button')];
   deleteButtons.forEach((button) => {
     const card = button.parentElement.parentElement;
-    // const name = card
-    //   .querySelector('.eaten-food-card-name').textContent;
-    // const brand = card
-    //   .querySelector('.eaten-food-card-brand').textContent;
-    // const weight = parseInt(card
-    // .querySelector('.eaten-food-card-weight').textContent.match(/\d+/), 10);
     let position = 0;
     foodCards.forEach((c, i) => {
       if (c === card) position = i;
     });
-
     button.addEventListener('click', async (event) => {
+      event.preventDefault();
       try {
-        event.preventDefault();
         if (confirm('Are you shure you want to delete this food?')) {
           await fetch(
             `/api/history?position=${position}`, {
@@ -166,6 +163,61 @@ const render = async () => {
       } catch (err) {
         alert('Something went wrong. Please, try again later');
       }
+    });
+  });
+
+
+  const editButtons = [...document
+    .querySelectorAll('.eaten-food-card-edit-button')];
+  editButtons.forEach((cardEditButton) => {
+    const card = cardEditButton.parentElement.parentElement;
+    let position = 0;
+    foodCards.forEach((c, i) => {
+      if (c === card) position = i;
+    });
+    cardEditButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      const weightSpan = card.querySelector('.eaten-food-card-weight');
+      const weightInputForm = card
+        .querySelector('.eaten-food-card-weight-input-form');
+      const weightInput = card.querySelector('.eaten-food-card-weight-input');
+      const cardSubmitButton = card
+        .querySelector('.eaten-food-card-submit-button');
+      const oldWeight = weightSpan.textContent.match(/\d+\.?\d*/)[0];
+
+      cardEditButton.style.display = 'none';
+      cardSubmitButton.style.display = 'inline-block';
+      weightInputForm.style.display = 'flex';
+      weightInput.value = `${oldWeight}`;
+      weightInput.focus();
+      weightSpan.style.display = 'none';
+
+      weightInputForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const newWeight = weightInput.value;
+        try {
+          await fetch(
+            `/api/history?position=${position}&weight=${newWeight}`, {
+              method: 'PUT',
+              credentials: 'include',
+            }
+          );
+          // console.log(`submitted! query has sent to /api/history?position=${position}&weight=${newWeight}`)
+          render();
+        } catch (err) {
+          alert('Something went wrong. Please, try again later');
+        }
+      });
+
+      saveButton.addEventListener('click', () => {
+        cardEditButton.style.display = 'inline-block';
+        cardSubmitButton.style.display = 'none';
+        weightInputForm.style.display = 'none';
+        weightSpan.style.display = 'inline';
+        weightSpan.textContent = `  | ${oldWeight}gr`;
+        weightSpan.style.display = 'inline';
+        cardEditButton.style.display = 'inline-block';
+      });
     });
   });
   listenToButtons();

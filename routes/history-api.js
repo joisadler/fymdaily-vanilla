@@ -44,6 +44,35 @@ export default () => {
     });
   });
 
+  router.put('/', async (req, res) => {
+    const id = req.user._id;
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    today = `${dd}.${mm}.${yyyy}`;
+    const position = Number(req.query.position);
+    const weight = Number(req.query.weight);
+
+    const entry = await HistoryEntry.findOne({ userId: id, date: today });
+    const { products } = entry;
+    const updatedProducts = products.slice(0);
+
+    updatedProducts.forEach((p, i) => {
+      if (i === position) {
+        // eslint-disable-next-line no-param-reassign
+        p.weight = weight;
+      }
+    });
+
+    await HistoryEntry.findOneAndUpdate({
+      userId: id,
+      date: today
+    }, { products: updatedProducts });
+    res.status(204);
+    res.end();
+  });
+
   router.delete('/', async (req, res) => {
     const id = req.user._id;
     let today = new Date();

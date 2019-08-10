@@ -49,8 +49,9 @@ const getParams = (data, history) => {
   const dailyFatsNeed = Math.round(macros.dailyFatsNeed);
   const dailyCarbsNeed = Math.round(macros.dailyCarbsNeed);
 
-  const currentCalories = products
-    .reduce((acc, current) => acc + current.calories * current.weight / 100, 0);
+  const currentCalories = Math.round(products
+    .reduce((acc, current) => acc
+    + current.calories * current.weight / 100, 0));
   const currentProteins = products
     .reduce((acc, current) => acc + current.proteins * current.weight / 100, 0);
   const currentFats = products
@@ -58,7 +59,8 @@ const getParams = (data, history) => {
   const currentCarbs = products
     .reduce((acc, current) => acc + current.carbs * current.weight / 100, 0);
 
-  const currentCaloriesRemainder = dailyCaloriesNeed - currentCalories;
+  const currentCaloriesRemainder = dailyCaloriesNeed
+    - currentCalories;
   const currentPercentOfDailyCaloriesNeed = Math.round(currentCalories
     / dailyCaloriesNeed * 100);
   const currentPercentOfDailyProteinsNeed = Math.round(currentProteins

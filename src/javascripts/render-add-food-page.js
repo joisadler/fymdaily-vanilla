@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import debounce from 'lodash/debounce';
+import round from 'lodash/round';
 import addFoodTemplate from '../../views/add-food.pug';
 import addFoodCardTemplate from '../../views/add-food-card.pug';
 import addThisFoodCardTemplate from '../../views/add-this-food-card.pug';
@@ -73,10 +74,10 @@ const render = () => {
         foodCardsContainer.appendChild(createAddFoodCard(
           name,
           brand,
-          calories,
-          proteins,
-          fats,
-          carbs,
+          round(calories, 1),
+          round(proteins, 1),
+          round(fats, 1),
+          round(carbs, 1),
         ));
       });
     // eslint-disable-next-line max-len
@@ -96,10 +97,10 @@ const render = () => {
             foodCardsContainer.appendChild(createAddFoodCard(
               name,
               brand,
-              Math.round(calories),
-              Math.round(proteins),
-              Math.round(fats),
-              Math.round(carbs)
+              round(calories, 1),
+              round(proteins, 1),
+              round(fats, 1),
+              round(carbs, 1),
             ));
           });
         });

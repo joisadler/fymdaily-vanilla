@@ -4,8 +4,12 @@
     if brand
       span ,&nbsp;
     span.eaten-food-card-brand #{brand}
+    form.eaten-food-card-weight-input-form(action='#', id='eaten-food-card-weight-input-form-'+index)
+      input.eaten-food-card-weight-input(id='eaten-food-card-weight-input-'+index, type='number', min='0', max='1000', step='1', required)
+      label(for='eaten-food-card-weight-input-'+index) gr
     span.eaten-food-card-weight(dir='auto') &nbsp;| #{weight}gr
   p.eaten-food-card-info Calories: #{calories} | Proteins: #{proteins} | Fats: #{fats} | Carbs: #{carbs}
   .eaten-food-card-buttons-container
+    button.eaten-food-card-button.eaten-food-card-submit-button(type='submit', form='eaten-food-card-weight-input-form-'+index)
     button.eaten-food-card-button.eaten-food-card-edit-button
     button.eaten-food-card-button.eaten-food-card-delete-button
