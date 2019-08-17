@@ -5,6 +5,7 @@ import customFoodsTemplate from '../../views/custom-foods.pug';
 import customFoodCardTemplate from '../../views/custom-food-card.pug';
 import addCSS from './load-css';
 import listenToButtons from './listen-to-buttons';
+import renderEditFoodPage from './render-edit-food-page';
 
 const createCustomFoodCard = (
   name,
@@ -28,6 +29,9 @@ const createCustomFoodCard = (
 };
 
 const render = async () => {
+  if (window.location.pathname === '/edit-food') {
+    history.replaceState(null, null, '/custom-foods');
+  }
   const app = document.getElementById('app');
   app.innerHTML = customFoodsTemplate({ path: 'custom-foods' });
 
@@ -118,6 +122,45 @@ const render = async () => {
       } catch (err) {
         alert('Something went wrong. Please, try again later');
       }
+    });
+  });
+
+  const editButtons = [...document
+    .querySelectorAll('.custom-food-card-edit-button')];
+  let position = 0;
+  editButtons.forEach((button) => {
+    const card = button.parentElement.parentElement;
+    const name = card.querySelector('.custom-food-card-name').textContent;
+    const brand = card.querySelector('.custom-food-card-brand').textContent;
+    const numericValues = card.querySelector('.custom-food-card-info')
+      .textContent
+      .match(/\d+\.?\d*/g)
+      .map(Number);
+    const calories = numericValues[0];
+    const proteins = numericValues[1];
+    const fats = numericValues[2];
+    const carbs = numericValues[3];
+
+    button.addEventListener('click', async (event) => {
+      event.preventDefault();
+      editButtons.forEach((btn, i) => {
+        const c = btn.parentElement.parentElement;
+        const n = c.querySelector('.custom-food-card-name').textContent;
+        const b = card.querySelector('.custom-food-card-brand').textContent;
+        if (n === name && b === brand) {
+          position = i;
+        }
+      });
+      window.history.pushState(null, null, '/edit-food');
+      renderEditFoodPage(
+        name,
+        brand,
+        calories,
+        proteins,
+        fats,
+        carbs,
+        position
+      );
     });
   });
   listenToButtons();

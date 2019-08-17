@@ -25,7 +25,10 @@ import foodAPI from './routes/food-api';
 
 import dbConfig from './db';
 
-mongoose.connect(dbConfig.url, { useNewUrlParser: true });
+mongoose.connect(dbConfig.url, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+});
 initPassport(passport);
 const app = express();
 

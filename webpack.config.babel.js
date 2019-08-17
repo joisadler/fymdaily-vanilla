@@ -20,6 +20,7 @@ const config = {
     'create-food': './src/javascripts/styles/create-food.js',
     'custom-foods': './src/javascripts/styles/custom-foods.js',
     'eaten-foods': './src/javascripts/styles/eaten-foods.js',
+    'edit-food': './src/javascripts/styles/edit-food.js',
   },
   output: {
     path: path.join(__dirname, 'public'),

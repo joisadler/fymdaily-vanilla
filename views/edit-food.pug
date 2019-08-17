@@ -1,0 +1,31 @@
+main
+  section.edit-food-section
+    .options-container
+      h1.page-header Edit food
+      .option-buttons
+        button.option-button.option-cancel-button
+    form.edit-food-form(action='#')
+      .edit-food-row
+        .edit-food-input-container
+          label.edit-food-input-label(for='name') Food name: *
+          input.edit-food-input#name(type='text', name='name', value=`${name}`, required)
+        .edit-food-input-container
+          label.edit-food-input-label(for='brand') Brand name:
+          input.edit-food-input#brand(type='text', name='brand', value=`${brand}`)
+      .edit-food-row
+        .edit-food-input-container
+          label.edit-food-input-label(for='calories') Calories in 100g: *
+          input.edit-food-input#calories(type='number', name='calories', value=`${calories}`, min='0', max='1000', step='any', required)
+        .edit-food-input-container
+          label.edit-food-input-label(for='proteins') Proteins in 100g: *
+          input.edit-food-input#proteins(type='number', name='proteins', value=`${proteins}`, min='0', max='100', step='any', required)
+      .edit-food-row
+        .edit-food-input-container
+          label.edit-food-input-label(for='fats') Fats in 100g: *
+          input.edit-food-input#fats(type='number', name='fats', value=`${fats}`, min='0', max='100', step='any', required)
+        .edit-food-input-container
+          label.edit-food-input-label(for='carbs') Carbs in 100g: *
+          input.edit-food-input#carbs(type='number', name='carbs', value=`${carbs}`, min='0', max='100', step='any', required)
+      .edit-food-save-button-container
+        input.edit-food-save-button(type='submit', value='')
+  include navigation-buttons.pug

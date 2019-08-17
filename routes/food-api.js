@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
 import express from 'express';
 import Food from '../models/food';
@@ -45,13 +46,41 @@ export default () => {
     }
   });
 
-  // router.put('/', async (req, res) => {
-  //   try {
-  //   //
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // });
+  router.put('/', async (req, res) => {
+    const createdBy = req.user._id;
+    const { 
+      calories,
+      proteins,
+      fats,
+      carbs,
+      position,
+    } = req.query;
+    const name = decodeURIComponent(req.query.name);
+    const brand = decodeURIComponent(req.query.brand);
+    try {
+      const products = await Food.find({ createdBy });
+      const newProducts = products.slice(0);
+      newProducts.forEach(async (product, i) => {
+        if (product === newProducts[position]) {
+          await Food.findOneAndUpdate({
+            name: product.name,
+            brand: product.brand,
+          }, {
+            name,
+            brand,
+            calories,
+            proteins,
+            fats,
+            carbs,
+          });
+        }
+      });
+      res.status(204);
+      res.end();
+    } catch (err) {
+      console.error(err);
+    }
+  });
 
   router.delete('/', async (req, res) => {
     const createdBy = req.user._id;

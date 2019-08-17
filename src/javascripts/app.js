@@ -14,8 +14,13 @@ const routes = {
   '/add-food': renderAddFoodPage,
   '/create-food': renderCreateFoodPage,
   '/custom-foods': renderCustomFoodsPage,
+  '/edit-food': renderCustomFoodsPage,
 };
 
 addListenerMulti(window, 'DOMContentLoaded popstate', () => {
-  routes[window.location.pathname]();
+  if (routes[window.location.pathname]) {
+    routes[window.location.pathname]();
+  } else {
+    renderHomePage();
+  }
 });

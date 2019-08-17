@@ -67,6 +67,14 @@ export default () => {
             renderAddFoodPage();
           });
         break;
+      case '/edit-food':
+        cancelButton.addEventListener('click',
+          (e) => {
+            e.preventDefault();
+            window.history.pushState(null, null, '/custom-foods');
+            renderCustomFoodsPage();
+          });
+        break;
       default:
         cancelButton.addEventListener('click',
           (e) => {

@@ -1,0 +1,112 @@
+@import "common";
+
+.edit-food-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 90%;
+}
+
+.edit-food-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 25%;
+}
+
+.edit-food-input-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+
+.edit-food-input-label {
+  margin-bottom: 1vmin;
+  padding: 0;
+  font-size: 4vmin;
+  font-weight: normal;
+  // desktop
+  @media (min-width: $desktop) {
+    font-size: 3vmin;
+  }
+  // iPad Pro in landscape mode
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
+    font-size: 4vmin;
+  }
+}
+
+.edit-food-input {
+  box-sizing: border-box;
+  width: 90%;
+  height: $mediumButton;
+
+  @media (min-width: $desktop) {
+    height: $mediumButtonDesktop;
+  }
+  // iPad Pro in landscape mode
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
+    height: $mediumButton;
+  }
+}
+
+.edit-food-save-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 25%;
+
+  @media (orientation: landscape) {
+    justify-content: flex-end;
+  }
+}
+
+.edit-food-save-button {
+  width: $mediumButton;
+  height: $mediumButton;
+  margin-top: 40%;
+  padding: 0;
+  background-image: url("../images/save.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: white;
+  border: none;
+
+  @media (orientation: landscape) {
+    margin-top: 0%;
+  }
+  // desktop
+  @media (min-width: $desktop) {
+    width: $mediumButtonDesktop;
+    height: $mediumButtonDesktop;
+    margin-top: 40%;
+  }
+  // iPad Pro in landscape mode
+  @media only screen
+    and (min-width: 1024px)
+    and (max-height: 1366px)
+    and (orientation: landscape)
+    and (min-resolution: 1.5dppx) {
+    width: $mediumButton;
+    height: $mediumButton;
+    margin-top: 0;
+  }
+}
