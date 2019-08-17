@@ -2,7 +2,7 @@ import path from 'path';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+// import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ImageminPlugin from 'imagemin-webpack';
 
@@ -136,38 +136,38 @@ const config = {
   ],
 };
 
-if (NODE_ENV === 'production') {
-  config.plugins.push(
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        warnings: false,
-        compress: {
-          sequences: true,
-          booleans: true,
-          loops: true,
-          unused: true,
-          drop_console: true,
-          unsafe: true,
-          dead_code: true,
-          conditionals: true,
-          if_return: true,
-          join_vars: true,
-        },
-        mangle: {
-        },
-        output: {
-          comments: true,
-          beautify: true,
-        },
-        toplevel: true,
-        nameCache: null,
-        ie8: false,
-        keep_classnames: false,
-        keep_fnames: false,
-        safari10: false,
-      }
-    })
-  );
-}
+// if (NODE_ENV === 'production') {
+//   config.plugins.push(
+//     new UglifyJsPlugin({
+//       uglifyOptions: {
+//         warnings: false,
+//         compress: {
+//           sequences: true,
+//           booleans: true,
+//           loops: true,
+//           unused: true,
+//           drop_console: true,
+//           unsafe: true,
+//           dead_code: true,
+//           conditionals: true,
+//           if_return: true,
+//           join_vars: true,
+//         },
+//         mangle: {
+//         },
+//         output: {
+//           comments: true,
+//           beautify: true,
+//         },
+//         toplevel: true,
+//         nameCache: null,
+//         ie8: false,
+//         keep_classnames: false,
+//         keep_fnames: false,
+//         safari10: false,
+//       }
+//     })
+//   );
+// }
 
 export default config;
