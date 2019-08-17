@@ -1,0 +1,58 @@
+main
+  section.user-info-section
+    .options-container
+      if userInfoHadBeenSet
+        h1.page-header Hey, #{username}!
+        .option-buttons
+          button.option-button.option-cancel-button
+      else
+        h1.page-header Welcome, #{username}!
+    form.user-info-form(action='#')
+      .user-info-row
+        if userInfoHadBeenSet
+          h2.page-subheader We advise you to update this data at least once a month (this is important for the correct work with your weight):
+        else
+          h2.page-subheader Please enter the following data (this is necessary for the application to work correctly):
+      .user-info-row
+        .user-info-input-container
+          label.user-info-input-label(for='height') Height: *
+          input.user-info-input#height(type='number', name='height', value=`${height}`, required)
+        .user-info-input-container
+          label.user-info-input-label(for='bodyWeight') Weight: *
+          input.user-info-input#bodyWeight(type='number', name='bodyWeight', value=`${bodyWeight}`, min='0', max='1000', step='any', required)
+      .user-info-row
+        .user-info-input-container
+          label.user-info-input-label(for='gender') Gender: *
+          select.user-info-input#gender(name='gender', required)
+            option(value='male', selected=gender==='male') Male
+            option(value='female', selected=gender==='female') Female
+        .user-info-input-container.hip-circumference-container
+          label.user-info-input-label(for='hipCircumference') Hip Circumference: *
+          input.user-info-input#hipCircumference(type='number', name='hipCircumference', value=`${hipCircumference}`, min='0', max='1000', step='any')
+      .user-info-row
+        .user-info-input-container
+          label.user-info-input-label(for='waistCircumference') Waist Circumference: *
+          input.user-info-input#waistCircumference(type='number', name='waistCircumference', value=`${waistCircumference}`, min='0', max='1000', step='any', required)
+        .user-info-input-container
+          label.user-info-input-label(for='neckCircumference') Neck Circumference: *
+          input.user-info-input#neckCircumference(type='number', name='neckCircumference', value=`${neckCircumference}`, min='0', max='100', step='any', required)
+      .user-info-row
+        .user-info-input-container
+          label.user-info-input-label(for='physicalActivityLevel') Physical Activity Level: *
+          select.user-info-input#physicalActivityLevel(name='physicalActivityLevel', required)
+            option(value='veryLight', selected=physicalActivityLevel==='veryLight') Very light
+            option(value='light', selected=physicalActivityLevel==='light') Light
+            option(value='moderate', selected=physicalActivityLevel==='moderate') Moderate
+            option(value='heavy', selected=physicalActivityLevel==='heavy') Heavy
+            option(value='veryHeavy', selected=physicalActivityLevel==='veryHeavy') Very heavy
+        .user-info-input-container
+          label.user-info-input-label(for='goal') Goal: *
+          select.user-info-input#goal(name='goal', required)
+            option(value='fastWeightLoss', selected=goal==='fastWeightLoss') Fast weight loss
+            option(value='normalWeightLoss', selected=goal==='normalWeightLoss') Normal weight loss
+            option(value='weightMaintenance', selected=goal==='weightMaintenance') Weight maintenance
+            option(value='massGain', selected=goal==='massGain') Mass Gain
+      .user-info-save-button-container
+        input.user-info-save-button(type='submit', value='')
+  if userInfoHadBeenSet
+    include navigation-buttons.pug

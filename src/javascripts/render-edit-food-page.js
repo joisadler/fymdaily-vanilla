@@ -6,8 +6,8 @@ import addCSS from './load-css';
 const listenToFormSubmit = (position) => {
   const editFoodForm = document.querySelector('.edit-food-form');
   editFoodForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
     try {
-      event.preventDefault();
       const name = encodeURIComponent(document.getElementById('name').value);
       const brand = encodeURIComponent(document.getElementById('brand').value);
       const calories = document.getElementById('calories').value;

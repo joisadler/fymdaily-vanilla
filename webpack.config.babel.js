@@ -21,6 +21,7 @@ const config = {
     'custom-foods': './src/javascripts/styles/custom-foods.js',
     'eaten-foods': './src/javascripts/styles/eaten-foods.js',
     'edit-food': './src/javascripts/styles/edit-food.js',
+    'user-info': './src/javascripts/styles/user-info.js',
   },
   output: {
     path: path.join(__dirname, 'public'),

@@ -65,6 +65,7 @@ app.use('/eaten-foods', appRouter());
 app.use('/add-food', appRouter());
 app.use('/create-food', appRouter());
 app.use('/custom-foods', appRouter());
+app.use('/user-info', appRouter());
 app.use('/signout', signoutRouter());
 app.use('/delete', deleteRouter());
 app.use('/user', userAPI());
