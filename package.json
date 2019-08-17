@@ -90,7 +90,8 @@
     "webpack-cli": "^3.3.6"
   },
   "engines": {
-    "node": "11.8.0"
+    "node": "11.8.0",
+    "npm": "6.10.0"
   },
   "browserslist": [
     "defaults"
