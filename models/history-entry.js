@@ -16,7 +16,18 @@ const HistoryEntrySchema = new mongoose.Schema({
       fats: Number,
       carbs: Number,
     },
-  ]
+  ],
+  info: {
+    _id: false,
+    bodyWeight: Number,
+    height: Number,
+    gender: String,
+    waistCircumference: Number,
+    neckCircumference: Number,
+    hipCircumference: Number,
+    physicalActivityLevel: String,
+    goal: String,
+  }
 });
 HistoryEntrySchema.plugin(findOrCreate);
 

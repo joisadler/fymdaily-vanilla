@@ -1,7 +1,9 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
 import express from 'express';
 
 import HistoryEntry from '../models/history-entry';
+import User from '../models/user';
 
 const router = express.Router();
 
@@ -44,6 +46,26 @@ export default () => {
     });
   });
 
+  router.post('/info', isAuthenticated, async (req, res) => {
+    const id = req.user._id;
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    today = `${dd}.${mm}.${yyyy}`;
+    const info = req.body;
+
+    await HistoryEntry
+      .findOrCreate({ userId: id, date: today }, (error, entry) => {
+        if (error) throw error;
+        entry.info = info;
+        entry.save();
+      });
+    await User.findOneAndUpdate({ _id: id }, info);
+    res.status(204);
+    res.end();
+  });
+
   router.put('/', async (req, res) => {
     const id = req.user._id;
     let today = new Date();
@@ -60,7 +82,6 @@ export default () => {
 
     updatedProducts.forEach((p, i) => {
       if (i === position) {
-        // eslint-disable-next-line no-param-reassign
         p.weight = weight;
       }
     });

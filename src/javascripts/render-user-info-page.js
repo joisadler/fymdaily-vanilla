@@ -20,19 +20,31 @@ const listenToFormSubmit = () => {
       const physicalActivityLevel = document
         .getElementById('physicalActivityLevel').value;
       const goal = document.getElementById('goal').value;
-      // eslint-disable-next-line max-len
-      const queryString = `/api/user?height=${height}&bodyWeight=${bodyWeight}&gender=${gender}&hipCircumference=${hipCircumference || 0}&waistCircumference=${waistCircumference}&neckCircumference=${neckCircumference}&physicalActivityLevel=${physicalActivityLevel}&goal=${goal}`;
-      // await fetch(queryString, {
-      //   method: 'PUT',
-      //   credentials: 'include',
-      // });
+      const body = {
+        height,
+        bodyWeight,
+        gender,
+        hipCircumference: hipCircumference || 0,
+        waistCircumference,
+        neckCircumference,
+        physicalActivityLevel,
+        goal
+      };
+      await fetch('api/history/info', {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
       window.history.pushState(null, null, '/homepage');
       renderHomePage();
     } catch (err) {
       console.log(err);
     }
   });
-}
+};
 
 const render = async () => {
   const app = document.getElementById('app');
@@ -85,9 +97,9 @@ const render = async () => {
   });
 };
 
-export default () => {
+export default async () => {
   addCSS();
-  render();
-  setTimeout(listenToButtons, 500);
-  setTimeout(listenToFormSubmit, 500);
+  await render();
+  listenToButtons();
+  listenToFormSubmit();
 };

@@ -10,6 +10,7 @@ import cookieSession from 'cookie-session';
 import compression from 'compression';
 import helmet from 'helmet';
 import methodOverride from 'method-override';
+import bodyParser from 'body-parser';
 import initPassport from './passport/init';
 import indexRouter from './routes/index';
 import loginRouter from './routes/login';
@@ -39,7 +40,8 @@ app.use(logger('dev'));
 app.use(helmet());
 app.use(methodOverride('_method'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cookieSession({
   name: 'session',

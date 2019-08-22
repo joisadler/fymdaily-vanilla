@@ -32,7 +32,7 @@ export default (passport) => {
           secure: true,
           auth: {
             user: GMAIL_USER,
-        pass: GMAIL_PASS
+            pass: GMAIL_PASS
           }
         });
         const mailOpts = {
@@ -52,7 +52,7 @@ export default (passport) => {
             r.send(er);
           }
         });
-        return res.redirect('/homepage');
+        return res.redirect('/user-info');
       });
     })(req, res, next);
   });

@@ -8,17 +8,17 @@ module.exports = mongoose.model('User', {
   bodyWeight: Number,
   height: Number,
   gender: String,
-  language: {
-    type: String,
-    default: 'en'
-  },
-  region: {
-    type: String,
-    default: 'US'
-  },
   waistCircumference: Number,
   neckCircumference: Number,
   hipCircumference: Number,
   physicalActivityLevel: String,
   goal: String,
+  language: {
+    type: String,
+    default: 'en',
+  },
+  region: {
+    type: String,
+    default: 'US',
+  }
 });
