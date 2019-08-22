@@ -403,8 +403,8 @@ const render = async () => {
   );
 };
 
-export default () => {
+export default async () => {
   addCSS();
-  render();
+  await render();
   listenToButtons();
 };

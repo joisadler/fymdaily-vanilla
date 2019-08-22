@@ -187,8 +187,8 @@ const render = () => {
   observer.observe(foodCardsContainer, { childList: true });
 };
 
-export default () => {
+export default async () => {
   addCSS();
-  render();
+  await render();
   listenToButtons();
 };

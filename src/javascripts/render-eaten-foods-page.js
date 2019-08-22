@@ -202,7 +202,6 @@ const render = async () => {
               credentials: 'include',
             }
           );
-          // console.log(`submitted! query has sent to /api/history?position=${position}&weight=${newWeight}`)
           render();
         } catch (err) {
           alert('Something went wrong. Please, try again later');
@@ -223,8 +222,8 @@ const render = async () => {
   listenToButtons();
 };
 
-export default () => {
+export default async () => {
   addCSS();
-  render();
+  await render();
   listenToButtons();
 };

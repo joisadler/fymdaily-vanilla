@@ -25,7 +25,7 @@ const listenToFormSubmit = (position) => {
       console.log(err);
     }
   });
-}
+};
 
 const render = (
   name,
@@ -47,7 +47,7 @@ const render = (
   });
 };
 
-export default (
+export default async (
   name,
   brand,
   calories,
@@ -57,7 +57,7 @@ export default (
   position,
 ) => {
   addCSS();
-  render(
+  await render(
     name,
     brand,
     calories,

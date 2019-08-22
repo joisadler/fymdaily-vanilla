@@ -25,16 +25,16 @@ const listenToFormSubmit = () => {
       console.log(err);
     }
   });
-}
+};
 
 const render = () => {
   const app = document.getElementById('app');
   app.innerHTML = createFoodTemplate({ path: 'create-food' });
 };
 
-export default () => {
+export default async () => {
   addCSS();
-  render();
+  await render();
   listenToButtons();
   listenToFormSubmit();
 };
