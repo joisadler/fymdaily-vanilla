@@ -1,0 +1,28 @@
+nav.hidden-menu-nav
+  ul
+    li.hidden-menu-row
+      p 
+        span.hidden-menu-username #{username}&nbsp;
+        button.option-button.sign-out-button
+    li.hidden-menu-row
+      p
+        a.hidden-menu-link(href='/user-info') User details
+    li.hidden-menu-row
+      p
+        a.hidden-menu-link(href='/account-info') Account details
+    li.hidden-menu-row
+      p
+        a.hidden-menu-link(href='') Future link
+    li.hidden-menu-row
+      p
+        a.hidden-menu-link(href='') Future link
+footer.hidden-menu-footer
+  - var year = currentYear === 2019 ? currentYear : `2019-${currentYear}`;
+  p 
+    |&copy; #{year},&nbsp;
+    a(href='https://github.com/joisadler') Yossi Adler&nbsp;
+    | and the FYMdaily&nbsp;
+    a(href='https://github.com/joisadler/fymdaily/graphs/contributors') contributors
+    |.
+  a(href='https://platform.fatsecret.com')
+    img(src='https://platform.fatsecret.com/api/static/images/powered_by_fatsecret.svg', alt='Powered by FatSecret', border='0')
