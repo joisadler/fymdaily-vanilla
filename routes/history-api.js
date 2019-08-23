@@ -17,11 +17,14 @@ export default () => {
   router.get('/', (req, res) => {
     const id = req.user._id;
     // let today = new Date();
-    let today = req.query;
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${dd}.${mm}.${yyyy}`;
+    let { today } = req.query;
+    
+    // const dd = String(today.getDate()).padStart(2, '0');
+    // const mm = String(today.getMonth() + 1).padStart(2, '0');
+    // const yyyy = today.getFullYear();
+    // today = `${dd}.${mm}.${yyyy}`;
+    
+    today = today.split(' ').join('.');
     console.log(today)
 
     HistoryEntry.findOrCreate({ userId: id, date: today }, (error, entry) => {
