@@ -17,16 +17,11 @@ export default () => {
   router.get('/', (req, res) => {
     const id = req.user._id;
     // let today = new Date();
-    let { today } = req.query;
-    
+    const { today } = req.query;
     // const dd = String(today.getDate()).padStart(2, '0');
     // const mm = String(today.getMonth() + 1).padStart(2, '0');
     // const yyyy = today.getFullYear();
     // today = `${dd}.${mm}.${yyyy}`;
-    
-    today = today.split(' ').join('.');
-    console.log(today)
-
     HistoryEntry.findOrCreate({ userId: id, date: today }, (error, entry) => {
       if (error) throw error;
       res.send(entry);
@@ -36,11 +31,12 @@ export default () => {
 
   router.post('/', isAuthenticated, (req, res) => {
     const id = req.user._id;
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${dd}.${mm}.${yyyy}`;
+    // let today = new Date();
+    // const dd = String(today.getDate()).padStart(2, '0');
+    // const mm = String(today.getMonth() + 1).padStart(2, '0');
+    // const yyyy = today.getFullYear();
+    // today = `${dd}.${mm}.${yyyy}`;
+    const { today } = req.query;
     const newProduct = req.body;
 
     HistoryEntry.findOrCreate({ userId: id, date: today }, (error, entry) => {
@@ -53,11 +49,12 @@ export default () => {
 
   router.post('/info', isAuthenticated, async (req, res) => {
     const id = req.user._id;
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${dd}.${mm}.${yyyy}`;
+    // let today = new Date();
+    // const dd = String(today.getDate()).padStart(2, '0');
+    // const mm = String(today.getMonth() + 1).padStart(2, '0');
+    // const yyyy = today.getFullYear();
+    // today = `${dd}.${mm}.${yyyy}`;
+    const { today } = req.query;
     const info = req.body;
 
     await HistoryEntry
@@ -73,11 +70,12 @@ export default () => {
 
   router.put('/', async (req, res) => {
     const id = req.user._id;
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${dd}.${mm}.${yyyy}`;
+    // let today = new Date();
+    // const dd = String(today.getDate()).padStart(2, '0');
+    // const mm = String(today.getMonth() + 1).padStart(2, '0');
+    // const yyyy = today.getFullYear();
+    // today = `${dd}.${mm}.${yyyy}`;
+    const { today } = req.query;
     const position = Number(req.query.position);
     const weight = Number(req.query.weight);
 
@@ -101,11 +99,12 @@ export default () => {
 
   router.delete('/', async (req, res) => {
     const id = req.user._id;
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${dd}.${mm}.${yyyy}`;
+    // let today = new Date();
+    // const dd = String(today.getDate()).padStart(2, '0');
+    // const mm = String(today.getMonth() + 1).padStart(2, '0');
+    // const yyyy = today.getFullYear();
+    // today = `${dd}.${mm}.${yyyy}`;
+    const { today } = req.query;
     const position = Number(req.query.position);
 
     const entry = await HistoryEntry.findOne({ userId: id, date: today });

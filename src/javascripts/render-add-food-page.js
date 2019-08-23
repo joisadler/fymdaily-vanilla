@@ -162,7 +162,8 @@ const render = () => {
               fats: cardNutrimentsValues[2],
               carbs: cardNutrimentsValues[3],
             };
-            fetch('/api/history', {
+            const today = new Date().toLocaleDateString('ru-RU');
+            fetch(`/api/history?today=${today}`, {
               credentials: 'include',
               method: 'POST',
               body: JSON.stringify(cardData),

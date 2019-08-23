@@ -9,7 +9,8 @@ import addCSS from './load-css';
 import listenToButtons from './listen-to-buttons';
 
 const getUsersHistory = async () => {
-  const data = await fetch('/api/history', {
+  const today = new Date().toLocaleDateString('ru-RU');
+  const data = await fetch(`/api/history?today=${today}`, {
     method: 'GET',
     credentials: 'include',
   });
@@ -150,10 +151,11 @@ const render = async () => {
     });
     button.addEventListener('click', async (event) => {
       event.preventDefault();
+      const today = new Date().toLocaleDateString('ru-RU');
       try {
         if (confirm('Are you shure you want to delete this food?')) {
           await fetch(
-            `/api/history?position=${position}`, {
+            `/api/history?position=${position}&today=${today}`, {
               method: 'DELETE',
               credentials: 'include',
             }
@@ -195,9 +197,10 @@ const render = async () => {
       weightInputForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const newWeight = weightInput.value;
+        const today = new Date().toLocaleDateString('ru-RU');
         try {
           await fetch(
-            `/api/history?position=${position}&weight=${newWeight}`, {
+            `/api/history?position=${position}&weight=${newWeight}&today=${today}`, {
               method: 'PUT',
               credentials: 'include',
             }

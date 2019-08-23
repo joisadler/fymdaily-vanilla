@@ -14,7 +14,7 @@ const getUsersData = async () => {
 };
 
 const getUsersHistory = async () => {
-  const today = encodeURIComponent(new Date().toLocaleDateString('ru-RU').split('.').join(' '));
+  const today = new Date().toLocaleDateString('ru-RU');
   const data = await fetch(`/api/history?today=${today}`, {
     method: 'GET',
     credentials: 'include',
