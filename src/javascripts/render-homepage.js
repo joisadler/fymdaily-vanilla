@@ -14,7 +14,8 @@ const getUsersData = async () => {
 };
 
 const getUsersHistory = async () => {
-  const data = await fetch('/api/history', {
+  const today = new Date();
+  const data = await fetch(`/api/history&today=${today}`, {
     method: 'GET',
     credentials: 'include',
   });

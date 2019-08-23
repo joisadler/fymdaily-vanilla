@@ -16,7 +16,8 @@ export default () => {
   // eslint-disable-next-line no-unused-vars
   router.get('/', (req, res) => {
     const id = req.user._id;
-    let today = new Date();
+    // let today = new Date();
+    let today = req.query;
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
