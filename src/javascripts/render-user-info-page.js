@@ -30,8 +30,9 @@ const listenToFormSubmit = () => {
         physicalActivityLevel,
         goal
       };
+      console.log(body)
       const today = new Date().toLocaleDateString('ru-RU');
-      await fetch(`/api/history?today=${today}`, {
+      await fetch(`/api/history/info?today=${today}`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(body),
