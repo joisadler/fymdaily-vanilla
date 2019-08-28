@@ -15,6 +15,7 @@ const config = {
     // analytics: './src/javascripts/analytics.js',
     app: './src/javascripts/app.js',
     // load styles
+    'index-styles': './src/javascripts/styles/index.js',
     homepage: './src/javascripts/styles/homepage.js',
     'add-food': './src/javascripts/styles/add-food.js',
     'create-food': './src/javascripts/styles/create-food.js',

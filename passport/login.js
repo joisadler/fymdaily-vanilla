@@ -19,7 +19,7 @@ export default (passport) => {
         User.findOne({ username: usernameOrEmail }, (err, usr) => {
           if (err) throw err;
           if (!usr) {
-            return done(null, false, req.flash('message', 'User Not found.'));
+            return done(null, false, req.flash('message', 'User not found.'));
           }
           if (!isValidPassword(usr, password)) {
             return done(null, false, req.flash('message', 'Invalid password.'));

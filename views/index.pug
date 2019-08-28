@@ -1,21 +1,96 @@
-extends layout.pug
+//- extends layout.pug
 
-block content
-  .vertical-center
-    .container
-      .row
-        .col-sm-6.col-md-4.mx-auto
-          h1.text-center.login-title Sign in to our Passport app
-          .account-wall
-            img.profile-img(src='https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120', alt='no user pic')
-            form.form-signin(action='/login', method='POST')
-              - const usernameOrEmail = locals.usernameOrEmail ? locals.usernameOrEmail : ''
-              input.form-control#username-or-email(type='text', name='usernameOrEmail', placeholder='Username or Email', aria-label='Username or Email', value=`${usernameOrEmail}`, onfocus='this.value = this.value;', required, autofocus)
-              - const password = locals.password ? locals.password : ''
-              input.form-control#login-password(type='password', name='password', placeholder='Password', aria-label='Password', value=`${password}`, onfocus='this.value = this.value;', required)
-              button.btn.btn-lg.btn-primary.btn-block(type='submit', aria-label='Sign in') Sign in
-          a.text-center.new-account.mb-2(href='/signup') Create an account
-          if (message.length > 0)
-            #message
-              .alert.alert-danger(role='alert') #{message}
-  script(src='index.bundle.js')
+//- block content
+//-   .vertical-center
+//-     .container
+//-       .row
+//-         .col-sm-6.col-md-4.mx-auto
+//-           h1.text-center.login-title Sign in to our Passport app
+//-           .account-wall
+//-             img.profile-img(src='https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120', alt='no user pic')
+//-             form.form-signin(action='/login', method='POST')
+//-               - const usernameOrEmail = locals.usernameOrEmail ? locals.usernameOrEmail : ''
+//-               input.form-control#username-or-email(type='text', name='usernameOrEmail', placeholder='Username or Email', aria-label='Username or Email', value=`${usernameOrEmail}`, onfocus='this.value = this.value;', required, autofocus)
+//-               - const password = locals.password ? locals.password : ''
+//-               input.form-control#login-password(type='password', name='password', placeholder='Password', aria-label='Password', value=`${password}`, onfocus='this.value = this.value;', required)
+//-               button.btn.btn-lg.btn-primary.btn-block(type='submit', aria-label='Sign in') Sign in
+//-           a.text-center.new-account.mb-2(href='/signup') Create an account
+//-           if (message.length > 0)
+//-             #message
+//-               .alert.alert-danger(role='alert') #{message}
+//-   script(src='index.bundle.js')
+doctype html
+html(lang=`${language}_${region}`, dir='auto')
+  head
+    // SEO
+    title FYMdaily
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, shrink-to-fit=no')
+    meta(name='description', content='Fit Your Macros daily')
+    meta(name='robots', content='index, follow')
+    // Web App Manifest
+    link(rel='manifest', href='manifest.json')
+    // Apple Web App Meta
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='white')
+    meta(name='format-detection', content='telephone=no')
+    // Facebook Open Graph
+    meta(property='og:image', content='images/facebook/og-image.png')
+    meta(property='og:site_name', content=`${title}`)
+    meta(property='og:type', content='website')
+    // Favicon
+    link(rel='shortcut icon', href='images/favicons/favicon.ico', type='image/x-icon')
+    // Set dinamic --vh custom property
+    script.
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+      window.addEventListener('resize', () => {
+        vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      });
+    // Preload Google fonts
+    link(rel='preload', href='https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap&subset=cyrillic', as='style', onload='this.onload=null;this.rel="stylesheet"')
+    // Preload homepage styles
+    link(rel='preload', href='index-styles.css', as='style', onload='this.onload=null;this.rel="stylesheet"')
+  body
+    // Noscript styles
+    style(type='text/css').
+      .noscript{ position: fixed; top: 0; left: 0; z-index: 99999; height: 10%; width: 100%; background-color: #000000; display: flex; align-items: center; justify-content: center; }
+      .noscript p { margin:0; color: #ffffff; font-weight: bold; }
+    noscript
+      .noscript
+        p JavaScript is not enabled. To continue please enable JavaScript in your browser settings!
+    main
+      .container
+        h1
+          span #[b FYMdaily] &ndash; simple and minimalistic calorie/macronutrient tracker for #[a(href='') IIFYM] dieters. Sign up today and start Fit Your Macros daily!
+        .form-container
+          form#form-login(action='/login', method='POST')
+            - const usernameOrEmail = locals.usernameOrEmail ? locals.usernameOrEmail : ''
+            input.form-control#username-or-email(type='text', name='usernameOrEmail', placeholder='Username or Email', aria-label='Username or Email', value=`${usernameOrEmail}`, onfocus='this.value = this.value;', required)
+            - const password = locals.password ? locals.password : ''
+            input#login-password(type='password', name='password', placeholder='Password', aria-label='Password', value=`${password}`, onfocus='this.value = this.value;', required)
+            if (message.length > 0)
+              #message
+                .alert
+                  span #{message}
+          .options-container
+            button.submit-button(type='submit', form='form-login') Log In
+            .other-option-container
+              p Don't have an account?
+              p
+                a(href='/signup') Sign Up
+    footer.hidden-menu-footer
+      p 
+        span#year &copy; 2019,&nbsp;
+        a(href='https://github.com/joisadler') Yossi Adler&nbsp;
+        | and the FYMdaily&nbsp;
+        a(href='https://github.com/joisadler/fymdaily/graphs/contributors') contributors
+        |.
+      a(href='https://platform.fatsecret.com')
+        img(src='https://platform.fatsecret.com/api/static/images/powered_by_fatsecret.svg', alt='Powered by FatSecret', border='0')
+
+    script(defer, src='index.js')
+    //- script(defer, src='analytics.js')
+    //- script(defer, src='https://www.google-analytics.com/analytics.js')
