@@ -7,21 +7,17 @@ const physicalActivityRatios = {
   veryHeavy: 2 // A combination of moderate and heavy activity for 8 or more hours per day, plus 2-4 hours of intence training per day.
 };
 const calorieSurplusRatios = {
-  fastWeightLoss: 0.8,
-  normalWeightLoss: 0.9,
+  fastWeightLoss: 0.75,
+  normalWeightLoss: 0.85,
   weightMaintenance: 1,
-  massGain: 1.1
+  massGain: 1.15
 };
 const proteinNeedPerKg = {
-  fastWeightLoss: 3,
-  normalWeightLoss: 2.5,
-  weightMaintenance: 2,
-  massGain: 2.5
+  fastWeightLoss: 2.1,
+  normalWeightLoss: 1.75,
+  weightMaintenance: 1.5,
+  massGain: 1.75
 };
-const fatNeedPerKg = 1.5;
-// const caloriesPerGramOfProtein = 4.1;
-// const caloriesPerGramOfFat = 9.3;
-// const caloriesPerGramOfCarb = 4.1;
 const caloriesPerGramOfProtein = 4;
 const caloriesPerGramOfFat = 9;
 const caloriesPerGramOfCarb = 4;
@@ -36,9 +32,6 @@ const calculateMacros = (bodyWeight,
   goal) => {
   const physicalActivityRatio = physicalActivityRatios[physicalActivityLevel];
   const calorieSurplusRatio = calorieSurplusRatios[goal];
-  // const bodyFatPercentage = gender === 'male' // US Navy method to calculate body fat percentage
-  //   ? 86.01 * Math.log10(waistCircumference - neckCircumference) - 70.041 * Math.log10(height) + 36.76
-  //   : 163.205 * Math.log10(waistCircumference + hipCircumference - neckCircumference) - 97.684 * Math.log10(height) - 78.387;
   const bodyFatPercentage = gender === 'male' // US Navy method to calculate body fat percentage
     ? 495 / (1.0324 - 0.19077 * Math.log10(waistCircumference - neckCircumference) + 0.15456 * Math.log10(height) ) - 450
     : 495 / (1.29579 - 0.35004 * Math.log10(waistCircumference + hipCircumference - neckCircumference) + 0.22100 * Math.log10(height)) - 450;
@@ -47,8 +40,17 @@ const calculateMacros = (bodyWeight,
   const totalEnergyExpenditure = basalMetabolicRate * physicalActivityRatio;
   const dailyCaloriesNeed = totalEnergyExpenditure * calorieSurplusRatio;
   const dailyProteinsNeed = leanBodyMass * proteinNeedPerKg[goal];
-  const dailyFatsNeed = leanBodyMass * fatNeedPerKg;
+  // const dailyFatsNeed = leanBodyMass * fatNeedPerKg;
+  const dailyFatsNeed = (dailyCaloriesNeed * 0.3) / caloriesPerGramOfFat;
   const dailyCarbsNeed = (dailyCaloriesNeed - (dailyProteinsNeed * caloriesPerGramOfProtein) - (dailyFatsNeed * caloriesPerGramOfFat)) / caloriesPerGramOfCarb;
+  // console.log(`
+  // dailyProteinsNeed: ${dailyProteinsNeed}
+  // (${(dailyProteinsNeed * 4) / dailyCaloriesNeed * 100}%)
+  // dailyFatsNeed: ${dailyFatsNeed}
+  // (${(dailyFatsNeed * 9) / dailyCaloriesNeed * 100}%)
+  // dailyCarbsNeed: ${dailyCarbsNeed}
+  // (${(dailyCarbsNeed * 4) / dailyCaloriesNeed * 100}%)
+  // `)
   return {
     leanBodyMass,
     bodyFatPercentage,
