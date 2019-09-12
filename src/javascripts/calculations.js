@@ -13,9 +13,9 @@ const calorieSurplusRatios = {
   massGain: 1.15
 };
 const proteinNeedPerKg = {
-  fastWeightLoss: 2.1,
-  normalWeightLoss: 1.75,
-  weightMaintenance: 1.5,
+  fastWeightLoss: 1.75,
+  normalWeightLoss: 1.5,
+  weightMaintenance: 1.3,
   massGain: 1.75
 };
 const caloriesPerGramOfProtein = 4;
@@ -43,14 +43,14 @@ const calculateMacros = (bodyWeight,
   // const dailyFatsNeed = leanBodyMass * fatNeedPerKg;
   const dailyFatsNeed = (dailyCaloriesNeed * 0.3) / caloriesPerGramOfFat;
   const dailyCarbsNeed = (dailyCaloriesNeed - (dailyProteinsNeed * caloriesPerGramOfProtein) - (dailyFatsNeed * caloriesPerGramOfFat)) / caloriesPerGramOfCarb;
-  // console.log(`
-  // dailyProteinsNeed: ${dailyProteinsNeed}
-  // (${(dailyProteinsNeed * 4) / dailyCaloriesNeed * 100}%)
-  // dailyFatsNeed: ${dailyFatsNeed}
-  // (${(dailyFatsNeed * 9) / dailyCaloriesNeed * 100}%)
-  // dailyCarbsNeed: ${dailyCarbsNeed}
-  // (${(dailyCarbsNeed * 4) / dailyCaloriesNeed * 100}%)
-  // `)
+  console.log(`
+  dailyProteinsNeed: ${dailyProteinsNeed}
+  (${(dailyProteinsNeed * 4) / dailyCaloriesNeed * 100}%)
+  dailyFatsNeed: ${dailyFatsNeed}
+  (${(dailyFatsNeed * 9) / dailyCaloriesNeed * 100}%)
+  dailyCarbsNeed: ${dailyCarbsNeed}
+  (${(dailyCarbsNeed * 4) / dailyCaloriesNeed * 100}%)
+  `)
   return {
     leanBodyMass,
     bodyFatPercentage,
