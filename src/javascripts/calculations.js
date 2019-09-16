@@ -12,11 +12,11 @@ const calorieSurplusRatios = {
   weightMaintenance: 1,
   massGain: 1.15
 };
-const proteinNeedPerKg = {
-  fastWeightLoss: 1.75,
+const proteinNeedPerKg = { // per kg of lean body mass!
+  fastWeightLoss: 1.6,
   normalWeightLoss: 1.5,
   weightMaintenance: 1.3,
-  massGain: 1.75
+  massGain: 1.5
 };
 const caloriesPerGramOfProtein = 4;
 const caloriesPerGramOfFat = 9;
