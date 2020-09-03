@@ -2,10 +2,9 @@ const {
   DBUSER,
   DBPASSWORD,
   DBHOST,
-  DBPORT,
   DBNAME
 } = process.env;
 /* eslint-disable max-len */
 module.exports = {
-  url: `mongodb://${DBUSER}:${DBPASSWORD}@${DBHOST}:${DBPORT}/${DBNAME}`
+  url: `mongodb+srv://${DBUSER}:${DBPASSWORD}@${DBHOST}/${DBNAME}?retryWrites=true&w=majority`
 };
